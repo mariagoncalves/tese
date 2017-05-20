@@ -38,6 +38,14 @@ Route::get('/', function () {
 Route::get('users', ['uses' => 'UsersController@index']);
 Route::get('users/create', ['uses' => 'UsersController@create']);
 Route::post('users', ['uses' => 'UsersController@store']);
+
+
+//Route::get('formularios', ['uses' => 'GestaoFormularios@index']);
+Route::get('/formularios', function () {
+    return view('homeFormularios');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
