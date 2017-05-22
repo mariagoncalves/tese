@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\CustomForm;
 
 class GestaoFormularios extends Controller
 {
-    public function index() {
+    public function show() {
 
-    	$maria = "Hello World!";
 
-    	return $maria;
+    	$custom = CustomForm::all();
+        return view('homeFormularios', compact('custom'));
+
+
+
+    	//return view('homeFormularios');
     }
 }

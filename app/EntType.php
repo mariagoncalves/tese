@@ -19,4 +19,8 @@ class EntType extends Model
     ];
 
     protected $guarded = [];
+
+    public function transactionsType() {
+        return $this->belongsTo('App\TransactionType', 'id');
+    }
 }

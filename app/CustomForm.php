@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CustomForm extends Model
 {
-     protected $table = 'custom_form';
+    protected $table = 'custom_form';
 
     public $timestamps = false;
 
@@ -17,4 +17,11 @@ class CustomForm extends Model
     ];
 
     protected $guarded = [];
+
+    public function fgdfg() {
+
+        //$maria = "Chegfou metoso";
+
+    	return "Chegfou";
+    }
 }

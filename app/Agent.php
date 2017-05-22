@@ -18,4 +18,17 @@ class Agent extends Model
     ];
 
     protected $guarded = [];
+
+
+    //Definir relações entre tabelas da base de dados
+    //Um agente pode ter vários papéis e um papel podem ser desempenhados por vários agentes.
+    //Por isso, é usado belongsToMany.
+    //'role_has_agent' é o nome da tabela que surge quando uma relação é de n->n.
+    public function roles() {
+
+    	return $this->belongsToMany('App\Role', 'role_has_agent');
+    }
+
+
+
 }
