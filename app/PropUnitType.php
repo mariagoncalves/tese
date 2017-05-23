@@ -17,4 +17,8 @@ class PropUnitType extends Model
     ];
 
     protected $guarded = [];
+
+    public function properties() {
+        return $this->hasMany('App\Property', 'unit_type_id', 'id');
+    }
 }

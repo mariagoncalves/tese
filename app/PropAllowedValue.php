@@ -18,4 +18,8 @@ class PropAllowedValue extends Model
     ];
 
     protected $guarded = [];
+
+    public function property() {
+        return $this->hasOne('App\Property', 'id', 'property_id');
+    }
 }

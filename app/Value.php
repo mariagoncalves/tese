@@ -21,4 +21,16 @@ class Value extends Model
     ];
 
     protected $guarded = [];
+
+    public function property() {
+        return $this->hasOne('App\Property', 'id', 'property_id');
+    }
+
+     public function entity() {
+        return $this->hasOne('App\Entity', 'id', 'entity_id');
+    }
+
+     public function relation() {
+        return $this->hasOne('App\Relation', 'id', 'relation_id');
+    }
 }

@@ -27,4 +27,34 @@ class Property extends Model
     ];
 
     protected $guarded = [];
+
+    public function entType() {
+        return $this->hasOne('App\EntType', 'id', 'ent_type_id');
+    }
+
+    public function fkEntType() {
+        return $this->hasOne('App\EntType', 'id', 'fk_ent_type_id');
+    }
+
+    public function customForms() {
+        return $this->belongsToMany('App\CustomForm', 'custom_form_has_prop');
+    }
+
+    public function relType() {
+        return $this->hasOne('App\EntType', 'id', 'rel_type_id');
+    }
+
+    public function values() {
+        return $this->hasMany('App\Value', 'property_id', 'id');
+    }
+
+    public function units() {
+        return $this->hasOne('App\PropUnitType', 'id', 'unit_type_id');
+    }
+
+    public function propAllowedValues() {
+        return $this->hasMany('App\PropAllowedValue', 'property_id', 'id');
+    }
+
+
 }

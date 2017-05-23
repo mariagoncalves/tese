@@ -18,4 +18,21 @@ class Entity extends Model
     ];
 
     protected $guarded = [];
+
+    public function entType() {
+        return $this->hasOne('App\EntType', 'id', 'ent_type_id');
+    }
+
+    public function values() {
+        return $this->hasMany('App\Value', 'entity_id', 'id');
+    }
+
+    public function ent1Relations() {
+        return $this->hasMany('App\Relation', 'entity1_id', 'id');
+    }
+
+    public function ent2Relations() {
+        return $this->hasMany('App\Relation', 'entity2_id', 'id');
+    }
+
 }

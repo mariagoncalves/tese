@@ -18,10 +18,7 @@ class CustomForm extends Model
 
     protected $guarded = [];
 
-    public function fgdfg() {
-
-        //$maria = "Chegfou metoso";
-
-    	return "Chegfou";
+    public function properties() {
+        return $this->belongsToMany('App\Property', 'custom_form_has_prop');
     }
 }

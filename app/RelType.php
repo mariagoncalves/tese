@@ -20,4 +20,24 @@ class RelType extends Model
     ];
 
     protected $guarded = [];
+
+    public function transactionsType() {
+        return $this->hasOne('App\TransactionType', 'id', 'transaction_type_id');
+    }
+
+    public function relations() {
+        return $this->hasMany('App\Relation', 'rel_type_id', 'id');
+    }
+
+    public function properties() {
+        return $this->hasMany('App\Property', 'id', 'rel_type_id');
+    }
+
+    public function ent1() {
+        return $this->hasOne('App\EntType', 'id', 'ent_type1_id');
+    }
+
+    public function ent2() {
+        return $this->hasOne('App\EntType', 'id', 'ent_type2_id');
+    }
 }

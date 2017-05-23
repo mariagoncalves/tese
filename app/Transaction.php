@@ -19,4 +19,16 @@ class Transaction extends Model
     ];
 
     protected $guarded = [];
+
+    public function process() {
+        return $this->hasOne('App\Process', 'id', 'process_id');
+    }
+
+    public function transactionType() {
+        return $this->hasOne('App\TransactionType', 'id', 'transaction_type_id');
+    }
+
+    public function transactionStates() {
+        return $this->hasMany('App\TransactionState', 'transaction_id', 'id');
+    }
 }
