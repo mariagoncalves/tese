@@ -100,10 +100,10 @@
                             <td> {{$propriedade->form_field_order}} </td>
                             <td> {{$propriedade->form_field_size}} </td>
                             <td> {{$propriedade->mandatory}} </td>
-                            <td> {{$propriedade->state}} </td>
-                            <td> vmmbv </td>
-                            <td> fbfgb </td>
-                            <td> gfbf </td>
+                            <td> {{$propriedade->state = 'active' ? 'Ativo' : 'Inativo'}} </td>
+                            <td>  </td>
+                            <td>  </td>
+                            <td>  </td>
                         </tr>
                         @endforeach
                     @endforeach

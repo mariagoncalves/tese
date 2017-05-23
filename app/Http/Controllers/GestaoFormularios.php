@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\CustomForm;
 use App\EntType;
 use App\Property;
+use App\PropUnitType;
 
 class GestaoFormularios extends Controller
 {
@@ -15,6 +16,7 @@ class GestaoFormularios extends Controller
     	$custom = CustomForm::all();
     	$entidades = EntType::all();
     	$propriedades = Property::all();
+    	$unidades = PropUnitType::all();
 
     	/*foreach ($custom as $formulario) {
     		echo "Nome do Form: ".$formulario->name;
@@ -38,10 +40,19 @@ class GestaoFormularios extends Controller
     		echo "Numero: ".$numLinhas."<br>";
     		//echo "nome da property ".$entity->properties->name."<br>";
     		echo "numero de propriedade: ".$propriedade->name."<br><br>";
+    	}
+    	
 
+    	foreach ($unidades as $unidade) {
+    		echo "Nome do unidade: ".$unidade->name."<br>";
+    		echo "ID do unidades: ".$unidade->id."<br>";
+    		$unidadesPropriedades= $unidade->properties;
+    		echo "Numero: ".$unidadesPropriedades."<br>";
+    		//echo "nome da property ".$entity->properties->name."<br>";
+    		echo "numero de propriedade: ".$propriedade->units."<br><br>";
     	}
 
-        return view('homeFormularios', compact('custom', 'entidades', 'propriedades'));
+        return view('homeFormularios', compact('custom', 'entidades', 'propriedades', 'unidades'));
 
     	//return view('homeFormularios');
     }
