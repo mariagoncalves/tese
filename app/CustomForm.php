@@ -21,4 +21,6 @@ class CustomForm extends Model
     public function properties() {
         return $this->belongsToMany('App\Property', 'custom_form_has_prop');
     }
+
+    
 }

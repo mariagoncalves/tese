@@ -33,21 +33,29 @@
                 </tr>
             </thead>
             <tbody>
-                <?php
-                if(count($custom)){
-                    //echo "Tem utilizadores ";
-                    foreach ($custom as $formulario) {
-                        ?>
+                @if (count($custom) == 0)
                         <tr>
-                            <td> {{$formulario->id}}</td>
-                            <td> {{$formulario->name}}</td>
-                            <td> {{$formulario->state}}</td>
+                            <td colspan = "6"> Não existem formulários customizados. </td>
                         </tr>
-                        <?php
-                    }
-                }
+                @else
+                    @foreach ($custom as $formulario)
+                        <tr>
+                        @foreach ($formulario->properties as $property)
+                            
+                                <td> {{$formulario->id}}</td>
+                                <td> {{$formulario->name}}</td>
 
-                ?>
+
+                                <td> {{ $property->name }} </td>
+
+
+                                <td> jghj </td>
+                                <td> {{$formulario->state == 'active' ? 'Ativo' : 'Inativo'}}</td>
+                                <td> [Editar] {{$formulario->state == 'active' ? '[Desativar]' : '[Ativar]'}} [Histórico]</td>
+                            </tr>
+                        @endforeach
+                    @endforeach
+                @endif
 
             </tbody>
         </table>
