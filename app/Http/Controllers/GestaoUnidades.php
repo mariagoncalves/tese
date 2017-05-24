@@ -52,27 +52,28 @@ class GestaoUnidades extends Controller
 
     public function ativar($id) {
 
+        $unidades = PropUnitType::find($id);
+        $unidades->state = 'active';
+        $unidades->save();
+
     	//$state = array('state' => 'active');
-    	$estado = 'active';
+    	/*$estado = 'active';
 
     	DB::table('prop_unit_type')
     			->where('id', $id)
     			->update(['state' => $estado]);
 
-    	//return view('homeUnidades', compact('unidades', 'unidade'));
+    	//return view('homeUnidades', compact('unidades', 'unidade'));*/
     	return redirect('/unidades');
     }
 
-    public function desativar(Request $req, $id) {
+    public function desativar($id) {
 
-    	$name = $req->input('nome');
+    	$unidades = PropUnitType::find($id);
+        $unidades->state = 'inactive';
+        $unidades->save();
 
-    	DB::table('prop_unit_type')
-    			->where('id', $id)
-    			->update(['name' => $name]);
-
-    	//return view('homeUnidades', compact('unidades', 'unidade'));
-    	return redirect('/unidades');
+        return redirect('/unidades');
     }
 
 

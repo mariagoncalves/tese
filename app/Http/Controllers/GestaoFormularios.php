@@ -68,7 +68,7 @@ class GestaoFormularios extends Controller
 
     }
 
-    public function update($Request $req, $id) {
+    /*public function update($Request $req, $id) {
 
         $escolher = $req->input('idProp');
         $ordem = $req->input('ordem');
@@ -81,16 +81,23 @@ class GestaoFormularios extends Controller
         //return view('homeUnidades', compact('unidades', 'unidade'));
         return redirect('/unidades');
 
+    }*/
+
+    public function desativar($id) {
+
+        $custom = CustomForm::find($id);
+        $custom->state = 'inactive';
+        $custom->save();
+
+        return redirect('/formularios');
+
     }
 
-    public function desativar(CustomForm $custom, $id) {
+    public function ativar($id) {
 
-        $customforms = CustomForm::all();
         $custom = CustomForm::find($id);
-        
-        CustomForm::table('custom_form')
-            ->where('id', $id)
-            ->update(['state' => 'inactive']);
+        $custom->state = 'active';
+        $custom->save();
 
         return redirect('/formularios');
 

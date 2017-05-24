@@ -54,6 +54,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/formularios', 'GestaoFormularios@show');
 Route::get('/formularios/editar/{id}', 'GestaoFormularios@editar');
 Route::get('/formularios/desativar/{id}', 'GestaoFormularios@desativar');
+Route::get('/formularios/ativar/{id}', 'GestaoFormularios@ativar');
 Route::post('/formularios/update/{id}', 'GestaoFormularios@update');
 
 
@@ -61,5 +62,5 @@ Route::get('/unidades', 'GestaoUnidades@show');
 Route::post('/unidades/inserir', 'GestaoUnidades@inserir');
 Route::get('/unidades/editar/{id}', 'GestaoUnidades@editar');
 Route::post('/unidades/update/{id}', 'GestaoUnidades@update');
-Route::put('/unidades/ativar/{id}', 'GestaoUnidades@ativar');
-Route::put('/unidades/desativar/{id}', 'GestaoUnidades@desativar');
+Route::get('/unidades/ativar/{id}', 'GestaoUnidades@ativar');
+Route::get('/unidades/desativar/{id}', 'GestaoUnidades@desativar');
