@@ -54,8 +54,6 @@ class GestaoFormularios extends Controller
     	}*/
 
         return view('homeFormularios', compact('custom', 'entidades', 'propriedades', 'unidades'));
-
-    	//return view('homeFormularios');
     }
 
     public function editar($id) {
@@ -67,6 +65,21 @@ class GestaoFormularios extends Controller
         $unidades = PropUnitType::all();
 
         return view('editarForm', compact('customforms', 'custom', 'entidades', 'propriedades', 'unidades'));
+
+    }
+
+    public function update($Request $req, $id) {
+
+        $escolher = $req->input('idProp');
+        $ordem = $req->input('ordem');
+        $obrigatorio = $req->input('obrigatorio');
+
+        DB::table('custom_form_has_prop')
+                ->where('id', $id)
+                ->update(['name' => $name]);
+
+        //return view('homeUnidades', compact('unidades', 'unidade'));
+        return redirect('/unidades');
 
     }
 
@@ -82,4 +95,18 @@ class GestaoFormularios extends Controller
         return redirect('/formularios');
 
     }
+
+    public function inserir(Request $req) {
+
+
+        $
+        $name = $req->input('name');
+
+        $data = array('name'=>$name);
+
+        DB::table('prop_unit_type')->insert($data);
+        return redirect('/unidades');
+
+    }
+
 }

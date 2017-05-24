@@ -12,7 +12,7 @@
     </head>
     <body>
         <h3 align="center">Gestão de unidades - Edição</h3>
-        <form id="insertForm" method="post" action = "/update/{{$unidade->id}}" align="center">
+        <form id="insertForm" method="post" action = "/unidades/update/{{$unidade->id}}" align="center">
             {{ csrf_field() }}
             <label>Novo nome para a Unidade:</label> 
             <br>

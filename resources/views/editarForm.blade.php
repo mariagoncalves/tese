@@ -11,7 +11,7 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <form method="POST">
+        <form method="POST" action = "/formularios/update">
             <input type="hidden" name="estado" value="updateForm">
             <label>Nome do formulário customizado:</label> <input type="text" name="nome" value="{{$custom->name}}">
             <br>
@@ -55,7 +55,7 @@
                                 <td> {{$propriedade->mandatory == 1 ? 'Sim' : 'Não'}} </td>
                                 <td> {{$propriedade->state == 'active' ? 'Ativo' : 'Inativo'}} </td>
                                 <!-- Falta coisas-->
-                                <td> <input type="checkbox" name="idProp" value="{{$propriedade->id}}" checked> </td>
+                                <td> <input type="checkbox" name="idProp" value="{{$propriedade->id}}"> </td>
                                 <td> <input type="text" name="ordem" value="{{$propriedade->form_field_order}}"> </td>
                                 <td>
                                     @if ($propriedade->mandatory == 1) 

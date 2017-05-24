@@ -44,16 +44,15 @@
                         <td> {{$unidade->id}} </td>
                         <td> {{$unidade->name}} </td>
                         <td> {{$unidade->state == 'active' ? 'Ativo' : 'Inativo'}} </td>
-                        <td> <a href = "/editar/{{$unidade->id}}"> [Editar] </a> <a href = "{{$unidade->state == 'active' ? '/desativar/'.$unidade->id : '/ativar/'.$unidade->id}}">{{$unidade->state == 'active' ? '[Desativar]' : '[Ativar]'}} </a> <a href = ""> [Histórico] </a> </td>
+                        <td> <a href = "/unidades/editar/{{$unidade->id}}"> [Editar] </a> <a href = "{{$unidade->state == 'active' ? '/unidades/desativar/'.$unidade->id : '/unidades/ativar/'.$unidade->id}}">{{$unidade->state == 'active' ? '[Desativar]' : '[Ativar]'}} </a> <a href = ""> [Histórico] </a> </td>
                     </tr>
                 @endforeach
             <tbody>
         </table>
 
         <h3 align="center">Gestão de Unidades - Introdução</h3>
-        <form id="insertForm" method="post" action = "/inserir" align="center">
+        <form id="insertForm" method="post" action = "/unidades/inserir" align="center">
             {{ csrf_field() }}
-            <input type ="hidden" name ="estado" value ="inserir"/>
             <table>
                 <tbody>
                     <tr>

@@ -49,7 +49,7 @@
                                         <td> {{ $property->value_type }} </td>
                                         <td> {{$formulario->state == 'active' ? 'Ativo' : 'Inativo'}}</td>
                                         <!-- FALTA ALTERAR OS ROWSPANS -->
-                                        <td rowspan = ""> <a href = "/editar/{{$formulario->id}}"> [Editar] </a> <a href = "{{$formulario->state == 'active' ? '/desativar/'.$formulario->id : '/ativar/'.$formulario->id}}"> {{$formulario->state == 'active' ? '[Desativar]' : '[Ativar]'}} </a> <a href = "/historico"> [Histórico] </a></td>
+                                        <td rowspan = ""> <a href = "/formularios/editar/{{$formulario->id}}"> [Editar] </a> <a href = "{{$formulario->state == 'active' ? '/formularios/desativar/'.$formulario->id : '/formularios/ativar/'.$formulario->id}}"> {{$formulario->state == 'active' ? '[Desativar]' : '[Ativar]'}} </a> <a href = "/formularios/historico"> [Histórico] </a></td>
                                     </tr>
                                 @endforeach
                             @else

@@ -52,13 +52,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Rota que quando for digitado no url http://localhost:8000/formulários, vai chamar o controlador GestaoFormularios e vai para o método index. 
 Route::get('/formularios', 'GestaoFormularios@show');
-Route::get('/editar/{id}', 'GestaoFormularios@editar');
-Route::get('/desativar/{id}', 'GestaoFormularios@desativar');
+Route::get('/formularios/editar/{id}', 'GestaoFormularios@editar');
+Route::get('/formularios/desativar/{id}', 'GestaoFormularios@desativar');
+Route::post('/formularios/update/{id}', 'GestaoFormularios@update');
 
 
 Route::get('/unidades', 'GestaoUnidades@show');
-Route::post('/inserir', 'GestaoUnidades@inserir');
-Route::get('/editar/{id}', 'GestaoUnidades@editar');
-Route::post('/update/{id}', 'GestaoUnidades@update');
-Route::post('/ativar/{id}', 'GestaoUnidades@ativar');
-Route::post('/desativar/{id}', 'GestaoUnidades@desativar');
+Route::post('/unidades/inserir', 'GestaoUnidades@inserir');
+Route::get('/unidades/editar/{id}', 'GestaoUnidades@editar');
+Route::post('/unidades/update/{id}', 'GestaoUnidades@update');
+Route::put('/unidades/ativar/{id}', 'GestaoUnidades@ativar');
+Route::put('/unidades/desativar/{id}', 'GestaoUnidades@desativar');
