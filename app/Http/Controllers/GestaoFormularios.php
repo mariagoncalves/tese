@@ -33,13 +33,14 @@ class GestaoFormularios extends Controller
 
     	}*/
 
-    	foreach ($propriedades as $propriedade) {
+    	/*foreach ($propriedades as $propriedade) {
     		echo "Nome do prop: ".$propriedade->name."<br>";
     		echo "ID do prop: ".$propriedade->id."<br>";
-    		$numLinhas = $propriedade->entType->name;
-    		echo "Numero: ".$numLinhas."<br>";
+    		//$numLinhas = $propriedade->entType->name;
+    		//echo "Numero: ".$numLinhas."<br>";
     		//echo "nome da property ".$entity->properties->name."<br>";
-    		echo "numero de propriedade: ".$propriedade->name."<br><br>";
+    		//echo "numero de propriedade: ".$propriedade->name."<br><br>";
+            echo "Unidades das propriedades: ".$propriedade->units."<br><br><br>";
     	}
     	
 
@@ -50,10 +51,34 @@ class GestaoFormularios extends Controller
     		echo "Numero: ".$unidadesPropriedades."<br>";
     		//echo "nome da property ".$entity->properties->name."<br>";
     		echo "numero de propriedade: ".$propriedade->units."<br><br>";
-    	}
+    	}*/
 
         return view('homeFormularios', compact('custom', 'entidades', 'propriedades', 'unidades'));
 
     	//return view('homeFormularios');
+    }
+
+    public function editar($id) {
+
+        $customforms = CustomForm::all();
+        $custom = CustomForm::find($id);
+        $entidades = EntType::all();
+        $propriedades = Property::all();
+        $unidades = PropUnitType::all();
+
+        return view('editarForm', compact('customforms', 'custom', 'entidades', 'propriedades', 'unidades'));
+
+    }
+
+    public function desativar($id) {
+
+        $customforms = CustomForm::all();
+        $custom = CustomForm::find($id);
+        $entidades = EntType::all();
+        $propriedades = Property::all();
+        $unidades = PropUnitType::all();
+
+        return redirect('/formularios');
+
     }
 }

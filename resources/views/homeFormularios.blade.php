@@ -21,6 +21,7 @@
         <br>
         <br>
         <br>
+
         <table class="table" border = "2px">
             <thead>
                 <tr>
@@ -34,93 +35,100 @@
             </thead>
             <tbody>
                 @if (count($custom) == 0)
-                        <tr>
-                            <td colspan = "6"> Não existem formulários customizados. </td>
-                        </tr>
+                    <tr>
+                        <td colspan = "6"> Não existem formulários customizados. </td>
+                    </tr>
                 @else
-                <!-- FALTA ALTERAR OS ROWSPANS -->
                     @foreach ($custom as $formulario)
-                        @foreach ($formulario->properties as $property)
-                            <tr>
-                                <td rowspan = ""> {{$formulario->id}}</td>
-                                <td rowspan = ""> {{$formulario->name}}</td>
-                                <td> {{ $property->name }}</td>
-                                <td> {{ $property->value_type }} </td>
-                                <td> {{$formulario->state == 'active' ? 'Ativo' : 'Inativo'}}</td>
-                                <td> <a href = ""> [Editar] </a> <a href = ""> {{$formulario->state == 'active' ? '[Desativar]' : '[Ativar]'}} </a> <a href = ""> [Histórico] </a></td>
-                            </tr>
-                        @endforeach
+                        <tr>
+                            <td rowspan = "{{ count($formulario->properties) }}"> {{$formulario->id}}</td>
+                            <td rowspan = "{{ count($formulario->properties) }}"> {{$formulario->name}}</td>
+                            @if (count($formulario->properties) != 0)
+                                @foreach ($formulario->properties as $property)
+                                        <td> {{ $property->name }}</td>
+                                        <td> {{ $property->value_type }} </td>
+                                        <td> {{$formulario->state == 'active' ? 'Ativo' : 'Inativo'}}</td>
+                                        <!-- FALTA ALTERAR OS ROWSPANS -->
+                                        <td rowspan = ""> <a href = "/editar/{{$formulario->id}}"> [Editar] </a> <a href = "{{$formulario->state == 'active' ? '/desativar/'.$formulario->id : '/ativar/'.$formulario->id}}"> {{$formulario->state == 'active' ? '[Desativar]' : '[Ativar]'}} </a> <a href = "/historico"> [Histórico] </a></td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <td colspan="4">Não existe propriedades..</td>
+                            @endif
+                        </tr>
                     @endforeach
                 @endif
-
             </tbody>
         </table>
+
         <br>
         <br>
         <form method="POST">
-        <input type="hidden" name="estado" value="inserir">
-        <label>Nome do formulário customizado:</label> <input type="text" name="nome">
-        <label id="nome" class="error" for="nome"></label>
-        <br><br>
-        <table class="table" border = "2px">
-            <thead>
-                <tr>
-                    <th>Entidade</th>
-                    <th>Id</th>
-                    <th>Propriedade</th>
-                    <th>Tipo de valor</th>
-                    <th>Nome do campo</th>
-                    <th>Tipo do campo</th>
-                    <th>Tipo de unidade</th>
-                    <th>Ordem</th>
-                    <th>Tamanho</th>
-                    <th>Obrig</th>
-                    <th>Estado</th>
-                    <th>Escolher</th>
-                    <th>Ordem</th>
-                    <th>Obrig</th>
-                </tr>
-            </thead>
-            <tbody> 
-                @if (count($entidades) == 0)
+            <input type="hidden" name="estado" value="inserir">
+            <label>Nome do formulário customizado:</label> <input type="text" name="nome">
+            <label id="nome" class="error" for="nome"></label>
+            <br><br>
+            <table class="table" border = "2px">
+                <thead>
                     <tr>
-                        <td colspan = "14"> Não pode criar formulários uma vez que ainda não foram inseridas propriedades. </td>
+                        <th>Entidade</th>
+                        <th>Id</th>
+                        <th>Propriedade</th>
+                        <th>Tipo de valor</th>
+                        <th>Nome do campo</th>
+                        <th>Tipo do campo</th>
+                        <th>Tipo de unidade</th>
+                        <th>Ordem</th>
+                        <th>Tamanho</th>
+                        <th>Obrig</th>
+                        <th>Estado</th>
+                        <th>Escolher</th>
+                        <th>Ordem</th>
+                        <th>Obrig</th>
                     </tr>
-                @else
-                    @foreach ($entidades as $entidade)
-                        @foreach ($propriedades as $propriedade)
+                </thead>
+                <tbody> 
+                    @if (count($entidades) == 0)
                         <tr>
-                            <td> {{$entidade->name}} </td>
-                            <td> {{$propriedade->id}} </td>
-                            <td> {{$propriedade->name}} </td>
-                            <td> {{$propriedade->value_type}} </td>
-                            <td> {{$propriedade->form_field_name}} </td>
-                            <td> {{$propriedade->form_field_type}} </td>
-                            <td> {{$propriedade->unit_type_id}} </td>
-                            <td> {{$propriedade->form_field_order}} </td>
-                            <td> {{$propriedade->form_field_size}} </td>
-                            <td> {{$propriedade->mandatory}} </td>
-                            <td> {{$propriedade->state = 'active' ? 'Ativo' : 'Inativo'}} </td>
-                            <td>  </td>
-                            <td>  </td>
-                            <td>  </td>
+                            <td colspan = "14"> Não pode criar formulários uma vez que ainda não foram inseridas entidades/propriedades??. </td>
                         </tr>
+                    @else
+                        @foreach ($entidades as $entidade)
+                            <tr>
+                                <td rowspan = "{{ count($entidade->properties)}}" > {{$entidade->name}} </td>
+                                    @foreach ($entidade->properties as $propriedade)
+                                        <td> {{$propriedade->id}} </td>
+                                        <td> {{$propriedade->name}} </td>
+                                        <td> {{$propriedade->value_type}} </td>
+                                        <td> {{$propriedade->form_field_name}} </td>
+                                        <td> {{$propriedade->form_field_type}} </td>
+                                        @if (is_null($propriedade->unit_type_id))
+                                            <td> - </td>
+                                        @else
+                                            <td> suposto nome da unidade </td>
+                                        @endif
+                                        <td> {{$propriedade->form_field_order}} </td>
+                                        <td> {{$propriedade->form_field_size}} </td>
+                                        <td> {{$propriedade->mandatory}} </td>
+                                        <!-- Falta alterar coisas, name e value -->
+                                        <td> {{$propriedade->state = 'active' ? 'Ativo' : 'Inativo'}} </td>
+                                        <td> <input type="checkbox" name="idProp" value="{{$propriedade->id}}"> </td>
+                                        <td> <input type="text" name="ordem"> </td>
+                                        <td>
+                                            <input type="radio" name="obrigatorio" value="true">Sim
+                                            <input type="radio" name="obrigatorio" value="false">Não
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                            <!-- </tr> -->
                         @endforeach
-                    @endforeach
-                @endif
-            </tbody>
-        </table>
-        <br>
-        <br>
-        <input type="hidden" name="propSelected" value="" >
-        <input type="submit" value="Inserir formulário">
-    </form>
-        
-
-
-
-
-
-
+                    @endif
+                </tbody>
+            </table>
+            <br>
+            <br>
+            <input type="hidden" name="propSelected" value="" >
+            <input type="submit" value="Inserir formulário">
+        </form>
     </body>
 </html>
