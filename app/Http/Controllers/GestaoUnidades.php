@@ -33,7 +33,24 @@ class GestaoUnidades extends Controller
     public function editar($id) {
 
     	$unidades = PropUnitType::all();
+    	$unidade = PropUnitType::find($id);
 
-    	return view('editarUnidades', compact('unidades'));
+    	return view('editarUnidades', compact('unidades', 'unidade'));
     }
+
+    public function update(Request $req, $id) {
+
+    	$name = $req->input('nome');
+
+    	DB::table('prop_unit_type')
+    			->where('id', $id)
+    			->update(['name' => $name]);
+
+    	//return view('homeUnidades', compact('unidades', 'unidade'));
+    	return redirect('/unidades');
+    }
+
+
+
+
 }

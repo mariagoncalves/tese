@@ -44,8 +44,7 @@
                         <td> {{$unidade->id}} </td>
                         <td> {{$unidade->name}} </td>
                         <td> {{$unidade->state == 'active' ? 'Ativo' : 'Inativo'}} </td>
-                        <td> <a href = ""> [Editar] </a> <a href = "">{{$unidade->state == 'active' ? '[Desativar]' : '[Ativar]'}} </a> <a href = ""> [Histórico] </a> </td>
-
+                        <td> <a href = "/editar/{{$unidade->id}}"> [Editar] </a> <a href = "{{$unidade->state == 'active' ? '/desativar/'.$unidade->id : '/ativar/'.$unidade->id}}">{{$unidade->state == 'active' ? '[Desativar]' : '[Ativar]'}} </a> <a href = ""> [Histórico] </a> </td>
                     </tr>
                 @endforeach
             <tbody>

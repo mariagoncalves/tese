@@ -59,3 +59,4 @@ Route::get('/desativar/{id}', 'GestaoFormularios@desativar');
 Route::get('/unidades', 'GestaoUnidades@show');
 Route::post('/inserir', 'GestaoUnidades@inserir');
 Route::get('/editar/{id}', 'GestaoUnidades@editar');
+Route::post('/update/{id}', 'GestaoUnidades@update');

@@ -11,6 +11,16 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     </head>
     <body>
-        
+        <h3 align="center">Gestão de unidades - Edição</h3>
+        <form id="insertForm" method="post" action = "/update/{{$unidade->id}}" align="center">
+            {{ csrf_field() }}
+            <label>Novo nome para a Unidade:</label> 
+            <br>
+            <input type="text" id ="nome" name="nome" value = "{{$unidade->name}}"/>
+            <br>
+            <label class="error" for="nome"></label>
+            <br>
+            <input type="submit" name="submit" value ="Atualizar tipo de unidade"/>
+        </form>
     </body>
 </html>
