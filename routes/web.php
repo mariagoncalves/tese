@@ -60,3 +60,5 @@ Route::get('/unidades', 'GestaoUnidades@show');
 Route::post('/inserir', 'GestaoUnidades@inserir');
 Route::get('/editar/{id}', 'GestaoUnidades@editar');
 Route::post('/update/{id}', 'GestaoUnidades@update');
+Route::post('/ativar/{id}', 'GestaoUnidades@ativar');
+Route::post('/desativar/{id}', 'GestaoUnidades@desativar');
