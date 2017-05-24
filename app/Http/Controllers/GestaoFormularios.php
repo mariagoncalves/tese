@@ -70,13 +70,14 @@ class GestaoFormularios extends Controller
 
     }
 
-    public function desativar($id) {
+    public function desativar(CustomForm $custom, $id) {
 
         $customforms = CustomForm::all();
         $custom = CustomForm::find($id);
-        $entidades = EntType::all();
-        $propriedades = Property::all();
-        $unidades = PropUnitType::all();
+        
+        CustomForm::table('custom_form')
+            ->where('id', $id)
+            ->update(['state' => 'inactive']);
 
         return redirect('/formularios');
 
