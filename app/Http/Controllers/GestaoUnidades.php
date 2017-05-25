@@ -46,7 +46,6 @@ class GestaoUnidades extends Controller
     			->where('id', $id)
     			->update(['name' => $name]);
 
-    	//return view('homeUnidades', compact('unidades', 'unidade'));
     	return redirect('/unidades');
     }
 

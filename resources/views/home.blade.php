@@ -11,9 +11,9 @@
                     You are logged in!
 
                     <div class="links">
-                        <a href="">Gestão de Propriedades</a>
-                        <a href="">Gestão de Unidades</a>
-                        <a href="http://localhost:8000/formularios">Gestão de Formulários</a>
+                        <a href="/propriedades">Gestão de Propriedades</a>
+                        <a href="/unidades">Gestão de Unidades</a>
+                        <a href="/formularios">Gestão de Formulários</a>
                         <a href="">Gestão de valores permitidos </a>
                         <a href="">GitHub</a>
                     </div>

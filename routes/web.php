@@ -64,3 +64,12 @@ Route::get('/unidades/editar/{id}', 'GestaoUnidades@editar');
 Route::post('/unidades/update/{id}', 'GestaoUnidades@update');
 Route::get('/unidades/ativar/{id}', 'GestaoUnidades@ativar');
 Route::get('/unidades/desativar/{id}', 'GestaoUnidades@desativar');
+
+
+Route::get('/propriedades', 'GestaoPropriedades@show');
+Route::get('/propriedades/entidade', 'GestaoPropriedades@entidade');
+Route::get('/propriedades/relacao', 'GestaoPropriedades@relacao');
+Route::get('/propriedades/entidade/desativar/{id}', 'GestaoPropriedades@desativarEntidade');
+Route::get('/propriedades/entidade/ativar/{id}', 'GestaoPropriedades@ativarEntidade');
+Route::get('/propriedades/editar/{id}', 'GestaoPropriedades@editar');
+Route::get('/propriedades/inserir_propriedades/{id}', 'GestaoPropriedades@introducao');

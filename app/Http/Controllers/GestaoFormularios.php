@@ -105,10 +105,10 @@ class GestaoFormularios extends Controller
 
     public function inserir(Request $req) {
 
-
-        $
         $name = $req->input('name');
 
+        //Também podia ser assim para ir buscar todos os campos
+        //$dados = $req->all();
         $data = array('name'=>$name);
 
         DB::table('prop_unit_type')->insert($data);

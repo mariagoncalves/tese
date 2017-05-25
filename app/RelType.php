@@ -30,7 +30,7 @@ class RelType extends Model
     }
 
     public function properties() {
-        return $this->hasMany('App\Property', 'id', 'rel_type_id');
+        return $this->hasMany('App\Property', 'rel_type_id', 'id');
     }
 
     public function ent1() {

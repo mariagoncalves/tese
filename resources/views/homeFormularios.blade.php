@@ -40,22 +40,29 @@
                     </tr>
                 @else
                     @foreach ($custom as $formulario)
+                    <?php 
+                        $numLinhas =  $formulario->properties->count();
+                        $conta = 0;
+                    ?>
+                    @foreach ($formulario->properties as $property)
+                        @if ($conta > $numLinhas)
+                            <?php $conta = 0; ?>
+                        @endif
                         <tr>
-                            <td rowspan = "{{ count($formulario->properties) }}"> {{$formulario->id}}</td>
-                            <td rowspan = "{{ count($formulario->properties) }}"> {{$formulario->name}}</td>
-                            @if (count($formulario->properties) != 0)
-                                @foreach ($formulario->properties as $property)
-                                        <td> {{ $property->name }}</td>
-                                        <td> {{ $property->value_type }} </td>
-                                        <td> {{$formulario->state == 'active' ? 'Ativo' : 'Inativo'}}</td>
-                                        <!-- FALTA ALTERAR OS ROWSPANS -->
-                                        <td rowspan = ""> <a href = "/formularios/editar/{{$formulario->id}}"> [Editar] </a> <a href = "{{$formulario->state == 'active' ? '/formularios/desativar/'.$formulario->id : '/formularios/ativar/'.$formulario->id}}"> {{$formulario->state == 'active' ? '[Desativar]' : '[Ativar]'}} </a> <a href = "/formularios/historico"> [Histórico] </a></td>
-                                    </tr>
-                                @endforeach
-                            @else
-                                <td colspan="4">Não existe propriedades..</td>
+                            @if ($conta == 0)
+                                <td rowspan = "{{ count($formulario->properties) }}"> {{$formulario->id}}</td>
+                                <td rowspan = "{{ count($formulario->properties) }}"> {{$formulario->name}}</td>
+                            @endif
+                            <td> {{ $property->name }}</td>
+                            <td> {{ $property->value_type }} </td>
+                            @if($conta == 0)
+                                <td rowspan = "{{ $numLinhas }}" > {{$formulario->state == 'active' ? 'Ativo' : 'Inativo'}}</td>
+                                <!-- FALTA ALTERAR OS ROWSPANS -->
+                                <td rowspan = "{{ $numLinhas }}"> <a href = "/formularios/editar/{{$formulario->id}}"> [Editar] </a> <a href = "{{$formulario->state == 'active' ? '/formularios/desativar/'.$formulario->id : '/formularios/ativar/'.$formulario->id}}"> {{$formulario->state == 'active' ? '[Desativar]' : '[Ativar]'}} </a> <a href = "/formularios/historico"> [Histórico] </a></td>
                             @endif
                         </tr>
+                        <?php $conta++; ?>
+                        @endforeach
                     @endforeach
                 @endif
             </tbody>
@@ -93,10 +100,12 @@
                             <td colspan = "14"> Não pode criar formulários uma vez que ainda não foram inseridas entidades/propriedades??. </td>
                         </tr>
                     @else
+                        <?php $numProp = 0; ?>
                         @foreach ($entidades as $entidade)
                             <tr>
                                 <td rowspan = "{{ count($entidade->properties)}}" > {{$entidade->name}} </td>
                                     @foreach ($entidade->properties as $propriedade)
+                                        <?php $numProp++; ?>
                                         <td> {{$propriedade->id}} </td>
                                         <td> {{$propriedade->name}} </td>
                                         <td> {{$propriedade->value_type}} </td>
@@ -105,18 +114,17 @@
                                         @if (is_null($propriedade->unit_type_id))
                                             <td> - </td>
                                         @else
-                                            <td> suposto nome da unidade </td>
+                                            <td> {{ $propriedade->units->name }} </td>
                                         @endif
                                         <td> {{$propriedade->form_field_order}} </td>
                                         <td> {{$propriedade->form_field_size}} </td>
-                                        <td> {{$propriedade->mandatory}} </td>
-                                        <!-- Falta alterar coisas, name e value -->
-                                        <td> {{$propriedade->state = 'active' ? 'Ativo' : 'Inativo'}} </td>
-                                        <td> <input type="checkbox" name="idProp" value="{{$propriedade->id}}"> </td>
-                                        <td> <input type="text" name="ordem"> </td>
+                                        <td> {{$propriedade->mandatory == '1' ? 'Sim' : 'Não'}} </td>
+                                        <td> {{$propriedade->state == 'active' ? 'Ativo' : 'Inativo'}} </td>
+                                        <td> <input type="checkbox" name="idProp{{ $numProp }}" value="{{$propriedade->id}}"> </td>
+                                        <td> <input type="text" name="ordem{{ $numProp }}"> </td>
                                         <td>
-                                            <input type="radio" name="obrigatorio" value="true">Sim
-                                            <input type="radio" name="obrigatorio" value="false">Não
+                                            <input type="radio" name="obrigatorio{{ $numProp }}" value="true">Sim
+                                            <input type="radio" name="obrigatorio{{ $numProp }}" value="false">Não
                                         </td>
                                     </tr>
                                     @endforeach
@@ -127,7 +135,6 @@
             </table>
             <br>
             <br>
-            <input type="hidden" name="propSelected" value="" >
             <input type="submit" value="Inserir formulário">
         </form>
     </body>
