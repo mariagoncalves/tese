@@ -74,8 +74,4 @@ class GestaoUnidades extends Controller
 
         return redirect('/unidades');
     }
-
-
-
-
 }

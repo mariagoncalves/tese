@@ -17,4 +17,13 @@ class TransactionAck extends Model
     ];
 
     protected $guarded = [];
+
+    public function transactionState() {
+        return $this->hasOne('App\TransactionState', 'id', 'transaction_state_id');
+    }
+
+    public function agent() {
+        return $this->hasOne('App\Agent', 'id', 'agent_id');
+    }
+
 }

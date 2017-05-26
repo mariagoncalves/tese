@@ -19,4 +19,16 @@ class CausalLink extends Model
     ];
 
     protected $guarded = [];
+
+    public function causingTransaction() {
+        return $this->hasOne('App\TransactionType', 'id', 'causing_t');
+    }
+
+    public function causedTransaction() {
+        return $this->hasOne('App\TransactionType', 'id', 'caused_t');
+    }
+
+    public function tState() {
+        return $this->hasOne('App\TState', 'id', 't_state_id');
+    }
 }

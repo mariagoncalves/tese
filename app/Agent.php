@@ -29,6 +29,16 @@ class Agent extends Model
     	return $this->belongsToMany('App\Role', 'role_has_agent');
     }
 
+    public function transactionStates() {
+        return $this->hasMany('App\TransactionState', 'agent_id', 'id');
+    }
+
+    public function transactionAcks() {
+        return $this->hasMany('App\TransactionAck', 'agent_id', 'id');
+    }
+
+
+
 
 
 }
