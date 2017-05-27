@@ -69,8 +69,8 @@
                             <a href="">[Histórico]</a>
                         </td>
                         <td rowspan="">
-                            <a href="/propriedades/editar/{{$entidade->id}}">[Editar propriedades]</a>
-                            <a href="/propriedades/inserir_propriedades/{{$entidade->id}}">[Inserir propriedades]</a>
+                            <a href="/propriedades/entidade/editar/{{$prop->id}}">[Editar propriedades]</a>
+                            <a href="/propriedades/entidade/inserir_propriedades/{{$prop->id}}">[Inserir propriedades]</a>
                         </td>
                     </tr>
                     @endforeach

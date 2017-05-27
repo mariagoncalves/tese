@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Property extends Model
 {
@@ -54,6 +55,17 @@ class Property extends Model
 
     public function propAllowedValues() {
         return $this->hasMany('App\PropAllowedValue', 'property_id', 'id');
+    }
+
+    //$name é o nome do campo do qual quero obter os valores enum
+    public static function getValoresEnum($name){
+        $type = DB::select(DB::raw('SHOW COLUMNS FROM property WHERE Field = "'.$name.'"'))[0]->Type;
+        preg_match('/^enum\((.*)\)$/', $type, $matches);
+        $values = array();
+        foreach(explode(',', $matches[1]) as $value){
+            $values[] = trim($value, "'");
+        }
+        return $values;
     }
 
 

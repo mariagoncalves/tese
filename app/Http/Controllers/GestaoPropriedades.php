@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\EntType;
 use App\Property;
 use App\RelType;
+use App\PropUnitType;
+
 
 class GestaoPropriedades extends Controller
 {
@@ -82,11 +84,42 @@ class GestaoPropriedades extends Controller
 
     public function editar($id) {
 
-    	return view('editaProps');
+        //$propriedades = Property::all();
+        $propriedade = Property::find($id);
+        $unidades = PropUnitType::all();
+        $entidades = EntType::all();
+
+
+        $values_type_enum = Property::getValoresEnum('value_type');
+        $form_field_types = Property::getValoresEnum('form_field_type');
+
+
+
+    	return view('editaProps', compact ('propriedade', 'propriedades', 'values_type_enum', 'form_field_types', 'unidades', 'entidades'));
     }
 
     public function introducao($id) {
 
 		return view('introduzirProps');
     }
+
+    public function ativarRelacao($id) {
+
+        $propriedades = Property::find($id);
+        $propriedades->state = 'active';
+        $propriedades->save();
+
+        return redirect('/propriedades/relacao');
+    }
+
+     public function desativarRelacao($id) {
+
+        $propriedades = Property::find($id);
+        $propriedades->state = 'inactive';
+        $propriedades->save();
+
+        return redirect('/propriedades/relacao');
+    }
+
+
 }

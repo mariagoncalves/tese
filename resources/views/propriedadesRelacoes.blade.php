@@ -67,12 +67,12 @@
                         <td> {{$prop->mandatory == '1' ? 'Sim' : 'Não'}} </td>
                         <td> {{$prop->state == 'active' ? 'Ativo' : 'Inativo'}} </td>
                         <td> 
-                            <a href="{{ $prop->state == 'active' ? '/propriedades/desativar/'.$prop->id : '/propriedades/ativar/'.$prop->id}}"> {{ $prop->state == 'active' ? '[Desativar]' : '[Ativar]'}} </a>
+                            <a href="{{ $prop->state == 'active' ? '/propriedades/relacao/desativar/'.$prop->id : '/propriedades/relacao/ativar/'.$prop->id}}"> {{ $prop->state == 'active' ? '[Desativar]' : '[Ativar]'}} </a>
                             <a href="">[Histórico]</a>
                         </td>
                         <td rowspan="">
-                            <a href="/propriedades/editar/{{$relacao->id}}">[Editar propriedades]</a>
-                            <a href="/propriedades/inserir_propriedades/{{$relacao->id}}">[Inserir propriedades]</a>
+                            <a href="/propriedades/relacao/editar/{{$relacao->id}}">[Editar propriedades]</a>
+                            <a href="/propriedades/relacao/inserir_propriedades/{{$relacao->id}}">[Inserir propriedades]</a>
                         </td>
                     </tr>
                     @endforeach

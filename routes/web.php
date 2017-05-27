@@ -67,9 +67,17 @@ Route::get('/unidades/desativar/{id}', 'GestaoUnidades@desativar');
 
 
 Route::get('/propriedades', 'GestaoPropriedades@show');
+
+
 Route::get('/propriedades/entidade', 'GestaoPropriedades@entidade');
-Route::get('/propriedades/relacao', 'GestaoPropriedades@relacao');
 Route::get('/propriedades/entidade/desativar/{id}', 'GestaoPropriedades@desativarEntidade');
 Route::get('/propriedades/entidade/ativar/{id}', 'GestaoPropriedades@ativarEntidade');
-Route::get('/propriedades/editar/{id}', 'GestaoPropriedades@editar');
-Route::get('/propriedades/inserir_propriedades/{id}', 'GestaoPropriedades@introducao');
+Route::get('/propriedades/entidade/editar/{id}', 'GestaoPropriedades@editar');
+Route::get('/propriedades/entidade/inserir_propriedades/{id}', 'GestaoPropriedades@introducao');
+
+
+
+Route::get('/propriedades/relacao', 'GestaoPropriedades@relacao');
+Route::get('/propriedades/relacao/desativar/{id}', 'GestaoPropriedades@desativarRelacao');
+Route::get('/propriedades/relacao/ativar/{id}', 'GestaoPropriedades@ativarRelacao');
+Route::get('/propriedades/relacao/editar/{id}', 'GestaoPropriedades@editar');

@@ -26,7 +26,6 @@ class TransactionType extends Model
         return $this->hasOne('App\Actor', 'id', 'executer');
     }
 
-    //Não sei se é preciso por o nome da tabela gerada outra vez.
     public function iniciatorActor() {
         return $this->belongsToMany('App\Actor', 'actor_iniciates_t');
     }
