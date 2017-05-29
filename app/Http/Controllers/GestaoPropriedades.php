@@ -7,6 +7,7 @@ use App\EntType;
 use App\Property;
 use App\RelType;
 use App\PropUnitType;
+use DB;
 
 
 class GestaoPropriedades extends Controller
@@ -82,7 +83,7 @@ class GestaoPropriedades extends Controller
         return redirect('/propriedades/entidade');
     }
 
-    public function editar($id) {
+    public function editarEntidade($id) {
 
         //$propriedades = Property::all();
         $propriedade = Property::find($id);
@@ -93,9 +94,7 @@ class GestaoPropriedades extends Controller
         $values_type_enum = Property::getValoresEnum('value_type');
         $form_field_types = Property::getValoresEnum('form_field_type');
 
-
-
-    	return view('editaProps', compact ('propriedade', 'propriedades', 'values_type_enum', 'form_field_types', 'unidades', 'entidades'));
+    	return view('editaPropsEnt', compact ('propriedade', 'propriedades', 'values_type_enum', 'form_field_types', 'unidades', 'entidades'));
     }
 
     public function introducao($id) {
@@ -117,6 +116,77 @@ class GestaoPropriedades extends Controller
         $propriedades = Property::find($id);
         $propriedades->state = 'inactive';
         $propriedades->save();
+
+        return redirect('/propriedades/relacao');
+    }
+
+     public function editarRelacao($id) {
+
+        //$propriedades = Property::all();
+        $propriedade = Property::find($id);
+        $unidades = PropUnitType::all();
+        $relacoes = RelType::all();
+
+
+        $values_type_enum = Property::getValoresEnum('value_type');
+        $form_field_types = Property::getValoresEnum('form_field_type');
+
+        return view('editaPropsRel', compact ('propriedade', 'propriedades', 'values_type_enum', 'form_field_types', 'unidades', 'entidades'));
+    }
+
+    public function updateEntidade(Request $req, $id) {
+
+        $propriedade = Property::find($id);
+
+        $name = $req->input('nome_'.$propriedade->id);
+        $tipoValor = $req->input('tipoValor_'.$propriedade->id);
+        $tipoCampo = $req->input('tipoCampo_'.$propriedade->id);
+        $tipoUnidade = $req->input('tipoUnidade_'.$propriedade->id);
+        $ordem = $req->input('ordem_'.$propriedade->id);
+        $tamanho = $req->input('tamanho_'.$propriedade->id);
+        $obrigatorio = $req->input('obrigatorio_'.$propriedade->id);
+        $entidadeReferenciada = $req->input('entidadeReferenciada_'.$propriedade->id);
+
+        DB::table('property')
+                ->where('id', $id)
+                ->update([
+                    'name'             => $name,
+                    'value_type'       => $tipoValor,
+                    'form_field_type'  => $tipoCampo,
+                    'unit_type_id'     => $tipoUnidade,
+                    'form_field_order' => $ordem,
+                    'form_field_size'  => $tamanho,
+                    'mandatory'        => $obrigatorio,
+                    'fk_ent_type_id'   => $entidadeReferenciada
+                    ]);
+
+        return redirect('/propriedades/entidade');
+    }
+
+    public function updateRelacao(Request $req, $id) {
+
+        $propriedade = Property::find($id);
+
+        $name = $req->input('nome_'.$propriedade->id);
+        $tipoValor = $req->input('tipoValor_'.$propriedade->id);
+        $tipoCampo = $req->input('tipoCampo_'.$propriedade->id);
+        $tipoUnidade = $req->input('tipoUnidade_'.$propriedade->id);
+        $ordem = $req->input('ordem_'.$propriedade->id);
+        $tamanho = $req->input('tamanho_'.$propriedade->id);
+        $obrigatorio = $req->input('obrigatorio_'.$propriedade->id);
+        $entidadeReferenciada = $req->input('entidadeReferenciada_'.$propriedade->id);
+
+        DB::table('property')
+                ->where('id', $id)
+                ->update([
+                    'name'             => $name,
+                    'value_type'       => $tipoValor,
+                    'form_field_type'  => $tipoCampo,
+                    'unit_type_id'     => $tipoUnidade,
+                    'form_field_order' => $ordem,
+                    'form_field_size'  => $tamanho,
+                    'mandatory'        => $obrigatorio
+                    ]);
 
         return redirect('/propriedades/relacao');
     }

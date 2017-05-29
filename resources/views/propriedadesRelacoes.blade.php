@@ -71,8 +71,8 @@
                             <a href="">[Histórico]</a>
                         </td>
                         <td rowspan="">
-                            <a href="/propriedades/relacao/editar/{{$relacao->id}}">[Editar propriedades]</a>
-                            <a href="/propriedades/relacao/inserir_propriedades/{{$relacao->id}}">[Inserir propriedades]</a>
+                            <a href="/propriedades/relacao/editar/{{$prop->id}}">[Editar propriedades]</a>
+                            <a href="/propriedades/relacao/inserir_propriedades/{{$prop->id}}">[Inserir propriedades]</a>
                         </td>
                     </tr>
                     @endforeach

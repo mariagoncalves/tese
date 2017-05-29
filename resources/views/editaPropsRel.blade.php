@@ -1,12 +1,13 @@
 <h3> Gestão de propriedades - Edição </h3>
-<form id="editProp" method="POST">
+<form id="editProp" method="POST" action = "/propriedades/relacao/updateRelacao/{{$propriedade->id}}">
+    {{ csrf_field() }}
 	<h3> Propriedade {{ $propriedade->name}} - Edição </h3>
 	<label>Nome da Propriedade:</label><br>
 	<input id="nome" type="text" name="nome_{{$propriedade->id}}" value="{{ $propriedade->name}}">
     <br><label class="error" for="nome_{{$propriedade->id}}"></label>
     <br>
     <label>Tipo de valor:</label><br>
-    @foreach ($values_type_enum as $value)
+     @foreach ($values_type_enum as $value)
     	@if($value == $propriedade->value_type)
     		<input id="tipoValor" type="radio" name="tipoValor_{{ $propriedade->id}}" value="{{ $value }}" checked="checked"> {{$value}}<br>
     	@else
@@ -26,7 +27,7 @@
     <label class="error" for="tipoCampo_{{ $propriedade->id}}"></label>
     <br>
     <label>Tipo de unidade</label><br>
-     <select id="tipoUnidade" name="tipoUnidade_{{ $propriedade->id}}">
+    <select id="tipoUnidade" name="tipoUnidade_{{ $propriedade->id}}">
         <option value="NULL"></option>';
         @foreach ($unidades as $unidade)
         	@if ($unidade->id == $propriedade->unit_type_id)
@@ -53,18 +54,6 @@
         <input type="radio" id="obrigatorio" name="obrigatorio_{{$propriedade->id}}" value="0" checked>Não
         <label class="error" for="obrigatorio_{{$propriedade->id}}"></label><br>
     @endif
-    <label>Entidade referenciada por esta propriedade</label><br>
-    <select id="entidadeReferenciada" name="entidadeReferenciada_{{$propriedade->id}}">
-        <option value="NULL"></option>
-        @foreach ($entidades as $entidade)
-        	@if ($entidade->id == $propriedade->fk_ent_type_id)
-        		<option value="{{$entidade->id}}" selected>{{$entidade->name}}</option>
-        	@else
-        		<option value="{{$entidade->id}}">{{$entidade->name}}</option>
-        	@endif
-        @endforeach
-
-    </select>
-
-
+    <br>
+    <input type="submit" value="Editar propriedades">
 </form>
