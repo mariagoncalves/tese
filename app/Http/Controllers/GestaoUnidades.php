@@ -24,7 +24,7 @@ class GestaoUnidades extends Controller
 
 		$name = $req->input('name');
 
-		$data = array('name'=>$name);
+		$data = array('name'=> $name);
 
 		DB::table('prop_unit_type')->insert($data);
 		return redirect('/unidades');

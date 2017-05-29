@@ -191,5 +191,45 @@ class GestaoPropriedades extends Controller
         return redirect('/propriedades/relacao');
     }
 
+    public function introducaoPropsEnt($id) {
 
+        //$entidade = PropUnitType::all();
+
+        $values_type_enum = Property::getValoresEnum('value_type');
+        $form_field_types = Property::getValoresEnum('form_field_type');
+        $entidade = EntType::find($id);
+        $entidades = EntType::all();
+        $unidades = PropUnitType::all();
+
+        return view('introducaoPropriedadesEntidade', compact('entidade', 'values_type_enum', 'form_field_types', 'unidades', 'entidades'));
+    }
+
+
+    public function inserirPropsEnt(Request $req, $id) {
+
+        $name = $req->input('nome');
+        $entity_id = $id;
+        $tipoValor = $req->input('tipoValor');
+        $tipoCampo = $req->input('tipoCampo');
+        $tipoUnidade = $req->input('tipoUnidade');
+        $ordem = $req->input('ordem');
+        $tamanho = $req->input('tamanho');
+        $obrigatorio = $req->input('obrigatorio');
+        $entidadeReferenciada = $req->input('entidadeReferenciada');
+        
+
+        $data = array('name'           => $name,
+                    'ent_type_id'      => $entity_id,
+                    'value_type'       => $tipoValor,
+                    'form_field_type'  => $tipoCampo,
+                    'unit_type_id'     => $tipoUnidade,
+                    'form_field_order' => $ordem,
+                    'form_field_size'  => $tamanho,
+                    'mandatory'        => $obrigatorio,
+                    'fk_ent_type_id'   => $entidadeReferenciada
+            );
+
+        DB::table('property')->insert($data);
+        return redirect('/propriedades/entidade');
+    }
 }

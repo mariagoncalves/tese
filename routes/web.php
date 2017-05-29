@@ -74,6 +74,8 @@ Route::get('/propriedades/entidade/desativar/{id}', 'GestaoPropriedades@desativa
 Route::get('/propriedades/entidade/ativar/{id}', 'GestaoPropriedades@ativarEntidade');
 Route::get('/propriedades/entidade/editar/{id}', 'GestaoPropriedades@editarEntidade');
 Route::post('/propriedades/entidade/updateEntidade/{id}', 'GestaoPropriedades@updateEntidade');
+Route::get('/propriedades/entidade/introducaoEntidades/{id}', 'GestaoPropriedades@introducaoPropsEnt');
+Route::post('/propriedades/entidade/inserirPropsEnt/{id}', 'GestaoPropriedades@inserirPropsEnt');
 
 
 
