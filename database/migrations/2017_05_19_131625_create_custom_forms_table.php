@@ -15,9 +15,11 @@ class CreateCustomFormsTable extends Migration
     {
         Schema::create('custom_form', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 256)->nullable();
+            //$table->string('name', 256)->nullable();
             $table->enum('state', ['active', 'inactive']);
-            $table->timestamp('updated_on');
+            //$table->timestamp('updated_on');
+            $table->timestamps();
+
         });
     }
 

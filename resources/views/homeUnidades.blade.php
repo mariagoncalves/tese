@@ -64,5 +64,26 @@
                 </tbody>
             </table>
         </form>
+        <?php
+        if(isset($res)) {
+            ?>
+            @if ( count($res) > 0 )
+              <p>The following errors have occurred:</p>
+
+              <ul>
+                @foreach( $res as $key => $errors )
+                    <li>{{ $key }}</li>
+                    <ul>
+                        @foreach($errors as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endforeach
+              </ul>
+            @endif
+            <?php
+        }
+           
+        ?>
     </body>
 </html>

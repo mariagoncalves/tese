@@ -26,25 +26,6 @@ class GestaoPropriedades extends Controller
     		echo "Não pode adicionar/gerir propriedades uma vez que ainda não existem tipos de entidades.<br>";
     		echo "Clique em <a href=''>Gestão de entidades</a> para criar um novo tipo de entidade.";
     	} else {
-    		
-    		/*foreach ($entidades as $entidade) {
-    			$name = $entidade->name;
-    			$id = $entidade->id;
-    			$propriedadesEntidade = $entidade->properties;
-
-    			$props = Property::all();
-
-    			foreach($props as $prop) {
-
-    				$propsdasents = $prop->entType;
-
-    				echo $propsdasents."<br><br><br><br>";
-    			}
-
-    			echo "O nome da entidade é: ".$name." e o seu ID é: ".$id." e as suas propriedades são: ".$propriedadesEntidade."<br>";
-    		}*/
-
-    		//$props = Property::all();
 
     		return view('propriedadesEntidades', compact('entidades'));
 
@@ -85,7 +66,7 @@ class GestaoPropriedades extends Controller
 
     public function editarEntidade($id) {
 
-        //$propriedades = Property::all();
+        $propriedades = Property::all();
         $propriedade = Property::find($id);
         $unidades = PropUnitType::all();
         $entidades = EntType::all();
@@ -231,5 +212,18 @@ class GestaoPropriedades extends Controller
 
         DB::table('property')->insert($data);
         return redirect('/propriedades/entidade');
+    }
+
+    public function introducaoPropsRel($id) {
+
+        //$entidade = PropUnitType::all();
+
+        $values_type_enum = Property::getValoresEnum('value_type');
+        $form_field_types = Property::getValoresEnum('form_field_type');
+        $relacao = EntType::find($id);
+        $relacoes = EntType::all();
+        $unidades = PropUnitType::all();
+
+        return view('introducaoPropsRel', compact('relacao', 'values_type_enum', 'form_field_types', 'unidades', 'relacoes'));
     }
 }

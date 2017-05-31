@@ -1,5 +1,5 @@
 <h3> Gestão de propriedades - Edição </h3>
-<form id="editProp" method="POST" action = "/propriedades/relacao/updateRelacao/{{$propriedade->id}}">
+<form id="editProp" method="post" action = "/propriedades/relacao/updateRelacao/{{$propriedade->id}}">
     {{ csrf_field() }}
 	<h3> Propriedade {{ $propriedade->name}} - Edição </h3>
 	<label>Nome da Propriedade:</label><br>
