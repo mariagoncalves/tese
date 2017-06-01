@@ -15,12 +15,13 @@ class CreateTransactionTypesTable extends Migration
     {
         Schema::create('transaction_type', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 45);
+            //$table->string('name', 45);
             $table->enum('state', ['active', 'inactive']);
-            $table->timestamp('updated_on');
+            //$table->timestamp('updated_on');
             $table->integer('process_type_id')->unsigned();
-            $table->string('result_type', 500);
+            //$table->string('result_type', 500);
             $table->integer('executer')->unsigned();
+            $table->timestamps();
 
             $table->foreign('process_type_id')->references('id')->on('process_type')->onDelete('cascade');
             $table->foreign('executer')->references('id')->on('actor')->onDelete('cascade');

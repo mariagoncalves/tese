@@ -8,7 +8,7 @@ class RoleHasActor extends Model
 {
     protected $table = 'role_has_actor';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'role_id',

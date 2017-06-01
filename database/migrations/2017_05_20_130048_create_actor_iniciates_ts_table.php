@@ -16,6 +16,7 @@ class CreateActorIniciatesTsTable extends Migration
         Schema::create('actor_iniciates_t', function (Blueprint $table) {
             $table->integer('transaction_type_id')->unsigned();
             $table->integer('actor_id')->unsigned();
+            $table->timestamps();
 
             $table->foreign('transaction_type_id')->references('id')->on('transaction_type')->onDelete('cascade');
             $table->foreign('actor_id')->references('id')->on('actor')->onDelete('cascade');

@@ -15,10 +15,11 @@ class CreateTransactionStatesTable extends Migration
     {
         Schema::create('transaction_state', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamp('updated_on');
+            //$table->timestamp('updated_on');
             $table->integer('transaction_id')->unsigned();
             $table->integer('t_state_id')->unsigned();
             $table->integer('agent_id')->unsigned();
+            $table->timestamps();
 
             $table->foreign('transaction_id')->references('id')->on('transaction')->onDelete('cascade');
             $table->foreign('t_state_id')->references('id')->on('t_state')->onDelete('cascade');

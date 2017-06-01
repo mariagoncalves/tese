@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\PropUnitType;
 use DB;
+use App\PropUnitTypeName;
+
+
 //Bibliotecas para usar o validator
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -23,11 +26,12 @@ use Illuminate\Support\Facades\App;*/
 class GestaoUnidades extends Controller
 {
     public function show() {
+    	$unidades = PropUnitType::with(['unitsNames' => function($query) {
+                                    $query->where('language_id', '1');
+                                }])->get();
 
-    	$unidades = PropUnitType::all();
 
     	return view('homeUnidades', compact('unidades'));
-    	//return view('homeFormularios', compact('custom', 'entidades', 'propriedades', 'unidades'));
     }
 
     public function inserir(Request $req) {
@@ -53,7 +57,15 @@ class GestaoUnidades extends Controller
 
 		$data = array('name'=> $name);
 
-		DB::table('prop_unit_type')->insert($data);
+		//DB::table('prop_unit_type')->insert($data);
+        // inserir a unidade
+        $uni = PropUnitType::create($data);
+        // pegar o id da nova unidade inserida
+        $id = $uni->id;
+
+        // inserir o nome da unidade
+        $dados = ['prop_unit_type_id' => $id, 'language_id' => 1, 'name' => $name];
+        PropUnitTypeName::create($dados);
 
         //return view('homeUnidades', compact('res', 'unidades'));
 		return redirect('/unidades');

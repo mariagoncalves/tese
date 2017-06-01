@@ -16,9 +16,10 @@ class CreatePropAllowedValuesTable extends Migration
         Schema::create('prop_allowed_value', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('property_id')->unsigned();
-            $table->string('value', 128);
+            //$table->string('value', 128);
             $table->enum('state', ['active','inactive']);
-            $table->timestamp('updated_on');
+            //$table->timestamp('updated_on');
+            $table->timestamps();
 
             $table->foreign('property_id')->references('id')->on('property')->onDelete('cascade');
         });

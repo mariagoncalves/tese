@@ -8,15 +8,13 @@ class Value extends Model
 {
     protected $table = 'value';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'entity_id',
         'property_id',
-        'value',
         'id_producer',
         'relation_id',
-        'updated_on',
         'state'
     ];
 

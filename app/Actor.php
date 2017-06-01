@@ -8,11 +8,9 @@ class Actor extends Model
 {
     protected $table = 'actor';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
-    protected $fillable = [
-        'name'
-    ];
+    protected $fillable = [];
 
     protected $guarded = [];
 
@@ -29,5 +27,10 @@ class Actor extends Model
     public function iniciaTransactionType() {
 
     	return $this->belongsToMany('App\TransactionType', 'actor_iniciates_t');
+    }
+
+    public function actorName() {
+
+        return $this->hasMany('App\ActorName', 'actor_id', 'id');
     }
 }

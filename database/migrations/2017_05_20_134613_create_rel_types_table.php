@@ -18,9 +18,10 @@ class CreateRelTypesTable extends Migration
             $table->integer('ent_type1_id')->unsigned();
             $table->integer('ent_type2_id')->unsigned();
             $table->enum('state', ['active', 'inactive']);
-            $table->timestamp('updated_on');
-            $table->string('name', 128)->nullable();
+            //$table->timestamp('updated_on');
+            //$table->string('name', 128)->nullable();
             $table->integer('transaction_type_id')->unsigned();
+            $table->timestamps();
 
             $table->foreign('ent_type1_id')->references('id')->on('ent_type')->onDelete('cascade');
             $table->foreign('ent_type2_id')->references('id')->on('ent_type')->onDelete('cascade');

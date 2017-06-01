@@ -8,17 +8,19 @@ class PropUnitType extends Model
 {
     protected $table = 'prop_unit_type';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
-        'name',
-        'state',
-        'updated_on'
+        'state'
     ];
 
     protected $guarded = [];
 
     public function properties() {
         return $this->hasMany('App\Property', 'unit_type_id', 'id');
+    }
+
+    public function unitsNames() {
+        return $this->hasMany('App\PropUnitTypeName', 'prop_unit_type_id', 'id');
     }
 }

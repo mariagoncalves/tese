@@ -8,11 +8,9 @@ class TState extends Model
 {
     protected $table = 't_state';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
-    protected $fillable = [
-        'name'
-    ];
+    protected $fillable = [];
 
     protected $guarded = [];
 

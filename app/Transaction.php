@@ -8,13 +8,11 @@ class Transaction extends Model
 {
     protected $table = 'transaction';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'transaction_type_id',
-        'transaction_name',
         'state',
-        'updated_on',
         'process_id'
     ];
 

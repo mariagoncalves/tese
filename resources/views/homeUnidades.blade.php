@@ -42,7 +42,7 @@
                 @foreach($unidades as $unidade)
                     <tr>
                         <td> {{$unidade->id}} </td>
-                        <td> {{$unidade->name}} </td>
+                        <td> {{$unidade->unitsNames->first()->name }} </td>
                         <td> {{$unidade->state == 'active' ? 'Ativo' : 'Inativo'}} </td>
                         <td> <a href = "/unidades/editar/{{$unidade->id}}"> [Editar] </a> <a href = "{{$unidade->state == 'active' ? '/unidades/desativar/'.$unidade->id : '/unidades/ativar/'.$unidade->id}}">{{$unidade->state == 'active' ? '[Desativar]' : '[Ativar]'}} </a> <a href = ""> [Histórico] </a> </td>
                     </tr>

@@ -8,7 +8,7 @@ class TransactionState extends Model
 {
     protected $table = 'transaction_state';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'updated_on',

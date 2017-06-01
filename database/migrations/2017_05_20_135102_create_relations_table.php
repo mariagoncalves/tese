@@ -20,7 +20,7 @@ class CreateRelationsTable extends Migration
             $table->integer('entity2_id')->unsigned();
             $table->string('relation_name', 255)->nullable();
             $table->enum('state', ['active', 'inactive']);
-            $table->timestamp('updated_on');
+            //$table->timestamp('updated_on');
 
             $table->foreign('rel_type_id')->references('id')->on('rel_type')->onDelete('cascade');
             $table->foreign('entity1_id')->references('id')->on('entity')->onDelete('cascade');

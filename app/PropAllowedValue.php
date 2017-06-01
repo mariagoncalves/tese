@@ -8,11 +8,10 @@ class PropAllowedValue extends Model
 {
     protected $table = 'prop_allowed_value';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'property_id',
-        'value',
         'state',
         'updated_on'
     ];

@@ -8,7 +8,7 @@ class CausalLink extends Model
 {
     protected $table = 'causal_link';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'causing_t',

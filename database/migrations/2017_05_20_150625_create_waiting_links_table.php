@@ -21,6 +21,7 @@ class CreateWaitingLinksTable extends Migration
             $table->integer('waiting_transaction')->unsigned();
             $table->integer('min');
             $table->integer('max');
+            $table->timestamps();
 
             $table->foreign('waited_t')->references('id')->on('transaction_type')->onDelete('cascade');
             $table->foreign('waited_fact')->references('id')->on('t_state')->onDelete('cascade');

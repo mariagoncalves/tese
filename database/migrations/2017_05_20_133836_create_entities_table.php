@@ -16,9 +16,10 @@ class CreateEntitiesTable extends Migration
         Schema::create('entity', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('ent_type_id')->unsigned();
-            $table->string('entity_name', 256)->nullable();
+            //$table->string('entity_name', 256)->nullable();
             $table->enum('state', ['active', 'inactive']);
-            $table->timestamp('updated_on');
+            //$table->timestamp('updated_on');
+            $table->timestamps();
 
             $table->foreign('ent_type_id')->references('id')->on('ent_type')->onDelete('cascade');
         });

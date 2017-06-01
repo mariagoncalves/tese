@@ -20,6 +20,7 @@ class CreateCausalLinksTable extends Migration
             $table->integer('caused_t')->unsigned();
             $table->integer('min');
             $table->integer('max');
+            $table->timestamps();
 
             $table->foreign('causing_t')->references('id')->on('transaction_type')->onDelete('cascade');
             $table->foreign('t_state_id')->references('id')->on('t_state')->onDelete('cascade');

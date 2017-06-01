@@ -15,11 +15,11 @@ class CreatePropertiesTable extends Migration
     {
         Schema::create('property', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 128)->default('');
+            //$table->string('name', 128)->default('');
             $table->integer('ent_type_id')->nullable()->unsigned();
             $table->integer('rel_type_id')->nullable()->unsigned();
             $table->enum('value_type', ['text', 'bool', 'int', 'double', 'enum', 'ent_ref'])->comment('text, int, double, boolean, enum');
-            $table->string('form_field_name', 64)->default('')->comment('ascii string to be used as the name of the form field');
+            //$table->string('form_field_name', 64)->default('')->comment('ascii string to be used as the name of the form field');
             $table->enum('form_field_type', ['text','textbox','radio','checkbox','selectbox']);
             $table->integer('unit_type_id')->nullable()->unsigned();
             $table->integer('form_field_order')->comment('order in which form fields will be shown');
@@ -27,7 +27,8 @@ class CreatePropertiesTable extends Migration
             $table->enum('state', ['active','inactive']);
             $table->integer('fk_ent_type_id')->nullable()->unsigned();
             $table->string('form_field_size', 64)->nullable();
-            $table->timestamp('updated_on');
+            //$table->timestamp('updated_on');
+            $table->timestamps();
 
             $table->foreign('ent_type_id')->references('id')->on('ent_type')->onDelete('cascade');
             $table->foreign('rel_type_id')->references('id')->on('rel_type')->onDelete('cascade');

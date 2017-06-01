@@ -8,12 +8,10 @@ class EntType extends Model
 {
     protected $table = 'ent_type';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
-        'name',
         'state',
-        'updated_on',
         'transaction_type_id',
         'ent_type_id'
     ];

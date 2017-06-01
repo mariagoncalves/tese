@@ -18,7 +18,8 @@ class CreateCustomFormHasPropsTable extends Migration
             $table->integer('custom_form_id')->unsigned();
             $table->integer('field_order')->nullable();
             $table->integer('mandatory_form');
-            $table->timestamp('updated_on');
+            //$table->timestamp('updated_on');
+            $table->timestamps();
 
             $table->foreign('property_id')->references('id')->on('property')->onDelete('cascade');
             $table->foreign('custom_form_id')->references('id')->on('custom_form')->onDelete('cascade');

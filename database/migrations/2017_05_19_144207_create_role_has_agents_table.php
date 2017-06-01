@@ -16,6 +16,7 @@ class CreateRoleHasAgentsTable extends Migration
         Schema::create('role_has_agent', function (Blueprint $table) {
             $table->integer('role_id')->unsigned();
             $table->integer('agent_id')->unsigned();
+            $table->timestamps();
 
             $table->foreign('role_id')->references('id')->on('role')->onDelete('cascade');
             $table->foreign('agent_id')->references('id')->on('agent')->onDelete('cascade');

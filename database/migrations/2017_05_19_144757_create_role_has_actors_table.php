@@ -16,6 +16,7 @@ class CreateRoleHasActorsTable extends Migration
         Schema::create('role_has_actor', function (Blueprint $table) {
             $table->integer('role_id')->unsigned();
             $table->integer('actor_id')->unsigned();
+            $table->timestamps();
 
             $table->foreign('role_id')->references('id')->on('role')->onDelete('cascade');
             $table->foreign('actor_id')->references('id')->on('actor')->onDelete('cascade');

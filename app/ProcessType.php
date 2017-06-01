@@ -8,12 +8,10 @@ class ProcessType extends Model
 {
     protected $table = 'process_type';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
-        'name',
-        'state',
-        'updated_on'
+        'state'
     ];
 
     protected $guarded = [];

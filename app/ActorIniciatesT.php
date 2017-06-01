@@ -8,7 +8,7 @@ class ActorIniciatesT extends Model
 {
     protected $table = 'actor_iniciates_t';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'transaction_type_id',

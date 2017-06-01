@@ -15,9 +15,10 @@ class CreateProcessTypesTable extends Migration
     {
         Schema::create('process_type', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 128);
+            //$table->string('name', 128);
             $table->enum('state', ['active', 'inactive']);
-            $table->timestamp('updated_on');
+            //$table->timestamp('updated_on');
+            $table->timestamps();
         });
     }
 

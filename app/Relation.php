@@ -8,15 +8,13 @@ class Relation extends Model
 {
     protected $table = 'relation';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'rel_type_id',
         'entity1_id',
         'entity2_id',
-        'relation_name',
-        'state',
-        'updated_on'
+        'state'
     ];
 
     protected $guarded = [];

@@ -8,7 +8,7 @@ class TransactionAck extends Model
 {
     protected $table = 'transaction_ack';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'agent_id',

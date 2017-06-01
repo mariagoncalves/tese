@@ -8,13 +8,11 @@ class Entity extends Model
 {
     protected $table = 'entity';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'ent_type_id',
-        'entity_name',
-        'state',
-        'updated_on'
+        'state'
     ];
 
     protected $guarded = [];

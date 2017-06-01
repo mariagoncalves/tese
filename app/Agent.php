@@ -8,13 +8,11 @@ class Agent extends Model
 {
     protected $table = 'agent';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
-        'name',
         'user_name',
-        'password',
-        'email'
+        'user_id'
     ];
 
     protected $guarded = [];

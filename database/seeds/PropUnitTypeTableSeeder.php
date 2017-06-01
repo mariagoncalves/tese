@@ -1,6 +1,8 @@
 <?php
 
+use App\PropUnitType;
 use Illuminate\Database\Seeder;
+
 
 class PropUnitTypeTableSeeder extends Seeder
 {
@@ -11,26 +13,23 @@ class PropUnitTypeTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('prop_unit_type')->insert([
+        $dados = [
         	[
         		'id'         => '1',
-        		'state'      => 'active',
-        		'created_at' => date('Y-m-d H:i:s'),
-        		'updated_at' => date('Y-m-d H:i:s')
+        		'state'      => 'active'
         	],
         	[
         		'id'         => '2',
-        		'state'      => 'inactive',
-        		'created_at' => date('Y-m-d H:i:s'),
-        		'updated_at' => date('Y-m-d H:i:s')
+        		'state'      => 'inactive'
         	],
         	[
         		'id'         => '3',
-        		'state'      => 'active',
-        		'created_at' => date('Y-m-d H:i:s'),
-        		'updated_at' => date('Y-m-d H:i:s')
+        		'state'      => 'active'
         	]
+        ];
 
-        ]);
+        foreach ($dados as $value) {
+            PropUnitType::create($value);
+        }
     }
 }

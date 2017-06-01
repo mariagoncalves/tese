@@ -17,11 +17,12 @@ class CreateValuesTable extends Migration
             $table->increments('id');
             $table->integer('entity_id')->nullable()->unsigned();
             $table->integer('property_id')->unsigned();
-            $table->string('value', 8192);
+            //$table->string('value', 8192);
             $table->integer('id_producer');
             $table->integer('relation_id')->nullable()->unsigned();
-            $table->timestamp('updated_on');
+            //$table->timestamp('updated_on');
             $table->enum('state', ['active', 'inactive']);
+            $table->timestamps();
 
             $table->foreign('entity_id')->references('id')->on('entity')->onDelete('cascade');
             $table->foreign('property_id')->references('id')->on('property')->onDelete('cascade');

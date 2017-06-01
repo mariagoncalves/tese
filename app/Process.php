@@ -6,15 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Process extends Model
 {
-    protected $table = 'process';
+     protected $table = 'process';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'process_type_id',
-        'process_name',
-        'state',
-        'updated_on'
+        'state'
     ];
 
     protected $guarded = [];

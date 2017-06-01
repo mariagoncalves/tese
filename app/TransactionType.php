@@ -8,14 +8,11 @@ class TransactionType extends Model
 {
     protected $table = 'transaction_type';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
-        'name',
         'state',
-        'updated_on',
         'process_type_id',
-        'result_type',
         'executer'
     ];
 

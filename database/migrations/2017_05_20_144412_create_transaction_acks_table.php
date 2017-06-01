@@ -18,6 +18,7 @@ class CreateTransactionAcksTable extends Migration
             $table->integer('agent_id')->unsigned();
             $table->timestamp('viewed_on');
             $table->integer('transaction_state_id')->unsigned();
+            $table->timestamps();
 
             $table->foreign('agent_id')->references('id')->on('agent')->onDelete('cascade');
             $table->foreign('transaction_state_id')->references('id')->on('transaction_state')->onDelete('cascade');

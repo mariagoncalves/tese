@@ -8,11 +8,12 @@ class Language extends Model
 {
     protected $table = 'language';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
-        'id',
         'name',
         'slug'
     ];
+
+    protected $guarded = [];
 }

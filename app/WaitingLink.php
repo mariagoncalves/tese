@@ -8,7 +8,7 @@ class WaitingLink extends Model
 {
     protected $table = 'waiting_link';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'waited_t',
