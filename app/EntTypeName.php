@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class EntTypeName extends Model
 {
-    protected $table = 'entity_name';
+    protected $table = 'ent_type_name';
 
     public $timestamps = true;
 

@@ -14,9 +14,20 @@ class DatabaseSeeder extends Seeder
         $this->call(LanguageTableSeeder::class);
         $this->call(PropUnitTypeTableSeeder::class);
         $this->call(PropUnitTypeNameTableSeeder::class);
-        $this->call(ProcessType::class);
-        $this->call(ProcessTypeName::class);
-        $this->call(CustomForm::class);
-        $this->call(CustomFormName::class);
+        $this->call(ProcessTypeTableSeeder::class);
+        $this->call(ProcessTypeNameTableSeeder::class);
+        $this->call(CustomFormTableSeeder::class);
+        $this->call(CustomFormNameTableSeeder::class);
+        $this->call(AgentTableSeeder::class);
+        $this->call(RoleTableSeeder::class);
+        $this->call(ActorTableSeeder::class);
+        $this->call(RoleHasAgentTableSeeder::class);
+        $this->call(RoleHasActorTableSeeder::class);
+        $this->call(RoleNameTableSeeder::class);
+        $this->call(ActorNameTableSeeder::class);
+        
+
+
+
     }
 }
