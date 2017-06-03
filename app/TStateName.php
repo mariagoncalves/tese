@@ -17,4 +17,14 @@ class TStateName extends Model
     ];
 
     protected $guarded = [];
+
+    public function tState() {
+
+        return $this->hasOne('App\TState', 'id', 't_state_id');
+    }
+
+    public function language() {
+
+        return $this->hasOne('App\Language', 'id', 'language_id');
+    }
 }

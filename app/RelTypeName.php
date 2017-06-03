@@ -17,4 +17,14 @@ class RelTypeName extends Model
     ];
 
     protected $guarded = [];
+
+    public function relType() {
+
+        return $this->hasOne('App\RelType', 'id', 'rel_type_id');
+    }
+
+    public function language() {
+
+        return $this->hasOne('App\Language', 'id', 'language_id');
+    }
 }

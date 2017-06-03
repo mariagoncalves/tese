@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\MessageBag;
 
-/*;
+/*
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\App;*/
 
@@ -26,27 +26,21 @@ use Illuminate\Support\Facades\App;*/
 class GestaoUnidades extends Controller
 {
     public function show() {
+
     	$unidades = PropUnitType::with(['unitsNames' => function($query) {
                                     $query->where('language_id', '1');
                                 }])->get();
-
 
     	return view('homeUnidades', compact('unidades'));
     }
 
     public function inserir(Request $req) {
 
-        $unidades = PropUnitType::all();
         //die(print_r($req->all()));
-        //Não dá erro nem insere.
-    	$errors = Validator::make($req->all(), ['name' => 'required|alpha']);
+    	$errors = Validator::make($req->all(), ['name' => ['required', 'string' , Rule::unique('prop_unit_type_name' , 'name')->where('language_id', '1')]]);
 
-        // die(print_r($res->errors(), 1));
-        /*if(empty($_REQUEST['nome'])) {
-            echo "O campo nome é de preenchimento obrigatório.";
-            return;
-        }*/
         if ($errors->fails()) {
+            $unidades = PropUnitType::all();
             //die($errors->errors());
             $res = $errors->errors()->messages();
             return view('homeUnidades', compact('res', 'unidades'));
@@ -67,7 +61,6 @@ class GestaoUnidades extends Controller
         $dados = ['prop_unit_type_id' => $id, 'language_id' => 1, 'name' => $name];
         PropUnitTypeName::create($dados);
 
-        //return view('homeUnidades', compact('res', 'unidades'));
 		return redirect('/unidades');
     }
 
@@ -82,27 +75,50 @@ class GestaoUnidades extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-
-
     }*/
 
     public function editar($id) {
 
-    	$unidades = PropUnitType::all();
-    	$unidade = PropUnitType::find($id);
+        //$unidade = PropUnitType::find($id)->toArray();
+        $unidade = PropUnitType::with(['unitsNames' => function($query) {
+                                    $query->where('language_id', '1');
+                                }])->where('id', $id)->get();
 
-    	return view('editarUnidades', compact('unidades', 'unidade'));
+    	return view('editarUnidades', compact('unidade'));
     }
 
     public function update(Request $req, $id) {
 
-    	$name = $req->input('nome');
+        $rules = ['name' => ['required', 'string' , Rule::unique('prop_unit_type_name' , 'name')->where('language_id', '1')]];
+
+        $errors = Validator::make($req->all(), $rules);
+
+         if ($errors->fails()) {
+            $unidade = PropUnitType::with(['unitsNames' => function($query) {
+                                    $query->where('language_id', '1');
+                                }])->where('id', $id)->get();
+
+            //die($errors->errors());
+            $res = $errors->errors()->messages();
+            return view('editarUnidades', compact('res', 'unidade'));
+        }
+
+        $name = $req->input('name');
+        $data = array('name'=> $name);
+
+        PropUnitTypeName::where('prop_unit_type_id', $id)
+                        ->where('language_id', '1')
+                        ->update($data);
+
+        return redirect('/unidades');
+
+    	/*$name = $req->input('nome');
 
     	DB::table('prop_unit_type')
     			->where('id', $id)
     			->update(['name' => $name]);
 
-    	return redirect('/unidades');
+    	return redirect('/unidades');*/
     }
 
     public function ativar($id) {

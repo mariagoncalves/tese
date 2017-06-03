@@ -83,7 +83,6 @@
             @endif
             <?php
         }
-           
         ?>
     </body>
 </html>

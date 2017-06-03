@@ -39,4 +39,8 @@ class RelType extends Model
     public function ent2() {
         return $this->hasOne('App\EntType', 'id', 'ent_type2_id');
     }
+
+    public function relTypeNames() {
+        return $this->hasMany('App\RelTypeName', 'rel_type_id', 'id');
+    }
 }

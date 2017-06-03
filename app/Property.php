@@ -54,6 +54,10 @@ class Property extends Model
         return $this->hasMany('App\PropAllowedValue', 'property_id', 'id');
     }
 
+    public function propertiesNames() {
+        return $this->hasMany('App\PropertyName', 'property_id', 'id');
+    }
+
     //$name é o nome do campo do qual quero obter os valores enum
     public static function getValoresEnum($name){
         $type = DB::select(DB::raw('SHOW COLUMNS FROM property WHERE Field = "'.$name.'"'))[0]->Type;

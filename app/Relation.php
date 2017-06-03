@@ -23,11 +23,19 @@ class Relation extends Model
         return $this->hasOne('App\Entity', 'id', 'entity1_id');
     }
 
-     public function entity2() {
+    public function entity2() {
         return $this->hasOne('App\Entity', 'id', 'entity2_id');
     }
 
-     public function relType() {
+    public function relType() {
         return $this->hasOne('App\RelType', 'id', 'rel_type_id');
+    }
+
+    public function values() {
+        return $this->hasMany('App\Value', 'relation_id', 'id');
+    }
+
+    public function relationNames() {
+        return $this->hasMany('App\RelationName', 'relation_id', 'id');
     }
 }

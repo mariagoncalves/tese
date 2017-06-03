@@ -12,15 +12,35 @@
     </head>
     <body>
         <h3 align="center">Gestão de unidades - Edição</h3>
-        <form id="insertForm" method="post" action = "/unidades/update/{{$unidade->id}}" align="center">
+        <form id="insertForm" method="post" action = "/unidades/update/{{$unidade->first()->id}}" align="center">
             {{ csrf_field() }}
             <label>Novo nome para a Unidade:</label> 
             <br>
-            <input type="text" id ="nome" name="nome" value = "{{$unidade->name}}"/>
+            <input type="text" id ="name" name="name" value = "{{$unidade->first()->unitsNames->first()->name }}"/>
             <br>
-            <label class="error" for="nome"></label>
+            <label class="error" for="name"></label>
             <br>
             <input type="submit" name="submit" value ="Atualizar tipo de unidade"/>
         </form>
+        <?php
+        if(isset($res)) {
+            ?>
+            @if ( count($res) > 0 )
+              <p>The following errors have occurred:</p>
+
+              <ul>
+                @foreach( $res as $key => $errors )
+                    <li>{{ $key }}</li>
+                    <ul>
+                        @foreach($errors as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endforeach
+              </ul>
+            @endif
+            <?php
+        }
+        ?>
     </body>
 </html>

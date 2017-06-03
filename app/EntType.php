@@ -51,5 +51,8 @@ class EntType extends Model
         return $this->hasMany('App\Property', 'ent_type_id', 'id');
     }
 
+    public function entTypeNames() {
+        return $this->hasMany('App\EntTypeName', 'ent_type_id', 'id');
+    }
 
 }

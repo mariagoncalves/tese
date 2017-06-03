@@ -19,4 +19,8 @@ class CustomForm extends Model
     public function properties() {
         return $this->belongsToMany('App\Property', 'custom_form_has_prop');
     }
+
+    public function customFormName() {
+        return $this->hasMany('App\CustomFormName', 'custom_form_id', 'id');
+    }
 }

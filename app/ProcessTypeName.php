@@ -17,4 +17,14 @@ class ProcessTypeName extends Model
     ];
 
     protected $guarded = [];
+
+    public function processType() {
+
+        return $this->hasOne('App\ProcessType', 'id', 'process_type_id');
+    }
+
+    public function language() {
+
+        return $this->hasOne('App\Language', 'id', 'language_id');
+    }
 }

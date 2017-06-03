@@ -59,4 +59,8 @@ class TransactionType extends Model
         return $this->hasMany('App\WaitingLink', 'waiting_transaction', 'id');
     }
 
+    public function transactionTypeName() {
+        return $this->hasMany('App\TransactionTypeName', 'transaction_type_id', 'id');
+    }
+
 }

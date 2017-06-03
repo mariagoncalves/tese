@@ -17,4 +17,14 @@ class RoleName extends Model
     ];
 
     protected $guarded = [];
+
+    public function role() {
+
+        return $this->hasOne('App\Role', 'id', 'role_id');
+    }
+
+    public function language() {
+
+        return $this->hasOne('App\Language', 'id', 'language_id');
+    }
 }

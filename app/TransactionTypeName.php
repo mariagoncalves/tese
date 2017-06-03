@@ -18,4 +18,14 @@ class TransactionTypeName extends Model
     ];
 
     protected $guarded = [];
+
+    public function transactionType() {
+
+        return $this->hasOne('App\TransactionType', 'id', 'transaction_type_id');
+    }
+
+    public function language() {
+
+        return $this->hasOne('App\Language', 'id', 'language_id');
+    }
 }

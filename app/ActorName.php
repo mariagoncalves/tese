@@ -17,4 +17,14 @@ class ActorName extends Model
     ];
 
     protected $guarded = [];
+
+    public function actor() {
+
+        return $this->hasOne('App\Actor', 'id', 'actor_id');
+    }
+
+    public function language() {
+
+        return $this->hasOne('App\Language', 'id', 'language_id');
+    }
 }

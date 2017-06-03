@@ -20,7 +20,11 @@ class ProcessType extends Model
         return $this->hasMany('App\Process', 'process_type_id', 'id');
     }
 
-    public function transactionsType() {
+    public function transactionsTypes() {
         return $this->hasMany('App\TransactionType', 'process_type_id', 'id');
+    }
+
+    public function processTypeNames() {
+        return $this->hasMany('App\ProcessTypeName', 'process_type_id', 'id');
     }
 }

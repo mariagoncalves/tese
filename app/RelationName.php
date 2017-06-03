@@ -17,4 +17,14 @@ class RelationName extends Model
     ];
 
     protected $guarded = [];
+
+    public function relation() {
+
+        return $this->hasOne('App\Relation', 'id', 'relation_id');
+    }
+
+    public function language() {
+
+        return $this->hasOne('App\Language', 'id', 'language_id');
+    }
 }

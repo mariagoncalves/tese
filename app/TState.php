@@ -34,4 +34,8 @@ class TState extends Model
         return $this->hasMany('App\TransactionState', 't_state_id', 'id');
     }
 
+    public function tStateName() {
+        return $this->hasMany('App\TStateName', 't_state_id', 'id');
+    }
+
 }

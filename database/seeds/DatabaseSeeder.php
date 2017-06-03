@@ -14,5 +14,9 @@ class DatabaseSeeder extends Seeder
         $this->call(LanguageTableSeeder::class);
         $this->call(PropUnitTypeTableSeeder::class);
         $this->call(PropUnitTypeNameTableSeeder::class);
+        $this->call(ProcessType::class);
+        $this->call(ProcessTypeName::class);
+        $this->call(CustomForm::class);
+        $this->call(CustomFormName::class);
     }
 }

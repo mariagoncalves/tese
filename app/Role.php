@@ -23,4 +23,8 @@ class Role extends Model
 
     	return $this->belongsToMany('App\Actor', 'role_has_actor');
     }
+
+    public function roleNames() {
+        return $this->hasMany('App\RoleName', 'role_id', 'id');
+    }
 }

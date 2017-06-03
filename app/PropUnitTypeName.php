@@ -18,12 +18,12 @@ class PropUnitTypeName extends Model
 
     protected $guarded = [];
 
-    public function unitType() {
+    public function propUnitType() {
 
     	return $this->hasOne('App\PropUnitType', 'id', 'prop_unit_type_id');
     }
 
-    public function unitName() {
+    public function language() {
 
     	return $this->hasOne('App\Language', 'id', 'language_id');
     }

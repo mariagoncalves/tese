@@ -17,4 +17,14 @@ class EntTypeName extends Model
     ];
 
     protected $guarded = [];
+
+    public function entType() {
+
+        return $this->hasOne('App\EntType', 'id', 'ent_type_id');
+    }
+
+    public function language() {
+
+        return $this->hasOne('App\Language', 'id', 'language_id');
+    }
 }

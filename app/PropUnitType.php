@@ -23,4 +23,5 @@ class PropUnitType extends Model
     public function unitsNames() {
         return $this->hasMany('App\PropUnitTypeName', 'prop_unit_type_id', 'id');
     }
+
 }

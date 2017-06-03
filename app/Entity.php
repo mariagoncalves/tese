@@ -33,4 +33,8 @@ class Entity extends Model
         return $this->hasMany('App\Relation', 'entity2_id', 'id');
     }
 
+    public function entityNames() {
+        return $this->hasMany('App\EntityName', 'entity_id', 'id');
+    }
+
 }

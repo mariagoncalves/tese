@@ -18,4 +18,14 @@ class PropertyName extends Model
     ];
 
     protected $guarded = [];
+
+    public function property() {
+
+        return $this->hasOne('App\Actor', 'id', 'property_id');
+    }
+
+    public function language() {
+
+        return $this->hasOne('App\Language', 'id', 'language_id');
+    }
 }

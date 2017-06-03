@@ -35,6 +35,9 @@ class Agent extends Model
         return $this->hasMany('App\TransactionAck', 'agent_id', 'id');
     }
 
+    public function user() {
+        return $this->hasOne('App\User', 'id', 'user_id');
+    }
 
 
 

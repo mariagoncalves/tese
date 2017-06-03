@@ -31,4 +31,8 @@ class Value extends Model
      public function relation() {
         return $this->hasOne('App\Relation', 'id', 'relation_id');
     }
+
+    public function valueNames() {
+        return $this->hasMany('App\ValueName', 'value_id', 'id');
+    }
 }

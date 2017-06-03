@@ -17,4 +17,14 @@ class CustomFormName extends Model
     ];
 
     protected $guarded = [];
+
+    public function customForm() {
+
+        return $this->hasOne('App\CustomForm', 'custom_form_id', 'id');
+    }
+
+    public function language() {
+
+        return $this->hasOne('App\Language', 'id', 'language_id');
+    }
 }

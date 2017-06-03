@@ -24,4 +24,8 @@ class Process extends Model
     public function transactions() {
         return $this->hasMany('App\Transaction', 'process_id', 'id');
     }
+
+    public function processNames() {
+        return $this->hasMany('App\ProcessName', 'process_id', 'id');
+    }
 }

@@ -26,4 +26,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function agent() {
+
+        return $this->hasOne('App\Agent', 'user_id', 'id');
+    }
 }
