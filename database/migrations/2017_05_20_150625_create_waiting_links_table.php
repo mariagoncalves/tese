@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWaitingLinkTable extends Migration
+class CreateWaitingLinksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -21,12 +21,17 @@ class CreateWaitingLinkTable extends Migration
             $table->integer('waiting_transaction')->unsigned();
             $table->integer('min');
             $table->integer('max');
+            $table->integer('updated_by')->nullable()->unsigned();
+            $table->integer('deleted_by')->nullable()->unsigned();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('waited_t')->references('id')->on('transaction_type')->onDelete('cascade');
             $table->foreign('waited_fact')->references('id')->on('t_state')->onDelete('cascade');
             $table->foreign('waiting_fact')->references('id')->on('t_state')->onDelete('cascade');
             $table->foreign('waiting_transaction')->references('id')->on('transaction_type')->onDelete('cascade');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('deleted_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

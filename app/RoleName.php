@@ -13,7 +13,9 @@ class RoleName extends Model
     protected $fillable = [
         'role_id',
         'language_id',
-        'name'
+        'name',
+        'updated_by',
+        'deleted_by'
     ];
 
     protected $guarded = [];

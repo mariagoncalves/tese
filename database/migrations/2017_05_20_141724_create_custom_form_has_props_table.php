@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCustomFormHasPropTable extends Migration
+class CreateCustomFormHasPropsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,10 +19,15 @@ class CreateCustomFormHasPropTable extends Migration
             $table->integer('field_order')->nullable();
             $table->integer('mandatory_form');
             //$table->timestamp('updated_on');
+            $table->integer('updated_by')->nullable()->unsigned();
+            $table->integer('deleted_by')->nullable()->unsigned();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('property_id')->references('id')->on('property')->onDelete('cascade');
             $table->foreign('custom_form_id')->references('id')->on('custom_form')->onDelete('cascade');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('deleted_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

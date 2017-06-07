@@ -18,7 +18,13 @@ class CreateLanguageTable extends Migration
             $table->string('name', 100)->nullable;
             $table->string('slug', 5)->nullable;
             //$table->increments('id');
+            $table->integer('updated_by')->nullable()->unsigned();
+            $table->integer('deleted_by')->nullable()->unsigned();
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('deleted_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

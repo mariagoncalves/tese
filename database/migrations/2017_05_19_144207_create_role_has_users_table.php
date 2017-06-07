@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateActorNamesTable extends Migration
+class CreateRoleHasUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,18 @@ class CreateActorNamesTable extends Migration
      */
     public function up()
     {
-        Schema::create('actor_name', function (Blueprint $table) {
-            $table->integer('actor_id')->unsigned();
-            $table->integer('language_id')->unsigned();
-            $table->string('name', 45)->nullable();
+        Schema::create('role_has_user', function (Blueprint $table) {
+            $table->integer('role_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->integer('updated_by')->nullable()->unsigned();
             $table->integer('deleted_by')->nullable()->unsigned();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('actor_id')->references('id')->on('actor')->onDelete('cascade');
-            $table->foreign('language_id')->references('id')->on('language')->onDelete('cascade');
+            $table->foreign('role_id')->references('id')->on('role')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('deleted_by')->references('id')->on('users')->onDelete('cascade');
-            $table->primary(array('actor_id', 'language_id'));
         });
     }
 
@@ -37,11 +35,6 @@ class CreateActorNamesTable extends Migration
      */
     public function down()
     {
-        Schema::table('actor_name', function (Blueprint $table) {
-            $table->dropForeign(['actor_id']);
-            $table->dropForeign(['language_id']);
-        });
-
-        Schema::dropIfExists('actor_name');
+        Schema::dropIfExists('role_has_user');
     }
 }

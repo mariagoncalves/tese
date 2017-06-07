@@ -43,7 +43,7 @@
         <tbody>
             @foreach ($entidades as $entidade)
                 <tr>
-                    <td rowspan="{{count($entidade->properties)}}"> {{$entidade->name}} </td>
+                    <td rowspan="{{count($entidade->properties)}}"> {{$entidade->entTypeNames->first()->name}} </td>
                     @if ($entidade->properties->count() == 0)
                         <td colspan="11"> Esta entidade ainda não possui quaisquer propriedades </td>
                         <td rowspan=""> <a href = ""> [Inserir propriedades] </a> </td>
@@ -51,7 +51,7 @@
 
                     @foreach ($entidade->properties as $prop)
                         <td> {{$prop->id}} </td>
-                        <td> {{$prop->name}} </td>
+                        <td> {{$prop->propertiesNames->first()->name}} </td>
                         <td> {{$prop->value_type}} </td>
                         <td> {{$prop->form_field_name}} </td>
                         <td> {{$prop->form_field_type}} </td>

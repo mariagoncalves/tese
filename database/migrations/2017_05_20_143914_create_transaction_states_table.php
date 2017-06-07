@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTransactionStateTable extends Migration
+class CreateTransactionStatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -18,12 +18,17 @@ class CreateTransactionStateTable extends Migration
             //$table->timestamp('updated_on');
             $table->integer('transaction_id')->unsigned();
             $table->integer('t_state_id')->unsigned();
-            $table->integer('agent_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->integer('updated_by')->nullable()->unsigned();
+            $table->integer('deleted_by')->nullable()->unsigned();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('transaction_id')->references('id')->on('transaction')->onDelete('cascade');
             $table->foreign('t_state_id')->references('id')->on('t_state')->onDelete('cascade');
-            $table->foreign('agent_id')->references('id')->on('agent')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('deleted_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRoleHasActorTable extends Migration
+class CreateRoleHasActorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,10 +16,15 @@ class CreateRoleHasActorTable extends Migration
         Schema::create('role_has_actor', function (Blueprint $table) {
             $table->integer('role_id')->unsigned();
             $table->integer('actor_id')->unsigned();
+            $table->integer('updated_by')->nullable()->unsigned();
+            $table->integer('deleted_by')->nullable()->unsigned();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('role_id')->references('id')->on('role')->onDelete('cascade');
             $table->foreign('actor_id')->references('id')->on('actor')->onDelete('cascade');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('deleted_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

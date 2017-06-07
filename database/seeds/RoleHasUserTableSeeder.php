@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\RoleHasAgent;
+use App\RoleHasUser;
 
-class RoleHasAgentTableSeeder extends Seeder
+class RoleHasUserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,21 +14,21 @@ class RoleHasAgentTableSeeder extends Seeder
     {
         $dados = [
         	[
-        		'role_id'  => '1',
-        		'agent_id' => '1'
+        		'role_id' => '1',
+        		'user_id'  => '1'
         	],
         	[
-        		'role_id'  => '2',
-        		'agent_id' => '2'
+        		'role_id' => '2',
+        		'user_id'  => '2'
         	],
         	[
-        		'role_id'  => '3',
-        		'agent_id' => '3'
+        		'role_id' => '3',
+        		'user_id'  => '3'
         	]
         ];
 
         foreach ($dados as $value) {
-            RoleHasAgent::create($value);
+            RoleHasUser::create($value);
         }
     }
 }
