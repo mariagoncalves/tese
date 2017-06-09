@@ -14,13 +14,19 @@ class ActorTableSeeder extends Seeder
     {
         $dados = [
         	[
-        		'id'         => '1'
+        		'id'         => '1',
+                'updated_by' => '1',
+                'deleted_by' => '1'
         	],
         	[
-        		'id'         => '2'
+        		'id'         => '2',
+                'updated_by' => '1',
+                'deleted_by' => '1'
         	],
         	[
-        		'id'         => '3'
+        		'id'         => '3',
+                'updated_by' => '1',
+                'deleted_by' => '1'
         	]
         ];
 

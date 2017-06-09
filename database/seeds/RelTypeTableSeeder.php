@@ -18,13 +18,17 @@ class RelTypeTableSeeder extends Seeder
         		'ent_type1_id'        => '1',
         		'ent_type2_id'        => '2',
         		'state'               =>  'active',
-        		'transaction_type_id' => '1'
+        		'transaction_type_id' => '1',
+                'updated_by'          => '1',
+                'deleted_by'          => '1'
         	],
         	[	'id'                  => '2',
         		'ent_type1_id'        => '1',
         		'ent_type2_id'        => '3',
         		'state'               =>  'active',
-        		'transaction_type_id' => '2'
+        		'transaction_type_id' => '2',
+                'updated_by'          => '1',
+                'deleted_by'          => '1'
         	]
         ];
 

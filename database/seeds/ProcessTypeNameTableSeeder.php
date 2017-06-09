@@ -16,16 +16,22 @@ class ProcessTypeNameTableSeeder extends Seeder
         	[
         		'process_type_id' => '1',
         		'language_id'     => '1',
-        		'name'            => 'Gestão de transportes'
+        		'name'            => 'Gestão de transportes',
+                'updated_by'      => '1',
+                'deleted_by'      => '1'
         	],
         	[	'process_type_id' => '2',
         		'language_id'     => '1',
-        		'name'            => 'Gestão de apoios'
+        		'name'            => 'Gestão de apoios',
+                'updated_by'      => '1',
+                'deleted_by'      => '1'
         	],
         	[
         		'process_type_id' => '3',
         		'language_id'     => '1',
-        		'name'            => 'Gestão de concursos'
+        		'name'            => 'Gestão de concursos',
+                'updated_by'      => '1',
+                'deleted_by'      => '1'
         	]
         ];
 

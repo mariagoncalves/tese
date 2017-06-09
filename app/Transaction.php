@@ -29,4 +29,14 @@ class Transaction extends Model
     public function transactionStates() {
         return $this->hasMany('App\TransactionState', 'transaction_id', 'id');
     }
+
+    public function updatedBy() {
+
+        return $this->hasOne('App\Users', 'id', 'updated_by');
+    }
+
+    public function deletedBy() {
+
+        return $this->hasOne('App\Users', 'id', 'deleted_by');
+    }
 }

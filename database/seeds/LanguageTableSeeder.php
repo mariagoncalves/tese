@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Language;
 
 class LanguageTableSeeder extends Seeder
 {
@@ -11,18 +12,42 @@ class LanguageTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('language')->insert([
+        /*DB::table('language')->insert([
         	[
-        		'id'   => '1',
-        		'name' => 'Português',
-        		'slug' => 'pt'
+        		'id'         => '1',
+        		'name'       => 'Português',
+        		'slug'       => 'pt',
+                'updated_by' => '1',
+                'deleted_by' => '1'
         	],
         	[
         		'id'   => '2',
         		'name' => 'Inglês',
-        		'slug' => 'en'
+        		'slug' => 'en',
+                'updated_by' => '1',
+                'deleted_by' => '1'
         	]
-        ]);
+        ]);*/
+
+        $dados = [
+            [
+                'id'         => '1',
+                'name'       => 'Português',
+                'slug'       => 'pt',
+                'updated_by' => '1',
+                'deleted_by' => '1'
+            ],
+            [   'id'   => '2',
+                'name' => 'Inglês',
+                'slug' => 'en',
+                'updated_by' => '1',
+                'deleted_by' => '1'
+            ]
+        ];
+
+        foreach ($dados as $value) {
+            Language::create($value);
+        }
     }
 
 }

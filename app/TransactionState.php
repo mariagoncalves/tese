@@ -34,4 +34,14 @@ class TransactionState extends Model
     public function transactionAck() {
         return $this->hasMany('App\TransactionAck', 'transaction_state_id', 'id');
     }
+
+    public function updatedBy() {
+
+        return $this->hasOne('App\Users', 'id', 'updated_by');
+    }
+
+    public function deletedBy() {
+
+        return $this->hasOne('App\Users', 'id', 'deleted_by');
+    }
 }

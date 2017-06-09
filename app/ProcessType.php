@@ -27,4 +27,14 @@ class ProcessType extends Model
     public function processTypeNames() {
         return $this->hasMany('App\ProcessTypeName', 'process_type_id', 'id');
     }
+
+    public function updatedBy() {
+
+        return $this->hasOne('App\Users', 'id', 'updated_by');
+    }
+
+    public function deletedBy() {
+
+        return $this->hasOne('App\Users', 'id', 'deleted_by');
+    }
 }

@@ -28,4 +28,14 @@ class Process extends Model
     public function processNames() {
         return $this->hasMany('App\ProcessName', 'process_id', 'id');
     }
+
+    public function updatedBy() {
+
+        return $this->hasOne('App\Users', 'id', 'updated_by');
+    }
+
+    public function deletedBy() {
+
+        return $this->hasOne('App\Users', 'id', 'deleted_by');
+    }
 }

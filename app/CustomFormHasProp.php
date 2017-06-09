@@ -18,4 +18,14 @@ class CustomFormHasProp extends Model
     ];
 
     protected $guarded = [];
+
+    public function updatedBy() {
+
+        return $this->hasOne('App\Users', 'id', 'updated_by');
+    }
+
+    public function deletedBy() {
+
+        return $this->hasOne('App\Users', 'id', 'deleted_by');
+    }
 }

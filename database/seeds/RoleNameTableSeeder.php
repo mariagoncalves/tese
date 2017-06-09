@@ -14,18 +14,24 @@ class RoleNameTableSeeder extends Seeder
     {
         $dados = [
         	[
-        		'role_id'    => '1',
+        		'role_id'     => '1',
         		'language_id' => '1',
-        		'name'        => 'Administrador'
+        		'name'        => 'Administrador',
+                'updated_by'  => '1',
+                'deleted_by'  => '1'
         	],
         	[
-        		'role_id'    => '2',
+        		'role_id'     => '2',
         		'language_id' => '1',
-        		'name'        => 'Administrador'
+        		'name'        => 'Administrador',
+                'updated_by'  => '1',
+                'deleted_by'  => '1'
         	],
-        	[	'role_id'    => '3',
+        	[	'role_id'     => '3',
         		'language_id' => '1',
-        		'name'        => 'Munícipe'
+        		'name'        => 'Munícipe',
+                'updated_by'  => '1',
+                'deleted_by'  => '1'
         	]
         ];
 

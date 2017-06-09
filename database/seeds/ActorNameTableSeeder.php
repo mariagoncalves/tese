@@ -16,16 +16,22 @@ class ActorNameTableSeeder extends Seeder
         	[
         		'actor_id'    => '1',
         		'language_id' => '1',
-        		'name'        => 'Decisor sobre cedencia de transporte'
+        		'name'        => 'Decisor sobre cedencia de transporte',
+                'updated_by'  => '1',
+                'deleted_by'  => '1'
         	],
         	[
         		'actor_id'    => '2',
         		'language_id' => '1',
-        		'name'        => 'Decisor sobre cedencia de apoios'
+        		'name'        => 'Decisor sobre cedencia de apoios',
+                'updated_by'  => '1',
+                'deleted_by'  => '1'
         	],
         	[	'actor_id'    => '3',
         		'language_id' => '1',
-        		'name'        => 'Requerente de transporte'
+        		'name'        => 'Requerente de transporte',
+                'updated_by'  => '1',
+                'deleted_by'  => '1'
         	]
         ];
 

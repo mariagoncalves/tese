@@ -16,11 +16,15 @@ class RelTypeNameTableSeeder extends Seeder
         	[
         		'rel_type_id' => '1',
         		'language_id' => '1',
-        		'name'        => 'Relacao 1'
+        		'name'        => 'Relacao 1',
+                'updated_by'  => '1',
+                'deleted_by'  => '1'
         	],
         	[	'rel_type_id' => '2',
         		'language_id' => '1',
-        		'name'        => 'Relacao 2'
+        		'name'        => 'Relacao 2',
+                'updated_by'  => '1',
+                'deleted_by'  => '1'
         	]
         ];
 

@@ -37,4 +37,14 @@ class Entity extends Model
         return $this->hasMany('App\EntityName', 'entity_id', 'id');
     }
 
+    public function updatedBy() {
+
+        return $this->hasOne('App\Users', 'id', 'updated_by');
+    }
+
+    public function deletedBy() {
+
+        return $this->hasOne('App\Users', 'id', 'deleted_by');
+    }
+
 }

@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class Users extends Authenticatable
 {
     use Notifiable;
 
@@ -27,8 +27,5 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function agent() {
-
-        return $this->hasOne('App\Agent', 'user_id', 'id');
-    }
+    
 }

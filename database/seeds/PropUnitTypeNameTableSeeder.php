@@ -15,32 +15,44 @@ class PropUnitTypeNameTableSeeder extends Seeder
         	[
         		'prop_unit_type_id' => '1',
         		'language_id'       => '1',
-        		'name'              => 'cm'
+        		'name'              => 'cm',
+                'updated_by'        => '1',
+                'deleted_by'        => '1'
         	],
         	[
         		'prop_unit_type_id' => '1',
         		'language_id'       => '2',
-        		'name'              => 'cm'
+        		'name'              => 'cm',
+                'updated_by'        => '1',
+                'deleted_by'        => '1'
         	],
         	[
         		'prop_unit_type_id' => '2',
         		'language_id'       => '1',
-        		'name'              => 'kg'
+        		'name'              => 'kg',
+                'updated_by'        => '1',
+                'deleted_by'        => '1'
         	],
         	[
         		'prop_unit_type_id' => '2',
         		'language_id'       => '2',
-        		'name'              => 'kg'
+        		'name'              => 'kg',
+                'updated_by'        => '1',
+                'deleted_by'        => '1'
         	],
         	[
         		'prop_unit_type_id' => '3',
         		'language_id'       => '1',
-        		'name'              => 'mm'
+        		'name'              => 'mm',
+                'updated_by'        => '1',
+                'deleted_by'        => '1'
         	],
         	[
         		'prop_unit_type_id' => '3',
         		'language_id'       => '2',
-        		'name'              => 'mm'
+        		'name'              => 'mm',
+                'updated_by'        => '1',
+                'deleted_by'        => '1'
         	]
         ]);
     }

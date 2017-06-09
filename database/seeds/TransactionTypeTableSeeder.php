@@ -17,19 +17,25 @@ class TransactionTypeTableSeeder extends Seeder
         		'id'              => '1',
         		'state'           => 'active',
         		'process_type_id' => '1',
-        		'executer'        => '1'
+        		'executer'        => '1',
+                'updated_by'      => '1',
+                'deleted_by'      => '1'
         	],
         	[
         		'id'              => '2',
         		'state'           => 'active',
         		'process_type_id' => '2',
-        		'executer'        => '2'
+        		'executer'        => '2',
+                'updated_by'      => '1',
+                'deleted_by'      => '1'
         	],
         	[
         		'id'              => '3',
         		'state'           => 'active',
         		'process_type_id' => '3',
-        		'executer'        => '3'
+        		'executer'        => '3',
+                'updated_by'      => '1',
+                'deleted_by'      => '1'
         	]
         ];
 

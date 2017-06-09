@@ -25,4 +25,14 @@ class PropAllowedValue extends Model
     public function propAllowedValueNames() {
         return $this->hasMany('App\PropAllowedValueName', 'prop_allowed_value_id', 'id');
     }
+
+    public function updatedBy() {
+
+        return $this->hasOne('App\Users', 'id', 'updated_by');
+    }
+
+    public function deletedBy() {
+
+        return $this->hasOne('App\Users', 'id', 'deleted_by');
+    }
 }

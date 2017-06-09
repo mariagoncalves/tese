@@ -14,16 +14,22 @@ class RoleHasActorTableSeeder extends Seeder
     {
         $dados = [
         	[
-        		'actor_id' => '1',
-        		'role_id'  => '1'
+        		'role_id'   => '1',
+        		'actor_id'   => '1',
+                'updated_by' => '1',
+                'deleted_by' => '1'
         	],
         	[
-        		'actor_id' => '2',
-        		'role_id'  => '2'
+        		'role_id'    => '2',
+        		'actor_id'   => '2',
+                'updated_by' => '1',
+                'deleted_by' => '1'
         	],
         	[
-        		'actor_id' => '3',
-        		'role_id'  => '3'
+        		'role_id'    => '3',
+        		'actor_id'   => '3',
+                'updated_by' => '1',
+                'deleted_by' => '1'
         	]
         ];
 

@@ -16,17 +16,23 @@ class CustomFormNameTableSeeder extends Seeder
         	[
         		'custom_form_id' => '1',
         		'language_id'    => '1',
-        		'name'           => 'Formulário de Cedência de Transporte'
+        		'name'           => 'Formulário de Cedência de Transporte',
+                'updated_by'     => '1',
+                'deleted_by'     => '1'
         	],
         	[
         		'custom_form_id' => '2',
         		'language_id'    => '1',
-        		'name'           => 'Formulário de Apoios'
+        		'name'           => 'Formulário de Apoios',
+                'updated_by'     => '1',
+                'deleted_by'     => '1'
         	],
         	[
         		'custom_form_id' => '3',
         		'language_id'    => '1',
-        		'name'           => 'Formulário de Concursos'
+        		'name'           => 'Formulário de Concursos',
+                'updated_by'     => '1',
+                'deleted_by'     => '1'
         	]
         ];
 

@@ -31,4 +31,14 @@ class CausalLink extends Model
     public function tState() {
         return $this->hasOne('App\TState', 'id', 't_state_id');
     }
+
+    public function updatedBy() {
+
+        return $this->hasOne('App\Users', 'id', 'updated_by');
+    }
+
+    public function deletedBy() {
+
+        return $this->hasOne('App\Users', 'id', 'deleted_by');
+    }
 }

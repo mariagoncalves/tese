@@ -16,16 +16,22 @@ class EntTypeNameTableSeeder extends Seeder
         	[
         		'ent_type_id' => '1',
         		'language_id' => '1',
-        		'name'        => 'Transporte'
+        		'name'        => 'Transporte',
+                'updated_by'  => '1',
+                'deleted_by'  => '1'
         	],
         	[	'ent_type_id' => '2',
         		'language_id' => '1',
-        		'name'        => 'Apoios'
+        		'name'        => 'Apoios',
+                'updated_by'  => '1',
+                'deleted_by'  => '1'
         	],
         	[
         		'ent_type_id' => '3',
         		'language_id' => '1',
-        		'name'        => 'Concurso'
+        		'name'        => 'Concurso',
+                'updated_by'  => '1',
+                'deleted_by'  => '1'
         	]
         ];
 

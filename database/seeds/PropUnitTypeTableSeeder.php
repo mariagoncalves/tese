@@ -1,7 +1,7 @@
 <?php
 
-use App\PropUnitType;
 use Illuminate\Database\Seeder;
+use App\PropUnitType;
 
 
 class PropUnitTypeTableSeeder extends Seeder
@@ -16,15 +16,21 @@ class PropUnitTypeTableSeeder extends Seeder
         $dados = [
         	[
         		'id'         => '1',
-        		'state'      => 'active'
+        		'state'      => 'active',
+                'updated_by' => '1',
+                'deleted_by' => '1'
         	],
         	[
         		'id'         => '2',
-        		'state'      => 'inactive'
+        		'state'      => 'inactive',
+                'updated_by' => '1',
+                'deleted_by' => '1'
         	],
         	[
         		'id'         => '3',
-        		'state'      => 'active'
+        		'state'      => 'active',
+                'updated_by' => '1',
+                'deleted_by' => '1'
         	]
         ];
 

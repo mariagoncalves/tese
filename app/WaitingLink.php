@@ -36,5 +36,15 @@ class WaitingLink extends Model
     public function waitedFact() {
         return $this->hasOne('App\TState', 'id', 'waited_fact');
     }
+
+    public function updatedBy() {
+
+        return $this->hasOne('App\Users', 'id', 'updated_by');
+    }
+
+    public function deletedBy() {
+
+        return $this->hasOne('App\Users', 'id', 'deleted_by');
+    }
     
 }
