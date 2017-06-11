@@ -56,16 +56,28 @@
             <table>
                 <tbody>
                     <tr>
-                        <td colspan="1">Inserir nova unidade:</td>
+                        <td>Inserir nova unidade:</td>
                         <td><input type="text" id ="name" name="name"/></td>
-                        <td><label class="error" for="nome"></label></td>
                         <td><input type="submit" name="submit" value ="Inserir tipo de unidade"/></td>
                     <tr>
+                    <?php
+                    if(isset($res)) {
+                        ?>
+                        @if ( count($res) > 0 )
+                            @foreach( $res as $key => $errors )
+                                @foreach($errors as $error)
+                                    <tr><td><label>{{ $error }}</label></td></tr>
+                                @endforeach
+                            @endforeach
+                        @endif
+                        <?php
+                    }
+                    ?>
                 </tbody>
             </table>
         </form>
         <?php
-        if(isset($res)) {
+        /*if(isset($res)) {
             ?>
             @if ( count($res) > 0 )
               <p>The following errors have occurred:</p>
@@ -82,7 +94,7 @@
               </ul>
             @endif
             <?php
-        }
+        }*/
         ?>
     </body>
 </html>

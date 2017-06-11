@@ -1,9 +1,9 @@
 <h3> Gestão de propriedades - Edição </h3>
 <form id="editProp" method="POST" action = "/propriedades/entidade/updateEntidade/{{$propriedade->id}}">
     {{ csrf_field() }}
-	<h3> Propriedade {{ $propriedade->name}} - Edição </h3>
+	<h3> Propriedade {{ $propriedade->propertiesNames->first()->name}} - Edição </h3>
 	<label>Nome da Propriedade:</label><br>
-	<input id="nome" type="text" name="nome_{{$propriedade->id}}" value="{{ $propriedade->name}}">
+	<input id="nome" type="text" name="nome_{{$propriedade->id}}" value="{{ $propriedade->propertiesNames->first()->name}}">
     <br><label class="error" for="nome_{{$propriedade->id}}"></label>
     <br>
     <label>Tipo de valor:</label><br>
@@ -31,9 +31,9 @@
         <option value="NULL"></option>';
         @foreach ($unidades as $unidade)
         	@if ($unidade->id == $propriedade->unit_type_id)
-        		<option value="{{$unidade->id}}" selected>{{$unidade->name}}</option>
+        		<option value="{{$unidade->id}}" selected>{{$unidade->unitsNames->first()->name}}</option>
         	@else
-        		<option value="{{$unidade->id}}">{{$unidade->name}}</option>
+        		<option value="{{$unidade->id}}">{{$unidade->unitsNames->first()->name}}</option>
         	@endif
         @endforeach
     </select>
@@ -59,9 +59,9 @@
         <option value="NULL"></option>
         @foreach ($entidades as $entidade)
         	@if ($entidade->id == $propriedade->fk_ent_type_id)
-        		<option value="{{$entidade->id}}" selected>{{$entidade->name}}</option>
+        		<option value="{{$entidade->id}}" selected>{{$entidade->entTypeNames->first()->name}}</option>
         	@else
-        		<option value="{{$entidade->id}}">{{$entidade->name}}</option>
+        		<option value="{{$entidade->id}}">{{$entidade->entTypeNames->first()->name}}</option>
         	@endif
         @endforeach
     </select>

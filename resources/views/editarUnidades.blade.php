@@ -18,12 +18,25 @@
             <br>
             <input type="text" id ="name" name="name" value = "{{$unidade->first()->unitsNames->first()->name }}"/>
             <br>
-            <label class="error" for="name"></label>
+            <?php
+                if(isset($res)) {
+                    ?>
+                    @if ( count($res) > 0 )
+                        @foreach( $res as $key => $errors )
+                            @foreach($errors as $error)
+                                <tr><td><label>{{ $error }}</label></td></tr>
+                                <br>
+                            @endforeach
+                        @endforeach
+                    @endif
+                    <?php
+                }
+                ?>
             <br>
             <input type="submit" name="submit" value ="Atualizar tipo de unidade"/>
         </form>
         <?php
-        if(isset($res)) {
+        /*if(isset($res)) {
             ?>
             @if ( count($res) > 0 )
               <p>The following errors have occurred:</p>
@@ -40,7 +53,7 @@
               </ul>
             @endif
             <?php
-        }
+        }*/
         ?>
     </body>
 </html>
