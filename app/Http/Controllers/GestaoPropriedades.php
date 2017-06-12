@@ -233,8 +233,8 @@ class GestaoPropriedades extends Controller
 
         $values_type_enum = Property::getValoresEnum('value_type');
         $form_field_types = Property::getValoresEnum('form_field_type');
-        $relacao = EntType::find($id);
-        $relacoes = EntType::all();
+        $relacao = RelType::find($id);
+        $relacoes = RelType::all();
         $unidades = PropUnitType::all();
 
         return view('introducaoPropsRel', compact('relacao', 'values_type_enum', 'form_field_types', 'unidades', 'relacoes'));
@@ -251,7 +251,7 @@ class GestaoPropriedades extends Controller
         $tamanho = $req->input('tamanho');
         $obrigatorio = $req->input('obrigatorio');
 
-        echo "O nome inserido foi: ".$name."<br>";
+        echo "O nome inserido foi: ".$name." e o id é: ".$rel_type_id."e o tipo de valor: ".$tipoValor."<br>";
 
         $data = array('rel_type_id'     => $rel_type_id,
                     'value_type'       => $tipoValor,

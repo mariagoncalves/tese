@@ -37,12 +37,12 @@ class GestaoUnidades extends Controller
     public function inserir(Request $req) {
 
         //die(print_r($req->all()));
-    	$errors = Validator::make($req->all(), ['name' => ['required', 'string' , Rule::unique('prop_unit_type_name' , 'name')->where('language_id', '1')]]);
+    	$erros = Validator::make($req->all(), ['name' => ['required', 'string' , Rule::unique('prop_unit_type_name' , 'name')->where('language_id', '1')]]);
 
-        if ($errors->fails()) {
+        if ($erros->fails()) {
             $unidades = PropUnitType::all();
-            //die($errors->errors());
-            $res = $errors->errors()->messages();
+            //die($erros->errors());
+            $res = $erros->errors()->messages();
             return view('homeUnidades', compact('res', 'unidades'));
         }
 

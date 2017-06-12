@@ -11,8 +11,7 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <!-- FALTA ALTERAR O NOME DA RELAÇÃO -->
-        <h3> Gestão de propriedades - Relacao {{$relacao->name}} - introdução </h3>
+        <h3> Gestão de propriedades - Relacao {{$relacao->relTypeNames->first()->name}} - introdução </h3>
         <form id="insertProp" method="post" action = "/propriedades/relacao/inserirPropsRel/{{$relacao->id}}">
             {{ csrf_field() }}
             <label>Nome da Propriedade:</label><br>

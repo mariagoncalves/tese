@@ -101,15 +101,4 @@ class Language extends Model
 
         return $this->hasOne('App\Users', 'id', 'deleted_by');
     }
-
-    public function updatedBy() {
-
-        return $this->hasOne('App\Users', 'id', 'updated_by');
-    }
-
-    public function deletedBy() {
-
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
-    }
-
 }
