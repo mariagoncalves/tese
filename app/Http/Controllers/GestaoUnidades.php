@@ -93,7 +93,7 @@ class GestaoUnidades extends Controller
 
         $errors = Validator::make($req->all(), $rules);
 
-         if ($errors->fails()) {
+        if ($errors->fails()) {
             $unidade = PropUnitType::with(['unitsNames' => function($query) {
                                     $query->where('language_id', '1');
                                 }])->where('id', $id)->get();

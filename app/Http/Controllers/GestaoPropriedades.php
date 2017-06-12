@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+//Bibliotecas para usar o validator
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\MessageBag;
+
 use Illuminate\Http\Request;
 use App\EntType;
 use App\Property;
+use App\PropertyName;
 use App\RelType;
 use App\PropUnitType;
+use App\PropUnitTypeName;
 use DB;
 
 
@@ -78,11 +85,6 @@ class GestaoPropriedades extends Controller
     	return view('editaPropsEnt', compact ('propriedade', 'propriedades', 'values_type_enum', 'form_field_types', 'unidades', 'entidades'));
     }
 
-    public function introducao($id) {
-
-		return view('introduzirProps');
-    }
-
     public function ativarRelacao($id) {
 
         $propriedades = Property::find($id);
@@ -106,8 +108,6 @@ class GestaoPropriedades extends Controller
         //$propriedades = Property::all();
         $propriedade = Property::find($id);
         $unidades = PropUnitType::all();
-        $relacoes = RelType::all();
-
 
         $values_type_enum = Property::getValoresEnum('value_type');
         $form_field_types = Property::getValoresEnum('form_field_type');
@@ -116,6 +116,19 @@ class GestaoPropriedades extends Controller
     }
 
     public function updateEntidade(Request $req, $id) {
+
+        $rules = ['nome_{{$propriedade->id}}' => ['required', 'string' , Rule::unique('property_name' , 'name')->where('language_id', '1')],
+                'tipoValor_{{ $propriedade->id}}' => ['required'],
+                'tipoCampo_{{ $propriedade->id}}' => ['required'],
+
+
+        ];
+
+        $errors = Validator::make($req->all(), $rules);
+
+        if ($errors->fails()) {
+
+        }
 
         $propriedade = Property::find($id);
 
@@ -189,7 +202,7 @@ class GestaoPropriedades extends Controller
     public function inserirPropsEnt(Request $req, $id) {
 
         $name = $req->input('nome');
-        $entity_id = $id;
+        $ent_type_id = $id;
         $tipoValor = $req->input('tipoValor');
         $tipoCampo = $req->input('tipoCampo');
         $tipoUnidade = $req->input('tipoUnidade');
@@ -200,7 +213,7 @@ class GestaoPropriedades extends Controller
         
 
         $data = array('name'           => $name,
-                    'ent_type_id'      => $entity_id,
+                    'ent_type_id'      => $ent_type_id,
                     'value_type'       => $tipoValor,
                     'form_field_type'  => $tipoCampo,
                     'unit_type_id'     => $tipoUnidade,
@@ -225,5 +238,39 @@ class GestaoPropriedades extends Controller
         $unidades = PropUnitType::all();
 
         return view('introducaoPropsRel', compact('relacao', 'values_type_enum', 'form_field_types', 'unidades', 'relacoes'));
+    }
+
+    public function inserirPropsRel(Request $req, $id) {
+
+        $name = $req->input('nome');
+        $rel_type_id = $id;
+        $tipoValor = $req->input('tipoValor');
+        $tipoCampo = $req->input('tipoCampo');
+        $tipoUnidade = $req->input('tipoUnidade');
+        $ordem = $req->input('ordem');
+        $tamanho = $req->input('tamanho');
+        $obrigatorio = $req->input('obrigatorio');
+
+        echo "O nome inserido foi: ".$name."<br>";
+
+        $data = array('rel_type_id'     => $rel_type_id,
+                    'value_type'       => $tipoValor,
+                    'form_field_type'  => $tipoCampo,
+                    'unit_type_id'     => $tipoUnidade,
+                    'form_field_order' => $ordem,
+                    'form_field_size'  => $tamanho,
+                    'mandatory'        => $obrigatorio
+            );
+
+        $prop = Property::create($data);
+        // pegar o id da nova propriedade inserida
+        $id = $prop->id;
+
+        // inserir o nome da propriedade
+        $dados = ['property_id' => $id, 'language_id' => 1, 'name' => $name];
+        PropertyName::create($dados);
+
+        //DB::table('property')->insert($data);
+        return redirect('/propriedades/relacao');
     }
 }

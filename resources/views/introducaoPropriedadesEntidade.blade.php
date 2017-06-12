@@ -11,7 +11,7 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <h3> Gestão de propriedades - Entidade {{$entidade->name}} - introdução </h3>
+        <h3> Gestão de propriedades - Entidade {{$entidade->entTypeNames->first()->name}} - introdução </h3>
         <form id="insertProp" method="post" action = "/propriedades/entidade/inserirPropsEnt/{{$entidade->id}}">
             {{ csrf_field() }}
             <label>Nome da Propriedade:</label><br>
@@ -34,7 +34,7 @@
             <select id="tipoUnidade" name="tipoUnidade">
                 <option value="NULL"></option>'
                 @foreach ($unidades as $unidade)
-                    <option value="{{$unidade->id}}">{{$unidade->name}}</option>
+                    <option value="{{$unidade->id}}">{{$unidade->unitsNames->first()->name}}</option>
                 @endforeach
             </select>
             <br><br>
@@ -55,7 +55,7 @@
             <select id="entidadeReferenciada" name="entidadeReferenciada">
                 <option value="NULL"></option>
                 @foreach ($entidades as $ent)
-                    <option value="{{$ent->id}}">{{$ent->name}}</option>
+                    <option value="{{$ent->id}}">{{$ent->entTypeNames->first()->name}}</option>
                 @endforeach
             </select>
             <br><br>

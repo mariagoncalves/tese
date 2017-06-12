@@ -11,6 +11,7 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     </head>
     <body>
+        <!-- FALTA ALTERAR O NOME DA RELAÇÃO -->
         <h3> Gestão de propriedades - Relacao {{$relacao->name}} - introdução </h3>
         <form id="insertProp" method="post" action = "/propriedades/relacao/inserirPropsRel/{{$relacao->id}}">
             {{ csrf_field() }}
@@ -34,7 +35,7 @@
             <select id="tipoUnidade" name="tipoUnidade">
                 <option value="NULL"></option>'
                 @foreach ($unidades as $unidade)
-                    <option value="{{$unidade->id}}">{{$unidade->name}}</option>
+                    <option value="{{$unidade->id}}">{{$unidade->unitsNames->first()->name}}</option>
                 @endforeach
             </select>
             <br><br>

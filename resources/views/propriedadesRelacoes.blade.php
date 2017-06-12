@@ -23,60 +23,59 @@
         <br>
         <br>
         <table class="table" border = "2px">
-        <thead>
-            <tr>
-                <th>Relação</th>
-                <th>ID</th>
-                <th>Propriedade</th>
-                <th>Tipo de valor</th>
-                <th>Nome do campo no formulário</th>
-                <th>Tipo do campo no formulário</th>
-                <th>Tipo de unidade</th>
-                <th>Ordem do campo no formulário</th>
-                <th>Tamanho do campo no formulário</th>
-                <th>Obrigatório</th>
-                <th>Estado</th>
-                <th>Ação sobre a propriedade</th>
-                <th>Ação sobre a relação</th>  
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($relacoes as $relacao)
+            <thead>
                 <tr>
-                    <td rowspan="{{count($relacao->properties)}}"> {{$relacao->name}} </td>
-                    @if (count($relacao->properties) == 0)
-                        <td colspan="11"> Esta relacao ainda não possui quaisquer propriedades. </td>
-                        <td rowspan=""> <a href = ""> [Inserir propriedades] </a> </td>
-                    @endif
-
-                    @foreach ($relacao->properties as $prop)
-                        <td> {{$prop->id}} </td>
-                        <td> {{$prop->name}} </td>
-                        <td> {{$prop->value_type}} </td>
-                        <td> {{$prop->form_field_name}} </td>
-                        <td> {{$prop->form_field_type}} </td>
-                         @if (is_null($prop->unit_type_id))
-                            <td> - </td>
-                        @else
-                            
-                                <td> {{ $prop->units->name }} </td>
-                           
+                    <th>Relação</th>
+                    <th>ID</th>
+                    <th>Propriedade</th>
+                    <th>Tipo de valor</th>
+                    <th>Nome do campo no formulário</th>
+                    <th>Tipo do campo no formulário</th>
+                    <th>Tipo de unidade</th>
+                    <th>Ordem do campo no formulário</th>
+                    <th>Tamanho do campo no formulário</th>
+                    <th>Obrigatório</th>
+                    <th>Estado</th>
+                    <th>Ação sobre a propriedade</th>
+                    <th>Ação sobre a relação</th>  
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($relacoes as $relacao)
+                    <tr>
+                        <td rowspan="{{count($relacao->properties)}}"> {{$relacao->relTypeNames->first()->name}} </td>
+                        @if (count($relacao->properties) == 0)
+                            <td colspan="11"> Esta relacao ainda não possui quaisquer propriedades. </td>
+                            <td rowspan=""> <a href = "/propriedades/relacao/introducaoRelacoes/{{$relacao->id}}"> [Inserir propriedades] </a> </td>
                         @endif
-                        <td> {{$prop->form_field_order}} </td>
-                        <td> {{$prop->form_field_size}} </td>
-                        <td> {{$prop->mandatory == '1' ? 'Sim' : 'Não'}} </td>
-                        <td> {{$prop->state == 'active' ? 'Ativo' : 'Inativo'}} </td>
-                        <td> 
-                            <a href="{{ $prop->state == 'active' ? '/propriedades/relacao/desativar/'.$prop->id : '/propriedades/relacao/ativar/'.$prop->id}}"> {{ $prop->state == 'active' ? '[Desativar]' : '[Ativar]'}} </a>
-                            <a href="">[Histórico]</a>
-                        </td>
-                        <td rowspan="">
-                            <a href="/propriedades/relacao/editar/{{$prop->id}}">[Editar propriedades]</a>
-                            <a href="/propriedades/relacao/introducaoRelacoes/{{$prop->id}}">[Inserir propriedades]</a>
-                        </td>
-                    </tr>
-                    @endforeach
-            @endforeach
 
-        </body>
+                        @foreach ($relacao->properties as $prop)
+                            <td> {{$prop->id}} </td>
+                            <td> {{$prop->propertiesNames->first()->name}} </td>
+                            <td> {{$prop->value_type}} </td>
+                            <td> {{$prop->propertiesNames->first()->form_field_name}} </td>
+                            <td> {{$prop->form_field_type}} </td>
+                            @if (is_null($prop->unit_type_id))
+                                <td> - </td>
+                            @else
+                                <td> {{ $prop->units->unitsNames->first()->name }} </td>
+                            @endif
+                            <td> {{$prop->form_field_order}} </td>
+                            <td> {{$prop->form_field_size}} </td>
+                            <td> {{$prop->mandatory == '1' ? 'Sim' : 'Não'}} </td>
+                            <td> {{$prop->state == 'active' ? 'Ativo' : 'Inativo'}} </td>
+                            <td> 
+                                <a href="{{ $prop->state == 'active' ? '/propriedades/relacao/desativar/'.$prop->id : '/propriedades/relacao/ativar/'.$prop->id}}"> {{ $prop->state == 'active' ? '[Desativar]' : '[Ativar]'}} </a>
+                                <a href="">[Histórico]</a>
+                            </td>
+                            <td rowspan="">
+                                <a href="/propriedades/relacao/editar/{{$prop->id}}">[Editar propriedades]</a>
+                                <a href="/propriedades/relacao/introducaoRelacoes/{{$relacao->id}}">[Inserir propriedades]</a>
+                            </td>
+                        </tr>
+                        @endforeach
+                @endforeach
+            </tbody>
+        </table>
+    </body>
 </html>

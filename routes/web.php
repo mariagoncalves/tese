@@ -85,3 +85,4 @@ Route::get('/propriedades/relacao/ativar/{id}', 'GestaoPropriedades@ativarRelaca
 Route::get('/propriedades/relacao/editar/{id}', 'GestaoPropriedades@editarRelacao');
 Route::post('/propriedades/relacao/updateRelacao/{id}', 'GestaoPropriedades@updateRelacao');
 Route::get('/propriedades/relacao/introducaoRelacoes/{id}', 'GestaoPropriedades@introducaoPropsRel');
+Route::post('/propriedades/relacao/inserirPropsRel/{id}', 'GestaoPropriedades@inserirPropsRel');

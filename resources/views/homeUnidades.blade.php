@@ -60,41 +60,21 @@
                         <td><input type="text" id ="name" name="name"/></td>
                         <td><input type="submit" name="submit" value ="Inserir tipo de unidade"/></td>
                     <tr>
-                    <?php
-                    if(isset($res)) {
-                        ?>
-                        @if ( count($res) > 0 )
-                            @foreach( $res as $key => $errors )
-                                @foreach($errors as $error)
-                                    <tr><td><label>{{ $error }}</label></td></tr>
-                                @endforeach
-                            @endforeach
-                        @endif
-                        <?php
-                    }
-                    ?>
                 </tbody>
             </table>
         </form>
         <?php
-        /*if(isset($res)) {
+        if(isset($res)) {
             ?>
             @if ( count($res) > 0 )
-              <p>The following errors have occurred:</p>
-
-              <ul>
                 @foreach( $res as $key => $errors )
-                    <li>{{ $key }}</li>
-                    <ul>
-                        @foreach($errors as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+                    @foreach($errors as $error)
+                        <tr><td><label>{{ $error }}</label></td></tr>
+                    @endforeach
                 @endforeach
-              </ul>
             @endif
             <?php
-        }*/
+        }
         ?>
     </body>
 </html>
