@@ -201,6 +201,8 @@ class GestaoPropriedades extends Controller
 
     public function inserirPropsEnt(Request $req, $id) {
 
+
+
         $name = $req->input('nome');
         $ent_type_id = $id;
         $tipoValor = $req->input('tipoValor');
@@ -241,6 +243,39 @@ class GestaoPropriedades extends Controller
     }
 
     public function inserirPropsRel(Request $req, $id) {
+        $dados = $req->all();
+
+        $regraTipoCampo = '';
+        if ($dados["tipoCampo"] === "text") {
+            $regraTipoCampo = 'required|integer';
+        } else if ($dados["tipoCampo"] === "textbox") {
+            $regraTipoCampo = 'required|regex:[[0-9]{2}x[0-9]{2}]';
+        }
+
+        $regras = [
+            'nome' => ['required', 'string'],
+            'tipoValor' => ['required'],
+            'tipoCampo' => ['required'],
+            'obrigatorio' => ['required'],
+            'ordem' => ['required','integer','min:1'],
+            'tipoCampo' => ['required'],
+            'tamanho'   => $regraTipoCampo
+        ];
+
+        $erros = Validator::make($dados, $regras);
+
+        if($erros->fails()) {
+            $values_type_enum = Property::getValoresEnum('value_type');
+            $form_field_types = Property::getValoresEnum('form_field_type');
+            $relacao = RelType::find($id);
+            $relacoes = RelType::all();
+            $unidades = PropUnitType::all();
+
+            $resultado = $erros->errors()->messages();
+            //dd($resultado);
+
+            return view('introducaoPropsRel', compact('resultado', 'relacao', 'values_type_enum', 'form_field_types', 'unidades', 'relacoes'));
+        } 
 
         $name = $req->input('nome');
         $rel_type_id = $id;
@@ -253,7 +288,7 @@ class GestaoPropriedades extends Controller
 
         echo "O nome inserido foi: ".$name." e o id é: ".$rel_type_id."e o tipo de valor: ".$tipoValor."<br>";
 
-        $data = array('rel_type_id'     => $rel_type_id,
+        /*$data = array('rel_type_id'     => $rel_type_id,
                     'value_type'       => $tipoValor,
                     'form_field_type'  => $tipoCampo,
                     'unit_type_id'     => $tipoUnidade,
@@ -271,6 +306,6 @@ class GestaoPropriedades extends Controller
         PropertyName::create($dados);
 
         //DB::table('property')->insert($data);
-        return redirect('/propriedades/relacao');
+        return redirect('/propriedades/relacao');*/
     }
 }

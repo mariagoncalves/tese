@@ -11,12 +11,17 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <h3> Gestão de propriedades - Relacao {{$relacao->relTypeNames->first()->name}} - introdução </h3>
+        <h3> Gestão de propriedades - Relacao {{ $relacao->relTypeNames->first()->name }} - introdução </h3>
         <form id="insertProp" method="post" action = "/propriedades/relacao/inserirPropsRel/{{$relacao->id}}">
             {{ csrf_field() }}
             <label>Nome da Propriedade:</label><br>
             <input id="nome" type="text" name="nome">
-            <br><label class="error" for="nome"></label>
+            <br>
+            <label class="error" for="nome">
+                @if(isset($resultado['nome']))
+                    {{ $resultado['nome'][0] }}
+                @endif
+            </label>
             <br>
             <label>Tipo de valor:</label><br>
             @foreach ($values_type_enum as $value_type)
