@@ -16,25 +16,35 @@
             {{ csrf_field() }}
             <label>Nome da Propriedade:</label><br>
             <input id="nome" type="text" name="nome">
-            <br>
-            <label class="error" for="nome">
+            <br><br>
+            <label style="color:red" class="error" for="nome">
                 @if(isset($resultado['nome']))
                     {{ $resultado['nome'][0] }}
                 @endif
             </label>
             <br>
+            <br>
             <label>Tipo de valor:</label><br>
             @foreach ($values_type_enum as $value_type)
                 <input id="tipoValor" type="radio" name="tipoValor" value="{{$value_type}}">{{$value_type}}<br>
             @endforeach
-            <label class="error" for="tipoValor"></label>
             <br>
+            <label style="color:red" class="error" for="tipoValor">
+                @if(isset($resultado['tipoValor']))
+                    {{ $resultado['tipoValor'][0] }}
+                @endif
+            </label>
+            <br><br>
             <label>Tipo do campo do formulário</label><br>
             @foreach ($form_field_types as $value)
                 <input id="tipoCampo" type="radio" name="tipoCampo" value="{{$value}}">{{$value}}<br>
             @endforeach
-            <label class="error" for="tipoCampo"></label>
-            <br>
+            <br><label style="color:red" class="error" for="tipoCampo">
+                @if(isset($resultado['tipoCampo']))
+                    {{ $resultado['tipoCampo'][0] }}
+                @endif
+            </label>
+            <br><br>
             <label>Tipo de unidade</label><br>
             <select id="tipoUnidade" name="tipoUnidade">
                 <option value="NULL"></option>'
@@ -45,17 +55,29 @@
             <br><br>
             <label class="error" for="tipoUnidade"></label>
             <label>Ordem do campo no formulário</label><br>
-            <input id="ordem" type="text" name="ordem" min="1"><br>
-            <label class="error" for="ordem"></label><br>
+            <input id="ordem" type="text" name="ordem" min="1"><br><br>
+            <label style="color:red" class="error" for="ordem">
+                @if(isset($resultado['ordem']))
+                    {{ $resultado['ordem'][0] }}
+                @endif
+            </label><br><br>
             <label>Tamanho do campo no formulário</label><br>
-            <input id="size" type="text" name="tamanho"><br>
-            <label id="errTam"></label><br>
+            <input id="size" type="text" name="tamanho"><br><br>
+            <label style="color:red" id="errTam">
+                @if(isset($resultado['tamanho']))
+                    {{ $resultado['tamanho'][0] }}
+                @endif
+            </label><br><br>
             <label>Obrigatório</label><br>
             <input id="obrigatorio" type="radio" name="obrigatorio" value="1">Sim
             <br>
             <input id="obrigatorio" type="radio" name="obrigatorio" value="0">Não
-            <br>
-            <label class="error" for="obrigatorio"></label><br>
+            <br><br>
+            <label style="color:red" class="error" for="obrigatorio">
+                @if(isset($resultado['obrigatorio']))
+                    {{ $resultado['obrigatorio'][0] }}
+                @endif
+            </label><br>
             <br>
             <input type="submit" value="Inserir Relação">
         </form>

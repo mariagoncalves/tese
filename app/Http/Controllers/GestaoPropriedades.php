@@ -126,9 +126,9 @@ class GestaoPropriedades extends Controller
 
         $errors = Validator::make($req->all(), $rules);
 
-        if ($errors->fails()) {
+        /*if ($errors->fails()) {
 
-        }
+        }*/
 
         $propriedade = Property::find($id);
 
@@ -201,21 +201,78 @@ class GestaoPropriedades extends Controller
 
     public function inserirPropsEnt(Request $req, $id) {
 
+        $dados = $req->all();
+        //dd( $dados);
 
+        $regraTipoCampo = '';
+        if(isset($dados["tipoCampo"])) {
+            if ($dados["tipoCampo"] === "text") {
+                $regraTipoCampo = 'required|integer';
+            } else if ($dados["tipoCampo"] === "textbox") {
+                $regraTipoCampo = 'required|regex:[[0-9]{2}x[0-9]{2}]';
+            }
+        }
+
+        $regras = [
+            'nome' => ['required', 'string'],
+            'tipoValor' => ['required'],
+            'tipoCampo' => ['required'],
+            'obrigatorio' => ['required'],
+            'ordem' => ['required','integer','min:1'],
+            'tipoCampo' => ['required'],
+            'tamanho'   => $regraTipoCampo
+        ];
+
+        $erros = Validator::make($dados, $regras);
+
+        if($erros->fails()) {
+            $values_type_enum = Property::getValoresEnum('value_type');
+            $form_field_types = Property::getValoresEnum('form_field_type');
+            $entidade = EntType::find($id);
+            $entidades = EntType::all();
+            $unidades = PropUnitType::all();
+
+            $resultado = $erros->errors()->messages();
+            //dd($resultado);
+
+            return view('introducaoPropriedadesEntidade', compact('resultado', 'entidade', 'values_type_enum', 'form_field_types', 'unidades', 'entidades'));
+        } 
 
         $name = $req->input('nome');
         $ent_type_id = $id;
         $tipoValor = $req->input('tipoValor');
         $tipoCampo = $req->input('tipoCampo');
-        $tipoUnidade = $req->input('tipoUnidade');
+        if(isset($tipoUnidade)) {
+            $tipoUnidade = $req->input('tipoUnidade');
+        } else {
+            $tipoUnidade = NULL;
+        }
         $ordem = $req->input('ordem');
         $tamanho = $req->input('tamanho');
         $obrigatorio = $req->input('obrigatorio');
-        $entidadeReferenciada = $req->input('entidadeReferenciada');
-        
+        if(isset($entidadeReferenciada)) {
+            $entidadeReferenciada = $req->input('entidadeReferenciada');
+        } else {
+            $entidadeReferenciada = NULL;
+        }
 
-        $data = array('name'           => $name,
-                    'ent_type_id'      => $ent_type_id,
+        //echo "O nome inserido foi: ".$name." e o id é: ".$rel_type_id."e o tipo de valor: ".$tipoValor."<br>";
+
+        //Criar o form_field_name
+        //Obter o nome da relação onde a propriedade vai ser inserida
+        $entidade = EntType::find($id);
+        $nomeEntidade= $entidade->entTypeNames->first()->name;
+        //dd($nomeRelacao);
+        $ent = substr($nomeEntidade, 0 , 3);
+        $traco = '-';
+        $nomeField = preg_replace('/[^a-z0-9_ ]/i', '', $name);
+        // Substituimos todos pos espaços por underscore
+        $nomeField = str_replace(' ', '_', $nomeField);
+        $form_field_name = $ent.$traco.$id.$traco.$nomeField;
+        //dd($form_field_name);
+
+
+        $data = array('ent_type_id'     => $ent_type_id,
                     'value_type'       => $tipoValor,
                     'form_field_type'  => $tipoCampo,
                     'unit_type_id'     => $tipoUnidade,
@@ -225,7 +282,15 @@ class GestaoPropriedades extends Controller
                     'fk_ent_type_id'   => $entidadeReferenciada
             );
 
-        DB::table('property')->insert($data);
+        $prop = Property::create($data);
+        // pegar o id da nova propriedade inserida
+        $id = $prop->id;
+
+        // inserir o nome da propriedade e o nome do campo form_field_name
+        $dados = ['property_id' => $id, 'language_id' => 1, 'name' => $name, 'form_field_name' => $form_field_name];
+        PropertyName::create($dados);
+
+        //DB::table('property')->insert($data);
         return redirect('/propriedades/entidade');
     }
 
@@ -244,12 +309,15 @@ class GestaoPropriedades extends Controller
 
     public function inserirPropsRel(Request $req, $id) {
         $dados = $req->all();
+        //dd( $dados);
 
         $regraTipoCampo = '';
-        if ($dados["tipoCampo"] === "text") {
-            $regraTipoCampo = 'required|integer';
-        } else if ($dados["tipoCampo"] === "textbox") {
-            $regraTipoCampo = 'required|regex:[[0-9]{2}x[0-9]{2}]';
+        if(isset($dados["tipoCampo"])) {
+            if ($dados["tipoCampo"] === "text") {
+                $regraTipoCampo = 'required|integer';
+            } else if ($dados["tipoCampo"] === "textbox") {
+                $regraTipoCampo = 'required|regex:[[0-9]{2}x[0-9]{2}]';
+            }
         }
 
         $regras = [
@@ -281,31 +349,64 @@ class GestaoPropriedades extends Controller
         $rel_type_id = $id;
         $tipoValor = $req->input('tipoValor');
         $tipoCampo = $req->input('tipoCampo');
-        $tipoUnidade = $req->input('tipoUnidade');
+        if(isset($tipoUnidade)) {
+            $tipoUnidade = $req->input('tipoUnidade');
+        } else {
+            $tipoUnidade = NULL;
+        }
+       
         $ordem = $req->input('ordem');
         $tamanho = $req->input('tamanho');
         $obrigatorio = $req->input('obrigatorio');
 
-        echo "O nome inserido foi: ".$name." e o id é: ".$rel_type_id."e o tipo de valor: ".$tipoValor."<br>";
+        //echo "O nome inserido foi: ".$name." e o id é: ".$rel_type_id."e o tipo de valor: ".$tipoValor."<br>";
 
-        /*$data = array('rel_type_id'     => $rel_type_id,
+        //Criar o form_field_name
+        //Obter o nome da relação onde a propriedade vai ser inserida
+        $relacao = RelType::find($id);
+        $nomeRelacao = $relacao->relTypeNames->first()->name;
+        //dd($nomeRelacao);
+        $rel = substr($nomeRelacao, 0 , 3);
+        $traco = '-';
+        $nomeField = preg_replace('/[^a-z0-9_ ]/i', '', $name);
+        // Substituimos todos pos espaços por underscore
+        $nomeField = str_replace(' ', '_', $nomeField);
+        $form_field_name = $rel.$traco.$id.$traco.$nomeField;
+        //dd($form_field_name);
+
+
+        $data = array('rel_type_id'     => $rel_type_id,
                     'value_type'       => $tipoValor,
                     'form_field_type'  => $tipoCampo,
                     'unit_type_id'     => $tipoUnidade,
                     'form_field_order' => $ordem,
                     'form_field_size'  => $tamanho,
-                    'mandatory'        => $obrigatorio
+                    'mandatory'        => $obrigatorio,
             );
 
         $prop = Property::create($data);
         // pegar o id da nova propriedade inserida
         $id = $prop->id;
 
-        // inserir o nome da propriedade
-        $dados = ['property_id' => $id, 'language_id' => 1, 'name' => $name];
+        /*//Criar o form_field_name
+        //Obter o nome da relação onde a propriedade vai ser inserida
+        $relacao = RelType::find($id);
+        $nomeRelacao = $relacao->relTypeNames->first()->name;
+        //dd($nomeRelacao);
+        //Obter as primeiras 3 letras do nome da relação
+        $rel = substr($nomeRelacao, 0 , 3);
+        $traco = '-';
+         // Substituimos todos os carateres por carateres ASCII
+        $nomeField = preg_replace('/[^a-z0-9_ ]/i', '', $name);
+        // Substituimos todos pos espaços por underscore
+        $nomeField = str_replace(' ', '_', $nomeField);
+        $form_field_name = $rel.$traco.$id.$traco.$nomeField;*/
+
+        // inserir o nome da propriedade e o nome do campo form_field_name
+        $dados = ['property_id' => $id, 'language_id' => 1, 'name' => $name, 'form_field_name' => $form_field_name];
         PropertyName::create($dados);
 
         //DB::table('property')->insert($data);
-        return redirect('/propriedades/relacao');*/
+        return redirect('/propriedades/relacao');
     }
 }
