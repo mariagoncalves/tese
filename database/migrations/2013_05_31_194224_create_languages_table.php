@@ -18,6 +18,7 @@ class CreateLanguagesTable extends Migration
             $table->string('name', 100)->nullable;
             $table->string('slug', 5)->nullable;
             //$table->increments('id');
+            $table->enum('state', ['active', 'inactive']);
             $table->integer('updated_by')->nullable()->unsigned();
             $table->integer('deleted_by')->nullable()->unsigned();
             $table->timestamps();

@@ -17,22 +17,22 @@ class UsersTableSeeder extends Seeder
                 'id'        => '1',
         		'name'      => 'Maria',
         		'email'     => 'maria@gmail.com',
-        		'password'  => '12345',
-        		'user_name' => 'maria'
+        		'password'  => bcrypt('1234567')
+        		//'user_name' => 'maria'
         	],
         	[	
                 'id'        => '2',
                 'name'      => 'Jéssica',
         		'email'     => 'jessica@gmail.com',
-        		'password'  => '12345',
-        		'user_name' => 'jessica'
+        		'password'  => bcrypt('1234567')
+        		//'user_name' => 'jessica'
         	],
         	[	
                 'id'        => '3',
                 'name'      => 'José',
         		'email'     => 'jose@gmail.com',
-        		'password'  => '12345',
-        		'user_name' => 'jose'
+        		'password'  => bcrypt('1234567')
+        		//'user_name' => 'jose'
         	]
         ];
 

@@ -1,4 +1,4 @@
-<h3> Gestão de propriedades - Edição </h3>
+<h3> {{trans("messages.titulo1") }} </h3>
 <form id="editProp" method="POST" action = "/propriedades/entidade/updateEntidade/{{$propriedade->id}}">
     {{ csrf_field() }}
 	<h3> Propriedade {{ $propriedade->propertiesNames->first()->name}} - Edição </h3>

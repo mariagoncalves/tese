@@ -50,6 +50,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/dashboard', 'HomeController@dash');
+
 //Rota que quando for digitado no url http://localhost:8000/formulários, vai chamar o controlador GestaoFormularios e vai para o método index. 
 Route::get('/formularios', 'GestaoFormularios@show');
 Route::get('/formularios/editar/{id}', 'GestaoFormularios@editar');
@@ -86,3 +88,37 @@ Route::get('/propriedades/relacao/editar/{id}', 'GestaoPropriedades@editarRelaca
 Route::post('/propriedades/relacao/updateRelacao/{id}', 'GestaoPropriedades@updateRelacao');
 Route::get('/propriedades/relacao/introducaoRelacoes/{id}', 'GestaoPropriedades@introducaoPropsRel');
 Route::post('/propriedades/relacao/inserirPropsRel/{id}', 'GestaoPropriedades@inserirPropsRel');
+
+
+//Tipo entidades
+Route::get('/entityTypesManage', 'EntTypes@index');
+Route::get('/ents_types/get_ents_types/{id?}','EntTypes@getAll');
+Route::post('/Entity_Type', 'EntTypes@insert');
+Route::get('/ents_types/get_enttypes', 'EntTypes@getAllEntTypes');
+Route::get('/ents_types/get_transacs_types', 'EntTypes@getAllTransactionTypes');
+Route::get('/ents_types/get_tstates', 'EntTypes@getAllTStates');
+
+
+
+//Prop_unit_type
+Route::get('/propUnitTypeManage/', 'PropUnitTypes@index');
+Route::get('/prop_unit_types/get_unit', 'PropUnitTypes@getAll');
+Route::get('/prop_unit_types/get_unit/{id?}', 'PropUnitTypes@getAll');
+
+Route::post('/Prop_Unit_Type', 'PropUnitTypes@insert');
+Route::post('/Prop_Unit_Type/{id?}', 'PropUnitTypes@update');
+
+
+//Properties Home Page
+Route::get('/propertiesManage/', 'PropertiesManagment@index');
+
+
+//Properties Of Entities
+Route::get('/propertiesManage/entity', 'PropertiesManagment@getAllPropertiesOfEntities');
+//Route::get('/propertiesManage/entity', 'EntTypes@insert');
+
+
+
+
+//Properties Of Relations
+Route::get('/propertiesManage/relation', 'PropertiesManagment@getAllPropertiesOfRelations');
