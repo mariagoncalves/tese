@@ -116,6 +116,7 @@ Route::get('/propertiesManage/', 'PropertiesManagment@index');
 Route::get('/propertiesManage/entity', 'PropertiesManagment@getAllPropertiesOfEntities');
 //Route::get('/propertiesManage/entity', 'EntTypes@insert');
 Route::get('/properties/get_props_ents', 'PropertiesManagment@getAll');
+Route::get('/properties/states', 'PropertiesManagment@getStates');
 
 
 

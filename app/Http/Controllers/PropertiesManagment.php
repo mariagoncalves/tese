@@ -19,7 +19,6 @@ class PropertiesManagment extends Controller {
     }
 
     public function getAll($id = null) {
-
         $language_id = '1';
 
     	$entidades = EntType::with('properties.propertiesNames')
@@ -33,5 +32,10 @@ class PropertiesManagment extends Controller {
 
         return response()->json($entidades); 
 
+    }
+
+    public function getStates() {
+        $states = Property::getValoresEnum('state');
+        return response()->json($states); 
     }
 }

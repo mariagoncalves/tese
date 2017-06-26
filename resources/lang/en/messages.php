@@ -21,4 +21,6 @@ return [
 	'state' => 'State',
 	'updated_on' => 'Updated',
 	'addProperties' => 'Add Properties',
+	'active' => 'Active',
+	'inactive' => 'Inactive',
 ];

@@ -28,7 +28,7 @@
                 <td rowspan="[[ entity.properties.length + 1 ]] " ng-if="entity.properties[$index - 1].ent_type_id != entity.id">[[ entity.ent_type_names[0].name ]] </td>
 
                 <td ng-if="entity.properties.length == 0" colspan="11">Não tem propriedades.</td>
-                <td ng-if="entity.properties.length == 0" colspan="1s">
+                <td ng-if="entity.properties.length == 0" colspan="1">
                     <button class="btn btn-default btn-xs btn-detail">Inserir</button>
                     <button class="btn btn-danger btn-xs btn-delete">Histórico</button>
                 </td>
@@ -68,23 +68,30 @@
                         <form name="frmUnitTypes" class="form-horizontal" novalidate="">
 
                             <div class="form-group">
-                                <label for="inputName" class="col-sm-3 control-label">Name</label>
+                                <label for="entityType" class="col-sm-3 control-label">Entity Type:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="prop_unit_type_name" name="prop_unit_type_name" placeholder="" value="@]]name]]"
-                                           ng-model="propUnitType.language[0].pivot.name" ng-required="true">
-                                    <span class="help-inline"
-                                          ng-show="frmUnitTypes.contact_number.$invalid && frmUnitTypes.prop_unit_type_name.$touched">Name field is required</span>
+                                    <select class="form-control" >
+                                        <option value=""></option>
+                                        <option ng-repeat="entity in entities" ng-value="entity.id">[[ entity.ent_type_names[0].name ]]</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
+                                <label for="inputName" class="col-sm-3 control-label">Property:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="prop_unit_type_name" name="prop_unit_type_name" placeholder="" value="@]]name]]"
+                                           ng-model="propUnitType.language[0].pivot.name" ng-required="true">
+                                    <span class="help-inline"
+                                          ng-show="frmUnitTypes.contact_number.$invalid && frmUnitTypes.prop_unit_type_name.$touched">Property field is required</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-init="getStates()">
                                 <label for="Gender" class="col-sm-3 control-label">State:</label>
                                 <div class="col-sm-9">
-                                    <label for="" class="radio-inline state">
-                                        <input type="radio" name="prop_unit_type_state" value="active" ng-model="propUnitType.state" required>Active
-                                    </label>
-                                    <label for="" class="radio-inline state">
-                                        <input type="radio" name="prop_unit_type_state" value="inactive" ng-model="propUnitType.state" required>Inactive
+                                    <label class="radio-inline state" ng-repeat="state in states">
+                                        <input type="radio" name="prop_unit_type_state" value="active" required>[[ state ]]
                                     </label>
                                     <span class="help-inline"
                                           ng-show="frmUnitTypes.position.$invalid && frmUnitTypes.position.$touched">State field is required</span>

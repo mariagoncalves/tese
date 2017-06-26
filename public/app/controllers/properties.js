@@ -1,6 +1,7 @@
 app.controller('propertiesManagmentControllerJs', function($scope, $http, growl, API_URL) {
 
 	$scope.entities = [];
+    $scope.states   = [];
     $scope.totalPages = 0;
     $scope.currentPage = 1;
     $scope.range = [];
@@ -32,13 +33,21 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         });
     };
 
+    $scope.getStates = function() {
+        //Estado das propriedades
+        $http.get('/properties/states').then(function(response) {
+            $scope.states = response.data;
+            console.log($scope.states);
+        });
+    };
+
     $scope.toggle = function(modalstate, id) {
         $scope.modalstate = modalstate;
 
         switch (modalstate) {
             case 'add':
                 $scope.id = id;
-                $scope.form_title = "Adicionar Novo Tipo de Transacção";
+                $scope.form_title = "Adicionar Nova Propriedade";
                 break;
             case 'edit':
                 $scope.form_title = "Detalhes do Tipo de Transacção";
