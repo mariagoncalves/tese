@@ -23,54 +23,38 @@
             </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="entity in entities">
-                    <td> [[ entity.ent_type_names[0].name ]] </td>
-                    <td> [[ entity.properties[0].id ]] </td>
-                    <td> [[ entity.properties[0].name ]]</td>
-                    <td> [[ entity.properties[0].value_type ]] </td>
-                    <td> [[ entity.properties[0].form_field_name ]] </td>
-                    <td> [[ entity.properties[0].form_field_type ]] </td>
-                    <td> [[ entity.properties[0].unit_type_id ]] </td>
-                    <td> [[ entity.properties[0].form_field_order ]] </td>
-                    <td> [[ entity.properties[0].form_field_size ]] </td>
-                    <td> [[ entity.properties[0].mandatory ]] </td>
-                    <td> [[ entity.properties[0].state ]] </td>
-                    <td> updated </td>
-                    <td> boatao </td>
-                </tr>
-                
+                <tr ng-repeat-start="entity in entities" ng-if="false" ng-init="innerIndex = $index"></tr>
 
+                <td rowspan="[[ entity.properties.length + 1 ]] " ng-if="entity.properties[$index - 1].ent_type_id != entity.id">[[ entity.ent_type_names[0].name ]] </td>
 
-                <!-- <tr ng-repeat-start="entity in entities" ng-if="false"></tr>
-                <tr ng-repeat="property in entity.properties">
-                    <th ng-if="$first" rowspan="[[ entity.properties.length ]]">[[ entity.ent_type_names[0].name ]]</th>
-                    <td>[[ property.id ]]</td>
-                    <td>[[ property.id ]]</td>
-                </tr>
-                <tr ng-repeat-end ng-if="false"></tr> --> <!-- entities -->
-
-
-            <!-- <tr ng-repeat="entity in entities">
-                <td>[[ entity.ent_type_names[0].name ]]</td>
-                <td>[[ property.id ]]</td>
-                <td>ghdhx</td>
-                <td>[hjdcghdcgh]</td>
-                <td>fgsfgs</td>
-                <td>fdgsdg</td>
-                <td>dgdfh</td>
-                <td>[[ entity.ent_type_names[0].name ]]</td>
-                <td>[[ property.id ]]</td>
-                <td>ghdhx</td>
-                <td>[hjdcghdcgh]</td>
-                <td>fgsfgs</td>
-                <td>
-                    <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('edit', entitytype.id)">Editar</button>
+                <td ng-if="entity.properties.length == 0" colspan="11">Não tem propriedades.</td>
+                <td ng-if="entity.properties.length == 0" colspan="1s">
+                    <button class="btn btn-default btn-xs btn-detail">Inserir</button>
                     <button class="btn btn-danger btn-xs btn-delete">Histórico</button>
-                </td> -->
-            </tr>
+                </td>
 
+                <tr ng-repeat="property in entity.properties">
+                    <td>[[ property.id ]]</td>
+                    <td>[[ property.properties_names[0].name ]]</td>
+                    <td>[[ property.value_type ]]</td>
+                    <td>[[ property.properties_names[0].form_field_name ]]</td>
+                    <td>[[ property.form_field_type ]]</td>
+                    <td>[[ property.units ? property.units.language[0].pivot.name : '-' ]]</td>
+                    <td>[[ property.form_field_order ]]</td>
+                    <td>[[ property.form_field_size ]]</td>
+                    <td>[[ (property.mandatory == 1) ? 'Yes' : 'No' ]]</td>
+                    <td>[[ property.state ]]</td>
+                    <td>[[ property.updated_at ]]</td>
+                    <td>
+                        <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('edit', entity.id, property.id)">Editar</button>
+                        <button class="btn btn-danger btn-xs btn-delete">Histórico</button>
+                    </td>
+                    <tr ng-repeat-end ng-if="false"></tr>
+                </tr>
             </tbody>
         </table>
+
+
 
         <!-- Modal (Pop up when detail button clicked) -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

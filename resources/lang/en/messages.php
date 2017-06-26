@@ -12,15 +12,13 @@ return [
 	'entity' => 'Entity',
 	'relation' => 'Relation',
 	'valueType' => 'Value Type',
-	'formFieldName' => 'Form field name',
-	'formFieldType' => 'Form field type',
-	'unitType' => 'Unit Type',
-	'formFieldOrder' => 'Form field Order',
-	'formFieldSize' => 'Form field Size',
+	'formFieldName' => 'Form Name',
+	'formFieldType' => 'Form Type',
+	'unitType' => 'Unit',
+	'formFieldOrder' => 'Order',
+	'formFieldSize' => 'Size',
 	'mandatory' => 'Mandotory',
 	'state' => 'State',
-	'updated_on' => 'Updated on',
+	'updated_on' => 'Updated',
 	'addProperties' => 'Add Properties',
-
-
 ];

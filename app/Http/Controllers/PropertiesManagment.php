@@ -22,8 +22,11 @@ class PropertiesManagment extends Controller {
 
         $language_id = '1';
 
-    	$entidades = EntType::with('properties')
+    	$entidades = EntType::with('properties.propertiesNames')
                             ->with(['entTypeNames' => function($query) use ($language_id) {
+                                $query->where('language_id', $language_id);
+                            }])
+                            ->with(['properties.units.language' => function($query) use ($language_id) {
                                 $query->where('language_id', $language_id);
                             }])
                             ->paginate(5);
