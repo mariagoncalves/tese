@@ -6,33 +6,29 @@ use Illuminate\Http\Request;
 use App\EntType;
 use App\Property;
 
-class PropertiesManagment extends Controller
-{
+class PropertiesManagment extends Controller {
+
     public function index() {
 
-        //return view('propertyTypes');
-        return view('propertiesOfEntities');
+        return view('property'); 
     }
 
     public function getAllPropertiesOfEntities() {
 
-       /*$entidades = EntType::all();
-
-    	if(count($entidades) == 0) {
-
-    		echo "Não pode adicionar/gerir propriedades uma vez que ainda não existem tipos de entidades.<br>";
-    		echo "Clique em <a href=''>Gestão de entidades</a> para criar um novo tipo de entidade.";
-    	} else {
-
-    		return view('propriedadesEntidades', compact('entidades'));
-
-    	}*/
-    	//return view('propertiesOfEntities');
-    	return view('propertyTypes');
+    	return view('propertiesOfEntities');
     }
 
-    public function getAllPropertiesOfRelations() {
+    public function getAll($id = null) {
 
-    	
+        $language_id = '1';
+
+    	$entidades = EntType::with('properties')
+                            ->with(['entTypeNames' => function($query) use ($language_id) {
+                                $query->where('language_id', $language_id);
+                            }])
+                            ->paginate(5);
+
+        return response()->json($entidades); 
+
     }
 }

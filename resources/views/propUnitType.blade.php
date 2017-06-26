@@ -77,3 +77,6 @@
         </div>
     </div>
 @stop
+@section('footerContent')
+    <script src="{{ asset('app/controllers/propunittype.js') }}"></script>
+@stop

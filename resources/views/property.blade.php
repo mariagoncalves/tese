@@ -8,11 +8,3 @@
 </ul>
 
 @stop
-@section('footerContent')
-    <script src="<?= asset('app/controllers/entTypes.js') ?>"></script>
-@stop
-
-@extends('layouts.default')
-@section('content')
-	fdgdffg
-@stop

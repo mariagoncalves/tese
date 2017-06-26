@@ -31,9 +31,9 @@
         <option value="NULL"></option>';
         @foreach ($unidades as $unidade)
         	@if ($unidade->id == $propriedade->unit_type_id)
-        		<option value="{{$unidade->id}}" selected>{{$unidade->unitsNames->first()->name}}</option>
+        		<option value="{{$unidade->id}}" selected>vxfg</option>
         	@else
-        		<option value="{{$unidade->id}}">{{$unidade->unitsNames->first()->name}}</option>
+        		<option value="{{$unidade->id}}">fgd</option>
         	@endif
         @endforeach
     </select>

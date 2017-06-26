@@ -3,7 +3,6 @@
  */
 
 app.controller('propUnitTypeController', function($scope, $http, API_URL) {
-
     $scope.propUnitTypes = [];
     $scope.totalPages = 0;
     $scope.currentPage = 1;
@@ -16,6 +15,7 @@ app.controller('propUnitTypeController', function($scope, $http, API_URL) {
         }
         //Process_Type
         $http.get('/prop_unit_types/get_unit?page='+pageNumber).then(function(response) {
+            console.log(response);
             $scope.propUnitTypes = response.data.data;
             $scope.totalPages = response.data.last_page;
             $scope.currentPage = response.data.current_page;
@@ -40,8 +40,8 @@ app.controller('propUnitTypeController', function($scope, $http, API_URL) {
             case 'add':
                 $scope.id = id;
                 $scope.form_title = "Adicionar Novo Tipo de Unidade";
-                $scope.propUnitType.language[0].pivot.name = "";
-                $scope.propUnitType.state = "";
+                //$scope.propUnitType.language[0].pivot.name = "";
+                //$scope.propUnitType.state = "";
                 break;
             case 'edit':
                 $scope.form_title = "Detalhes do Tipo de Unidade";

@@ -58,7 +58,7 @@
                         @if (is_null($prop->unit_type_id))
                             <td> - </td>
                         @else
-                            <td> {{ $prop->units->unitsNames->first()->name }} </td>
+                            <td>  gdfdf  </td>
                         @endif
                         <td> {{$prop->form_field_order}} </td>
                         <td> {{$prop->form_field_size}} </td>

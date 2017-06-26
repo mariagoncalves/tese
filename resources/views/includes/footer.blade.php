@@ -10,3 +10,5 @@
 <!-- AngularJS Application Scripts -->
 <script src="<?= asset('app/app.js') ?>"></script>
 @yield('footerContent')
+
+

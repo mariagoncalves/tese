@@ -19,14 +19,14 @@ class CreateUsersTable extends Migration
             $table->string('email');
             $table->string('password');
             //$table->string('user_name', 45);
-            $table->integer('language_id')->unsigned();
-            $table->integer('user_type')->unsigned();
+            //$table->integer('language_id')->unsigned();
+            //$table->enum('user_type', ['internal', 'external']);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('language_id')->references('id')->on('language')->onDelete('cascade');
-            $table->foreign('user_type')->references('id')->on('ent_type')->onDelete('cascade');
+            //$table->foreign('language_id')->references('id')->on('language')->onDelete('cascade');
+            //$table->foreign('user_type')->references('id')->on('ent_type')->onDelete('cascade');
         });
     }
 

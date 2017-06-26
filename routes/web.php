@@ -112,10 +112,10 @@ Route::post('/Prop_Unit_Type/{id?}', 'PropUnitTypes@update');
 //Properties Home Page
 Route::get('/propertiesManage/', 'PropertiesManagment@index');
 
-
 //Properties Of Entities
 Route::get('/propertiesManage/entity', 'PropertiesManagment@getAllPropertiesOfEntities');
 //Route::get('/propertiesManage/entity', 'EntTypes@insert');
+Route::get('/properties/get_props_ents', 'PropertiesManagment@getAll');
 
 
 
