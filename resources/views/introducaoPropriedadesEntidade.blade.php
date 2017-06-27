@@ -34,7 +34,7 @@
             <select id="tipoUnidade" name="tipoUnidade">
                 <option value="NULL"></option>'
                 @foreach ($unidades as $unidade)
-                    <option value="{{$unidade->id}}">{{$unidade->unitsNames->first()->name}}</option>
+                    <option value="{{$unidade->id}}">hdhd</option>
                 @endforeach
             </select>
             <br><br>

@@ -78,12 +78,12 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="inputName" class="col-sm-3 control-label">Property:</label>
+                                <label for="inputName" class="col-sm-3 control-label">Property name:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="prop_unit_type_name" name="prop_unit_type_name" placeholder="" value="@]]name]]"
+                                    <input type="text" class="form-control" id="property_name" name="property_name" placeholder="" value="@]]name]]"
                                            ng-model="propUnitType.language[0].pivot.name" ng-required="true">
                                     <span class="help-inline"
-                                          ng-show="frmUnitTypes.contact_number.$invalid && frmUnitTypes.prop_unit_type_name.$touched">Property field is required</span>
+                                          ng-show="frmUnitTypes.contact_number.$invalid && frmUnitTypes.property_name.$touched">Property field is required</span>
                                 </div>
                             </div>
 
@@ -91,91 +91,85 @@
                                 <label for="Gender" class="col-sm-3 control-label">State:</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline state" ng-repeat="state in states">
-                                        <input type="radio" name="prop_unit_type_state" value="active" required>[[ state ]]
+                                        <input type="radio" name="property_state" value="[[ state ]]" required>[[ state ]]
                                     </label>
                                     <span class="help-inline"
                                           ng-show="frmUnitTypes.position.$invalid && frmUnitTypes.position.$touched">State field is required</span>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="Gender" class="col-sm-3 control-label">Value type:</label>
+                            <div class="form-group" ng-init="getValueTypes()">
+                                <label for="Gender" class="col-sm-3 control-label">Value Type:</label>
                                 <div class="col-sm-9">
-                                    <label for="" class="radio-inline state">
-                                        <input type="radio" name="prop_unit_type_state" value="active" ng-model="propUnitType.state" required>Text
-                                    </label>
-                                    <label for="" class="radio-inline state">
-                                        <input type="radio" name="prop_unit_type_state" value="inactive" ng-model="propUnitType.state" required>Bool
+                                    <label class="radio-inline valueType" ng-repeat="valueType in valueTypes">
+                                        <input type="radio" name="property_valueType" value="active" required>[[ valueType ]]
                                     </label>
                                     <span class="help-inline"
-                                          ng-show="frmUnitTypes.position.$invalid && frmUnitTypes.position.$touched">Type field is required</span>
+                                          ng-show="frmUnitTypes.position.$invalid && frmUnitTypes.position.$touched">Value Type field is required</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-init="getFieldTypes()">
+                                <label for="Gender" class="col-sm-3 control-label">Field Type:</label>
+                                <div class="col-sm-9">
+                                    <label class="radio-inline fieldType" ng-repeat="fieldType in fieldTypes">
+                                        <input type="radio" name="property_fieldType" value="active" required>[[ fieldType ]]
+                                    </label>
+                                    <span class="help-inline"
+                                          ng-show="frmUnitTypes.position.$invalid && frmUnitTypes.position.$touched">Field Type field is required</span>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="Gender" class="col-sm-3 control-label">Field type:</label>
+                                <label for="unitType" class="col-sm-3 control-label">Unit Type:</label>
                                 <div class="col-sm-9">
-                                    <label for="" class="radio-inline state">
-                                        <input type="radio" name="prop_unit_type_state" value="active" ng-model="propUnitType.state" required>Text
-                                    </label>
-                                    <label for="" class="radio-inline state">
-                                        <input type="radio" name="prop_unit_type_state" value="inactive" ng-model="propUnitType.state" required>TextBox
-                                    </label>
-                                    <span class="help-inline"
-                                          ng-show="frmUnitTypes.position.$invalid && frmUnitTypes.position.$touched">Type field is required</span>
+                                    <select class="form-control" >
+                                        <option value=""></option>
+                                        <option ng-repeat="unit in units" ng-value="unit.id">[[ unit.unitsNames[0].name ]]</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="Gender" class="col-sm-3 control-label">Unit:</label>
+                                <label for="inputfieldOrder" class="col-sm-3 control-label">Field Order:</label>
                                 <div class="col-sm-9">
-                                    <label for="" class="radio-inline state">
-                                        <input type="radio" name="prop_unit_type_state" value="active" ng-model="propUnitType.state" required>Text
-                                    </label>
-                                    <label for="" class="radio-inline state">
-                                        <input type="radio" name="prop_unit_type_state" value="inactive" ng-model="propUnitType.state" required>TextBox
-                                    </label>
-                                    <span class="help-inline"
-                                          ng-show="frmUnitTypes.position.$invalid && frmUnitTypes.position.$touched">Type field is required</span>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="inputName" class="col-sm-3 control-label">Field Order</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="prop_unit_type_name" name="prop_unit_type_name" placeholder="" value="@]]name]]"
+                                    <input type="text" class="form-control" id="property_fieldOrder" name="property_fieldOrder" placeholder="" value="@]]name]]"
                                            ng-model="propUnitType.language[0].pivot.name" ng-required="true">
                                     <span class="help-inline"
-                                          ng-show="frmUnitTypes.contact_number.$invalid && frmUnitTypes.prop_unit_type_name.$touched">Name field is required</span>
+                                          ng-show="frmUnitTypes.contact_number.$invalid && frmUnitTypes.property_fieldOrder.$touched">Field Order is required</span>
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="inputName" class="col-sm-3 control-label">Field size</label>
+                           
+                           <div class="form-group">
+                                <label for="inputfieldSize" class="col-sm-3 control-label">Field Size:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="prop_unit_type_name" name="prop_unit_type_name" placeholder="" value="@]]name]]"
+                                    <input type="text" class="form-control" id="property_fieldSize" name="property_fieldSize" placeholder="" value="@]]name]]"
                                            ng-model="propUnitType.language[0].pivot.name" ng-required="true">
                                     <span class="help-inline"
-                                          ng-show="frmUnitTypes.contact_number.$invalid && frmUnitTypes.prop_unit_type_name.$touched">Name field is required</span>
+                                          ng-show="frmUnitTypes.contact_number.$invalid && frmUnitTypes.property_fieldSize.$touched">Field Order is required</span>
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" ng-init="getMandatory()">
                                 <label for="Gender" class="col-sm-3 control-label">Mandatory:</label>
                                 <div class="col-sm-9">
-                                    <label for="" class="radio-inline state">
-                                        <input type="radio" name="prop_unit_type_state" value="active" ng-model="propUnitType.state" required>Active
-                                    </label>
-                                    <label for="" class="radio-inline state">
-                                        <input type="radio" name="prop_unit_type_state" value="inactive" ng-model="propUnitType.state" required>Inactive
+                                    <label class="radio-inline mandatory" ng-repeat="state in states">
+                                        <input type="radio" name="property_mandatory" value="active" required>[[ (property.mandatory == 1) ? 'Yes' : 'No' ]]
                                     </label>
                                     <span class="help-inline"
                                           ng-show="frmUnitTypes.position.$invalid && frmUnitTypes.position.$touched">State field is required</span>
                                 </div>
                             </div>
 
-
-
+                            <div class="form-group">
+                                <label for="entityType" class="col-sm-3 control-label">Referenciated Entity:</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" >
+                                        <option value=""></option>
+                                        <option ng-repeat="entity in entities" ng-value="entity.id">[[ entity.ent_type_names[0].name ]]</option>
+                                    </select>
+                                </div>
+                            </div>
 
                         </form>
                     </div>

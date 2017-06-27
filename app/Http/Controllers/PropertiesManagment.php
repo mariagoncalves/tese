@@ -38,4 +38,33 @@ class PropertiesManagment extends Controller {
         $states = Property::getValoresEnum('state');
         return response()->json($states); 
     }
+
+    public function getValueTypes() {
+        $valueTypes = Property::getValoresEnum('value_type');
+        return response()->json($valueTypes); 
+    }
+
+    public function getFieldTypes() {
+        $fieldTypes = Property::getValoresEnum('form_field_type');
+        return response()->json($fieldTypes); 
+    }
+
+    //CORRIGIR
+    public function getMandatory() {
+        $mandatory = Property::all();
+        return response()->json($mandatory); 
+    }
+
+    public function getUnits() {
+        $language_id = '1';
+
+        $units = PropUnitType::with(['unitsNames' => function($query) use ($language_id) {
+                                $query->where('language_id', $language_id);
+                            }]);
+
+        return response()->json($units); 
+
+    }
+
+    
 }

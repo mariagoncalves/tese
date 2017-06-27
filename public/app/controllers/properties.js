@@ -2,6 +2,10 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
 
 	$scope.entities = [];
     $scope.states   = [];
+    $scope.valueTypes = [];
+    $scope.fieldTypes = [];
+    $scope.units = [];
+    $scope.mandatory = [];
     $scope.totalPages = 0;
     $scope.currentPage = 1;
     $scope.range = [];
@@ -17,7 +21,7 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
             $scope.entities = response.data.data;
 
             //COMENTADPOOOO
-            /*$scope.totalPages = response.data.last_page;
+            $scope.totalPages = response.data.last_page;
             $scope.currentPage = response.data.current_page;
 
             // Pagination Range
@@ -27,7 +31,7 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
                 pages.push(i);
             }
 
-            $scope.range = pages;*/
+            $scope.range = pages;
             //COMENTADPOOOO FIM
 
         });
@@ -38,6 +42,38 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         $http.get('/properties/states').then(function(response) {
             $scope.states = response.data;
             console.log($scope.states);
+        });
+    };
+
+    $scope.getValueTypes = function() {
+        //Buscar value types
+        $http.get('/properties/valueTypes').then(function(response) {
+            $scope.valueTypes = response.data;
+            console.log($scope.valueTypes);
+        });
+    };
+
+    $scope.getFieldTypes = function() {
+        //Buscar fields types
+        $http.get('/properties/fieldTypes').then(function(response) {
+            $scope.fieldTypes = response.data;
+            console.log($scope.fieldTypes);
+        });
+    };
+
+    $scope.getUnits = function() {
+        //Buscar units
+        $http.get('/properties/units').then(function(response) {
+            $scope.units = response.data;
+            console.log($scope.units);
+        });
+    };
+
+    $scope.getMandatory = function() {
+        //Buscar mandatory
+        $http.get('/properties/mandatory').then(function(response) {
+            $scope.mandatory = response.data;
+            console.log($scope.mandatory);
         });
     };
 
