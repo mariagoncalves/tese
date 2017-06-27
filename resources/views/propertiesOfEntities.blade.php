@@ -66,25 +66,28 @@
                         <h4 class="modal-title" id="myModalLabel">[[form_title]]</h4>
                     </div>
                     <div class="modal-body">
-                        <form name="frmUnitTypes" class="form-horizontal" novalidate="">
+                        <form id="formProperty" name="frmUnitTypes" class="form-horizontal" novalidate="">
 
                             <div class="form-group">
                                 <label for="entityType" class="col-sm-3 control-label">Entity Type:</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" >
-                                        <option value=""></option>
+                                    <select class="form-control" name="entity_type">
                                         <option ng-repeat="entity in entities" ng-value="entity.id">[[ entity.ent_type_names[0].name ]]</option>
                                     </select>
+                                    <ul ng-repeat="error in errors.entity_type" style="padding-left: 15px;">
+                                        <li>[[ error ]]</li>
+                                    </ul>
                                 </div>
+                                <br>
                             </div>
 
                             <div class="form-group">
                                 <label for="inputName" class="col-sm-3 control-label">Property name:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="property_name" name="property_name" placeholder="" value="@]]name]]"
-                                           ng-model="propUnitType.language[0].pivot.name" ng-required="true">
-                                    <span class="help-inline"
-                                          ng-show="frmUnitTypes.contact_number.$invalid && frmUnitTypes.property_name.$touched">Property field is required</span>
+                                    <input type="text" class="form-control" id="property_name" name="property_name" value="@]]name]]" ng-model="propUnitType.language[0].pivot.name">
+                                    <ul ng-repeat="error in errors.property_name" style="padding-left: 15px;">
+                                        <li>[[ error ]]</li>
+                                    </ul>
                                 </div>
                             </div>
 
@@ -92,10 +95,11 @@
                                 <label for="Gender" class="col-sm-3 control-label">State:</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline state" ng-repeat="state in states">
-                                        <input type="radio" name="property_state" value="[[ state ]]" required>[[ state ]]
+                                        <input type="radio" name="property_state" value="[[ state ]]">[[ state ]]
                                     </label>
-                                    <span class="help-inline"
-                                          ng-show="frmUnitTypes.position.$invalid && frmUnitTypes.position.$touched">State field is required</span>
+                                    <ul ng-repeat="error in errors.property_state" style="padding-left: 15px;">
+                                        <li>[[ error ]]</li>
+                                    </ul>
                                 </div>
                             </div>
 
@@ -103,10 +107,11 @@
                                 <label for="Gender" class="col-sm-3 control-label">Value Type:</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline valueType" ng-repeat="valueType in valueTypes">
-                                        <input type="radio" name="property_valueType" value="active" required>[[ valueType ]]
+                                        <input type="radio" name="property_valueType" value="[[ valueType ]]">[[ valueType ]]
                                     </label>
-                                    <span class="help-inline"
-                                          ng-show="frmUnitTypes.position.$invalid && frmUnitTypes.position.$touched">Value Type field is required</span>
+                                    <ul ng-repeat="error in errors.property_valueType" style="padding-left: 15px;">
+                                        <li>[[ error ]]</li>
+                                    </ul>
                                 </div>
                             </div>
 
@@ -114,40 +119,44 @@
                                 <label for="Gender" class="col-sm-3 control-label">Field Type:</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline fieldType" ng-repeat="fieldType in fieldTypes">
-                                        <input type="radio" name="property_fieldType" value="active" required>[[ fieldType ]]
+                                        <input type="radio" name="property_fieldType" value="[[ fieldType ]]">[[ fieldType ]]
                                     </label>
-                                    <span class="help-inline"
-                                          ng-show="frmUnitTypes.position.$invalid && frmUnitTypes.position.$touched">Field Type field is required</span>
+                                    <ul ng-repeat="error in errors.property_fieldType" style="padding-left: 15px;">
+                                        <li>[[ error ]]</li>
+                                    </ul>
                                 </div>
                             </div>
 
                             <div class="form-group" ng-init="getUnits()">
                                 <label for="unitType" class="col-sm-3 control-label">Unit Type:</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" >
-                                        <option value=""></option>
+                                    <select class="form-control" name="unites_names">
+                                        <option value="0"></option>
                                         <option ng-repeat="unit in units" ng-value="unit.id">[[ unit.units_names[0].name ]]</option>
                                     </select>
+                                    <ul ng-repeat="error in errors.unites_names" style="padding-left: 15px;">
+                                        <li>[[ error ]]</li>
+                                    </ul>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="inputfieldOrder" class="col-sm-3 control-label">Field Order:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="property_fieldOrder" name="property_fieldOrder" placeholder="" value="@]]name]]"
-                                           ng-model="propUnitType.language[0].pivot.name" ng-required="true">
-                                    <span class="help-inline"
-                                          ng-show="frmUnitTypes.contact_number.$invalid && frmUnitTypes.property_fieldOrder.$touched">Field Order is required</span>
+                                    <input type="number" class="form-control" id="property_fieldOrder" name="property_fieldOrder" >
+                                    <ul ng-repeat="error in errors.property_fieldOrder" style="padding-left: 15px;">
+                                        <li>[[ error ]]</li>
+                                    </ul>
                                 </div>
                             </div>
                            
                            <div class="form-group">
                                 <label for="inputfieldSize" class="col-sm-3 control-label">Field Size:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="property_fieldSize" name="property_fieldSize" placeholder="" value="@]]name]]"
-                                           ng-model="propUnitType.language[0].pivot.name" ng-required="true">
-                                    <span class="help-inline"
-                                          ng-show="frmUnitTypes.contact_number.$invalid && frmUnitTypes.property_fieldSize.$touched">Field Order is required</span>
+                                    <input type="text" class="form-control" id="property_fieldSize" name="property_fieldSize" placeholder="">
+                                    <ul ng-repeat="error in errors.property_fieldSize" style="padding-left: 15px;">
+                                        <li>[[ error ]]</li>
+                                    </ul>
                                 </div>
                             </div>
 
@@ -160,16 +169,17 @@
                                     <label for="" class="radio-inline mandatory">
                                         <input type="radio" name="prop_unit_type_mandatory" value="0" ng-model="propUnitType.mandatory" required>No
                                     </label>
-                                    <span class="help-inline"
-                                          ng-show="frmUnitTypes.position.$invalid && frmUnitTypes.position.$touched">Mandatory field is required</span>
+                                    <ul ng-repeat="error in errors.prop_unit_type_mandatory" style="padding-left: 15px;">
+                                        <li>[[ error ]]</li>
+                                    </ul>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="entityType" class="col-sm-3 control-label">Referenciated Entity:</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" >
-                                        <option value=""></option>
+                                    <select class="form-control" name="reference_entity">
+                                        <option value="0"></option>
                                         <option ng-repeat="entity in entities" ng-value="entity.id">[[ entity.ent_type_names[0].name ]]</option>
                                     </select>
                                 </div>

@@ -10,6 +10,7 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
     $scope.totalPages = 0;
     $scope.currentPage = 1;
     $scope.range = [];
+    $scope.errors = [];
 
 
     //MÉTODOS ENTIDADES
@@ -129,8 +130,8 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
     };
 
     $scope.save = function(modalstate, id) {
-        var url = API_URL + "PropertyRel";
-        //alert('chegou');
+        var url      = API_URL + "PropertyRel";
+        var formData = JSON.parse(JSON.stringify(jQuery('#formProperty').serializeArray()));
 
         //append employee id to the URL if the form is in edit mode
         if (modalstate === 'edit') {
@@ -140,19 +141,20 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         $http({
             method: 'POST',
             url: url,
-            data: $.param({'name' : $scope.property.language[0].pivot.name,
-                            'state' : $scope.property.state,
-                            'entity_id' : $scope.property.property,
-            }),
-
+            data: $.param(formData),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).then(function (response) {
-            console.log(response.data);
+        }).then(function(response) {
+            //First function handles success
+            $scope.errors = [];
             $('#myModal').modal('hide');
-            $scope.getRelations();
-        }).error(function (response) {
-            console.log(response);
-            alert('This is embarassing. An error has occured. Please check the log for details');
+            $scope.getEntities();
+        }, function(response) {
+            //Second function handles error
+            if (response.status == 400) {
+                $scope.errors = response.data.error;
+            } else if (response.status == 500) {
+                alert(response.data.error);
+            }
         });
     };
 
