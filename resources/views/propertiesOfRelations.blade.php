@@ -2,12 +2,11 @@
 @section('content')
     <h2>{{trans("messages.properties")}}</h2>
     <div ng-controller="propertiesManagmentControllerJs">
-
         <!-- Table-to-load-the-data Part -->
-        <table class="table" ng-init="getEntities()">
+        <table class="table" ng-init="getRelations()" border = "1px solid">
             <thead>
             <tr>
-                <th>{{trans("messages.entity")}}</th>
+                <th>{{trans("messages.relation")}}</th>
                 <th>ID</th>
                 <th>{{trans("messages.property")}}</th>
                 <th>{{trans("messages.valueType")}}</th>
@@ -23,17 +22,17 @@
             </tr>
             </thead>
             <tbody>
-                <tr ng-repeat-start="entity in entities" ng-if="false" ng-init="innerIndex = $index"></tr>
+                <tr ng-repeat-start="relation in relations" ng-if="false" ng-init="innerIndex = $index"></tr>
 
-                <td rowspan="[[ entity.properties.length + 1 ]] " ng-if="entity.properties[$index - 1].ent_type_id != entity.id">[[ entity.ent_type_names[0].name ]] </td>
+                <td rowspan="[[ relation.properties.length + 1 ]] " ng-if="relation.properties[$index - 1].ent_type_id != relation.id">[[ relation.rel_type_names[0].name ]] </td>
 
-                <td ng-if="entity.properties.length == 0" colspan="11">Não tem propriedades.</td>
-                <td ng-if="entity.properties.length == 0" colspan="1">
-                    <button class="btn btn-default btn-xs btn-detail">Inserir</button>
+                <td ng-if="relation.properties.length == 0" colspan="11">Não tem propriedades.</td>
+                <td ng-if="relation.properties.length == 0" colspan="1">
+                    <!-- <button class="btn btn-default btn-xs btn-detail">Inserir</button> -->
                     <button class="btn btn-danger btn-xs btn-delete">Histórico</button>
                 </td>
 
-                <tr ng-repeat="property in entity.properties">
+                <tr ng-repeat="property in relation.properties">
                     <td>[[ property.id ]]</td>
                     <td>[[ property.properties_names[0].name ]]</td>
                     <td>[[ property.value_type ]]</td>
@@ -46,14 +45,14 @@
                     <td>[[ property.state ]]</td>
                     <td>[[ property.updated_at ]]</td>
                     <td>
-                        <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('edit', entity.id, property.id)">Editar</button>
+                        <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('edit', relation.id, property.id)">Editar</button>
                         <button class="btn btn-danger btn-xs btn-delete">Histórico</button>
                     </td>
                     <tr ng-repeat-end ng-if="false"></tr>
                 </tr>
             </tbody>
         </table>
-        <div>
+         <div>
             <posts-pagination></posts-pagination>
         </div>
 
@@ -66,25 +65,26 @@
                         <h4 class="modal-title" id="myModalLabel">[[form_title]]</h4>
                     </div>
                     <div class="modal-body">
-                        <form name="frmUnitTypes" class="form-horizontal" novalidate="">
+                        <form name="formProps" class="form-horizontal" novalidate="">
 
                             <div class="form-group">
-                                <label for="entityType" class="col-sm-3 control-label">Entity Type:</label>
+                                <label for="entityType" class="col-sm-3 control-label">Relation Type:</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" >
+                                    <select class="form-control" name = "relation">
                                         <option value=""></option>
-                                        <option ng-repeat="entity in entities" ng-value="entity.id">[[ entity.ent_type_names[0].name ]]</option>
+                                        <option ng-repeat="relation in relations" value="relation.id">[[ relation.rel_type_names[0].name ]]</option>
                                     </select>
                                 </div>
                             </div>
 
+                            <!-- FALTA ALTERAR O NG MODEL-->
                             <div class="form-group">
-                                <label for="inputName" class="col-sm-3 control-label">Property name:</label>
+                                <label for="inputNameProp" class="col-sm-3 control-label">Property name:</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="property_name" name="property_name" placeholder="" value="@]]name]]"
-                                           ng-model="propUnitType.language[0].pivot.name" ng-required="true">
+                                           ng-model="relType.language[0].pivot.name" ng-required="true">
                                     <span class="help-inline"
-                                          ng-show="frmUnitTypes.contact_number.$invalid && frmUnitTypes.property_name.$touched">Property field is required</span>
+                                          ng-show="formProps.contact_number.$invalid && formProps.property_name.$touched">Property field is required</span>
                                 </div>
                             </div>
 
@@ -95,7 +95,7 @@
                                         <input type="radio" name="property_state" value="[[ state ]]" required>[[ state ]]
                                     </label>
                                     <span class="help-inline"
-                                          ng-show="frmUnitTypes.position.$invalid && frmUnitTypes.position.$touched">State field is required</span>
+                                          ng-show="formProps.position.$invalid && formProps.position.$touched">State field is required</span>
                                 </div>
                             </div>
 
@@ -106,7 +106,7 @@
                                         <input type="radio" name="property_valueType" value="active" required>[[ valueType ]]
                                     </label>
                                     <span class="help-inline"
-                                          ng-show="frmUnitTypes.position.$invalid && frmUnitTypes.position.$touched">Value Type field is required</span>
+                                          ng-show="formProps.position.$invalid && formProps.position.$touched">Value Type field is required</span>
                                 </div>
                             </div>
 
@@ -117,19 +117,21 @@
                                         <input type="radio" name="property_fieldType" value="active" required>[[ fieldType ]]
                                     </label>
                                     <span class="help-inline"
-                                          ng-show="frmUnitTypes.position.$invalid && frmUnitTypes.position.$touched">Field Type field is required</span>
+                                          ng-show="formProps.position.$invalid && formProps.position.$touched">Field Type field is required</span>
                                 </div>
                             </div>
 
                             <div class="form-group" ng-init="getUnits()">
                                 <label for="unitType" class="col-sm-3 control-label">Unit Type:</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" >
+                                    <select class="form-control" name = "units">
                                         <option value=""></option>
-                                        <option ng-repeat="unit in units" ng-value="unit.id">[[ unit.units_names[0].name ]]</option>
+                                        <option ng-repeat="unit in units" value="unit.id">[[ unit.units_names[0].name ]]</option>
                                     </select>
                                 </div>
                             </div>
+
+                            <!-- FALTA ALTERAR O NG MODEL-->
 
                             <div class="form-group">
                                 <label for="inputfieldOrder" class="col-sm-3 control-label">Field Order:</label>
@@ -137,9 +139,11 @@
                                     <input type="text" class="form-control" id="property_fieldOrder" name="property_fieldOrder" placeholder="" value="@]]name]]"
                                            ng-model="propUnitType.language[0].pivot.name" ng-required="true">
                                     <span class="help-inline"
-                                          ng-show="frmUnitTypes.contact_number.$invalid && frmUnitTypes.property_fieldOrder.$touched">Field Order is required</span>
+                                          ng-show="formProps.contact_number.$invalid && formProps.property_fieldOrder.$touched">Field Order is required</span>
                                 </div>
                             </div>
+
+                            <!-- FALTA ALTERAR O NG MODEL-->
                            
                            <div class="form-group">
                                 <label for="inputfieldSize" class="col-sm-3 control-label">Field Size:</label>
@@ -147,7 +151,7 @@
                                     <input type="text" class="form-control" id="property_fieldSize" name="property_fieldSize" placeholder="" value="@]]name]]"
                                            ng-model="propUnitType.language[0].pivot.name" ng-required="true">
                                     <span class="help-inline"
-                                          ng-show="frmUnitTypes.contact_number.$invalid && frmUnitTypes.property_fieldSize.$touched">Field Order is required</span>
+                                          ng-show="formProps.contact_number.$invalid && formProps.property_fieldSize.$touched">Field Order is required</span>
                                 </div>
                             </div>
 
@@ -155,30 +159,20 @@
                                 <label for="Gender" class="col-sm-3 control-label">Mandatory:</label>
                                 <div class="col-sm-9">
                                     <label for="" class="radio-inline mandatory">
-                                        <input type="radio" name="prop_unit_type_mandatory" value="1" ng-model="propUnitType.mandatory" required>Yes
+                                        <input type="radio" name="property_mandatory" value="1" ng-model="propUnitType.mandatory" required>Yes
                                     </label>
                                     <label for="" class="radio-inline mandatory">
-                                        <input type="radio" name="prop_unit_type_mandatory" value="0" ng-model="propUnitType.mandatory" required>No
+                                        <input type="radio" name="property_mandatory" value="0" ng-model="propUnitType.mandatory" required>No
                                     </label>
                                     <span class="help-inline"
-                                          ng-show="frmUnitTypes.position.$invalid && frmUnitTypes.position.$touched">Mandatory field is required</span>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="entityType" class="col-sm-3 control-label">Referenciated Entity:</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control" >
-                                        <option value=""></option>
-                                        <option ng-repeat="entity in entities" ng-value="entity.id">[[ entity.ent_type_names[0].name ]]</option>
-                                    </select>
+                                          ng-show="formProps.position.$invalid && formProps.position.$touched">Mandatory field is required</span>
                                 </div>
                             </div>
 
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, id)" ng-disabled="frmUnitTypes.$invalid">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, id)" ng-disabled="formProps.$invalid">Save changes</button>
                     </div>
                 </div>
             </div>

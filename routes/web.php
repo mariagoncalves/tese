@@ -115,14 +115,12 @@ Route::get('/propertiesManage/', 'PropertiesManagment@index');
 //Properties Of Entities
 Route::get('/propertiesManage/entity', 'PropertiesManagment@getAllPropertiesOfEntities');
 //Route::get('/propertiesManage/entity', 'EntTypes@insert');
-Route::get('/properties/get_props_ents', 'PropertiesManagment@getAll');
+Route::get('/properties/get_props_ents', 'PropertiesManagment@getAllEnt');
 
 Route::get('/properties/states', 'PropertiesManagment@getStates');
 Route::get('/properties/valueTypes', 'PropertiesManagment@getValueTypes');
 Route::get('/properties/fieldTypes', 'PropertiesManagment@getFieldTypes');
 Route::get('/properties/units', 'PropertiesManagment@getUnits');
-Route::get('/properties/mandatory', 'PropertiesManagment@getMandatory');
-
 
 
 
@@ -131,3 +129,7 @@ Route::get('/properties/mandatory', 'PropertiesManagment@getMandatory');
 
 //Properties Of Relations
 Route::get('/propertiesManage/relation', 'PropertiesManagment@getAllPropertiesOfRelations');
+Route::get('/properties/get_props_rel', 'PropertiesManagment@getAllRel');
+
+
+Route::post('/PropertyRel', 'PropertiesManagment@insertPropsRel');
