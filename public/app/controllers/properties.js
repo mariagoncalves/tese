@@ -6,7 +6,7 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
     $scope.fieldTypes = [];
     $scope.units = [];
     $scope.mandatory = [];
-    $scope.relationss = [];
+    $scope.relations = [];
     $scope.totalPages = 0;
     $scope.currentPage = 1;
     $scope.range = [];
@@ -51,7 +51,7 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         //Properties
         $http.get('/properties/get_props_rel?page='+pageNumber).then(function(response) {
             console.log(response);
-            $scope.relationss = response.data.data;
+            $scope.relations = response.data.data;
 
             $scope.totalPages = response.data.last_page;
             $scope.currentPage = response.data.current_page;
@@ -75,7 +75,7 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
             case 'add':
                 $scope.id = id;
                 $scope.form_title = "Adicionar Nova Propriedade";
-                
+
                 break;
             case 'edit':
                 $scope.form_title = "Detalhes do Tipo de Transacção";
@@ -141,13 +141,11 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function(response) {
             //First function handles success
-            console.log(response) 
             $scope.errors = [];
             $('#myModal').modal('hide');
             $scope.getRelations();
         }, function(response) {
             //Second function handles error
-            console.log(response) 
             if (response.status == 400) {
                 $scope.errors = response.data.error;
             } else if (response.status == 500) {
@@ -163,7 +161,7 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
             case 'add':
                 $scope.id = id;
                 $scope.form_title = "Adicionar Nova Propriedade";
-                
+
                 break;
             case 'edit':
                 $scope.form_title = "Detalhes do Tipo de Transacção";

@@ -109,7 +109,7 @@
                                 <label for="Gender" class="col-sm-3 control-label">Value Type:</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline valueType" ng-repeat="valueType in valueTypes">
-                                        <input type="radio" name="property_valueType_rel" value="active" required>[[ valueType ]]
+                                        <input type="radio" name="property_valueType_rel" value="[[ valueType ]]" required>[[ valueType ]]
                                     </label>
                                     <ul ng-repeat="error in errors.property_valueType_rel" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
@@ -121,7 +121,7 @@
                                 <label for="Gender" class="col-sm-3 control-label">Field Type:</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline fieldType" ng-repeat="fieldType in fieldTypes">
-                                        <input type="radio" name="property_fieldType_rel" value="active" required>[[ fieldType ]]
+                                        <input type="radio" name="property_fieldType_rel" value="[[ fieldType ]]" required>[[ fieldType ]]
                                     </label>
                                     <ul ng-repeat="error in errors.property_fieldType_rel" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
@@ -155,7 +155,7 @@
                             </div>
 
                             <!-- FALTA ALTERAR O NG MODEL-->
-                           
+
                            <div class="form-group">
                                 <label for="inputfieldSize" class="col-sm-3 control-label">Field Size:</label>
                                 <div class="col-sm-9">

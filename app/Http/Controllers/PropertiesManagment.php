@@ -19,7 +19,7 @@ class PropertiesManagment extends Controller {
 
     public function index() {
 
-        return view('property'); 
+        return view('property');
     }
 
 
@@ -41,7 +41,7 @@ class PropertiesManagment extends Controller {
                             }])
                             ->paginate(5);
 
-        return response()->json($entidades); 
+        return response()->json($entidades);
 
     }
 
@@ -65,7 +65,7 @@ class PropertiesManagment extends Controller {
                 'property_fieldType'       => ['required'],
                 'property_mandatory'       => ['required'],
                 'property_fieldOrder'      => ['required', 'integer', 'min:1'],
-                'unites_names'             => ['integer'], 
+                'unites_names'             => ['integer'],
                 'property_fieldSize'       => $propertyFieldSize,
                 'property_state'           => ['required'],
                 'reference_entity'         => ['integer']
@@ -76,7 +76,7 @@ class PropertiesManagment extends Controller {
             if ($erros->fails()) {
                 // Se existir, então retorna os erros
                 $resultado = $erros->errors()->messages();
-                return response()->json(['error' => $resultado], 400); 
+                return response()->json(['error' => $resultado], 400);
             }
 
             if(!isset($dados['unites_names']) || (isset($dados['unites_names']) && $dados['unites_names'] == "0")) {
@@ -94,7 +94,8 @@ class PropertiesManagment extends Controller {
                 'unit_type_id'     => $dados['unites_names'            ],
                 'form_field_order' => $dados['property_fieldOrder'     ],
                 'form_field_size'  => $dados['property_fieldSize'      ],
-                'mandatory'        => $dados['property_mandatory'],
+                'mandatory'        => $dados['property_mandatory'      ],
+                'state'            => $dados['property_state'          ],
                 'fk_ent_type_id'   => $dados['reference_entity'        ]
             );
 
@@ -116,14 +117,14 @@ class PropertiesManagment extends Controller {
 
             // inserir o nome da propriedade e o nome do campo form_field_name
             $dados = [
-                'property_id'     => $idNewProp, 
-                'language_id'     => 1, 
-                'name'            => $dados['property_name'], 
+                'property_id'     => $idNewProp,
+                'language_id'     => 1,
+                'name'            => $dados['property_name'],
                 'form_field_name' => $form_field_name
             ];
             PropertyName::create($dados);
 
-            return response()->json([]); 
+            return response()->json([]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Ocorreu um erro. Tente mais tarde.'], 500);
         }
@@ -149,7 +150,7 @@ class PropertiesManagment extends Controller {
                             }])
                             ->paginate(5);
 
-        return response()->json($relacoes); 
+        return response()->json($relacoes);
     }
 
 
@@ -174,7 +175,7 @@ class PropertiesManagment extends Controller {
                 'property_fieldType_rel'  => ['required'],
                 'property_mandatory_rel'  => ['required'],
                 'property_fieldOrder_rel' => ['required', 'integer', 'min:1'],
-                'units_name'              => ['integer'], 
+                'units_name'              => ['integer'],
                 'property_fieldSize_rel'  => $propertyFieldSize,
                 'property_state_rel'      => ['required'],
             ];
@@ -185,10 +186,8 @@ class PropertiesManagment extends Controller {
             if ($erros->fails()) {
                 // Se existir, então retorna os erros
                 $resultado = $erros->errors()->messages();
-                return response()->json(['error' => $resultado], 400); 
+                return response()->json(['error' => $resultado], 400);
             }
-
-            return response()->json([]);
 
             if(!isset($dados['units_name']) || (isset($dados['units_name']) && $dados['units_name'] == "0")) {
                 $dados['units_name'] = NULL;
@@ -201,7 +200,8 @@ class PropertiesManagment extends Controller {
                 'unit_type_id'     => $dados['units_name'             ],
                 'form_field_order' => $dados['property_fieldOrder_rel'],
                 'form_field_size'  => $dados['property_fieldSize_rel' ],
-                'mandatory'        => $dados['property_mandatory_rel' ]
+                'mandatory'        => $dados['property_mandatory_rel' ],
+                'state'            => $dados['property_state_rel'     ]
             );
 
             $newProp   = Property::create($data);
@@ -222,14 +222,14 @@ class PropertiesManagment extends Controller {
 
             // inserir o nome da propriedade e o nome do campo form_field_name
             $dados = [
-                'property_id'     => $idNewProp, 
-                'language_id'     => 1, 
-                'name'            => $dados['property_name_rel'], 
+                'property_id'     => $idNewProp,
+                'language_id'     => 1,
+                'name'            => $dados['property_name_rel'],
                 'form_field_name' => $form_field_name
             ];
             PropertyName::create($dados);
 
-            return response()->json([]); 
+            return response()->json([]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Ocorreu um erro. Tente mais tarde.'], 500);
         }
@@ -239,17 +239,17 @@ class PropertiesManagment extends Controller {
     //Métodos comuns
     public function getStates() {
         $states = Property::getValoresEnum('state');
-        return response()->json($states); 
+        return response()->json($states);
     }
 
     public function getValueTypes() {
         $valueTypes = Property::getValoresEnum('value_type');
-        return response()->json($valueTypes); 
+        return response()->json($valueTypes);
     }
 
     public function getFieldTypes() {
         $fieldTypes = Property::getValoresEnum('form_field_type');
-        return response()->json($fieldTypes); 
+        return response()->json($fieldTypes);
     }
 
     public function getUnits() {
