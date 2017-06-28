@@ -2,7 +2,7 @@
 @section('content')
     <h2>{{trans("messages.properties")}}</h2>
     <div ng-controller="propertiesManagmentControllerJs">
-
+        <div growl></div>
         <!-- Table-to-load-the-data Part -->
         <table class="table" ng-init="getEntities()">
             <thead>
@@ -46,7 +46,7 @@
                     <td>[[ property.state ]]</td>
                     <td>[[ property.updated_at ]]</td>
                     <td>
-                        <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('edit', entity.id, property.id)">Editar</button>
+                        <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('edit', property.id)">Editar</button>
                         <button class="btn btn-danger btn-xs btn-delete">Histórico</button>
                     </td>
                     <tr ng-repeat-end ng-if="false"></tr>
@@ -69,9 +69,10 @@
                         <form id="formProperty" name="frmProp" class="form-horizontal" novalidate="">
 
                             <div class="form-group">
-                                <label for="entityType" class="col-sm-3 control-label">Entity Type:</label>
+                                <label class="col-sm-3 control-label">Entity Type:</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" name="entity_type">
+                                        <option value=""></option>
                                         <option ng-repeat="entity in entities" ng-value="entity.id">[[ entity.ent_type_names[0].name ]]</option>
                                     </select>
                                     <ul ng-repeat="error in errors.entity_type" style="padding-left: 15px;">
@@ -84,7 +85,7 @@
                             <div class="form-group">
                                 <label for="inputName" class="col-sm-3 control-label">Property name:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="property_name" name="property_name" value="@]]name]]" ng-model="propUnitType.language[0].pivot.name">
+                                    <input type="text" class="form-control" id="property_name" name="property_name" ng-model="propUnitType.language[0].pivot.name">
                                     <ul ng-repeat="error in errors.property_name" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
                                     </ul>
@@ -153,7 +154,7 @@
                            <div class="form-group">
                                 <label for="inputfieldSize" class="col-sm-3 control-label">Field Size:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="property_fieldSize" name="property_fieldSize" placeholder="">
+                                    <input type="number" class="form-control" id="property_fieldSize" name="property_fieldSize">
                                     <ul ng-repeat="error in errors.property_fieldSize" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
                                     </ul>
@@ -185,7 +186,7 @@
                                 </div>
                             </div>
 
-                        </form>
+                        </form> 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, id)" ng-disabled="frmProp.$invalid">Save changes</button>

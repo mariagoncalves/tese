@@ -20,12 +20,10 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         if (pageNumber === undefined) {
             pageNumber = '1';
         }
-        //Properties
         $http.get('/properties/get_props_ents?page='+pageNumber).then(function(response) {
             console.log(response);
             $scope.entities = response.data.data;
 
-            //COMENTADPOOOO
             $scope.totalPages = response.data.last_page;
             $scope.currentPage = response.data.current_page;
 
@@ -37,7 +35,6 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
             }
 
             $scope.range = pages;
-            //COMENTADPOOOO FIM
 
         });
     };
@@ -69,26 +66,34 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
     };
 
     $scope.toggle = function(modalstate, id) {
+
         $scope.modalstate = modalstate;
+
+        if(modalstate == "edit") {
+            $('#formProperty')[0].reset();
+            $('#myModal select:first').prop('disabled', true);
+        } else {
+            $('#formProperty')[0].reset();
+            $('#myModal select:first').prop('disabled', false);
+        }
 
         switch (modalstate) {
             case 'add':
                 $scope.id = id;
                 $scope.form_title = "Adicionar Nova Propriedade";
-
                 break;
             case 'edit':
                 $scope.form_title = "Detalhes do Tipo de Transacção";
                 $scope.id = id;
-                $http.get(API_URL + 'ents_types/get_ents_types/' + id)
+                $http.get(API_URL + '/properties/get_props_ents/' + id)
                     .then(function(response) {
-                        $scope.entitytype = response.data;
+                        $scope.entity = response.data;
                     });
                 break;
             default:
                 break;
         }
-        console.log(id);
+        //console.log(id);
         $('#myModal').modal('show');
         $scope.errors = null;
         $scope.process = null;
@@ -109,6 +114,11 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
             data: $.param(formData),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function(response) {
+            if(modalstate == "add") {
+                growl.success('Property inserted successfully.',{title: 'Success!'});
+            } else {
+                growl.success('Property edited successfully.',{title: 'Success!'});
+            }
             //First function handles success
             $scope.errors = [];
             $('#myModal').modal('hide');
@@ -116,6 +126,7 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         }, function(response) {
             //Second function handles error
             if (response.status == 400) {
+                growl.error('This is error message.',{title: 'error!'});
                 $scope.errors = response.data.error;
             } else if (response.status == 500) {
                 alert(response.data.error);

@@ -111,12 +111,6 @@ Route::post('/Prop_Unit_Type/{id?}', 'PropUnitTypes@update');
 
 //Properties Home Page
 Route::get('/propertiesManage/', 'PropertiesManagment@index');
-
-//Properties Of Entities
-Route::get('/propertiesManage/entity', 'PropertiesManagment@getAllPropertiesOfEntities');
-//Route::get('/propertiesManage/entity', 'EntTypes@insert');
-Route::get('/properties/get_props_ents', 'PropertiesManagment@getAllEnt');
-
 Route::get('/properties/states', 'PropertiesManagment@getStates');
 Route::get('/properties/valueTypes', 'PropertiesManagment@getValueTypes');
 Route::get('/properties/fieldTypes', 'PropertiesManagment@getFieldTypes');
@@ -130,9 +124,15 @@ Route::get('/properties/units', 'PropertiesManagment@getUnits');
 //Properties Of Relations
 Route::get('/propertiesManage/relation', 'PropertiesManagment@getAllPropertiesOfRelations');
 Route::get('/properties/get_props_rel', 'PropertiesManagment@getAllRel');
-
-
 Route::post('/PropertyRel', 'PropertiesManagment@insertPropsRel');
 Route::post('/PropertyRel/{id?}', 'PropertiesManagment@updatePropsRel');
 
+
+//inserir e update entidades
+
 Route::post('/PropertyEnt', 'PropertiesManagment@insertPropsEnt');
+Route::post('/PropertyEnt/{id?}', 'PropertiesManagment@updatePropsEnt');
+
+Route::get('/propertiesManage/entity', 'PropertiesManagment@getAllPropertiesOfEntities');
+Route::get('/properties/get_props_ents', 'PropertiesManagment@getAllEnt');
+

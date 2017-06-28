@@ -30,19 +30,44 @@ class PropertiesManagment extends Controller {
     }
 
     public function getAllEnt($id = null) {
+
+        if($id == null) {
+
+            $language_id = '1';
+
+        	$entidades = EntType::with('properties.propertiesNames')
+                                ->with(['entTypeNames' => function($query) use ($language_id) {
+                                    $query->where('language_id', $language_id);
+                                }])
+                                ->with(['properties.units.language' => function($query) use ($language_id) {
+                                    $query->where('language_id', $language_id);
+                                }])
+                                ->paginate(5);
+
+            return response()->json($entidades);
+
+        } else {
+
+            return $this->getSpecEnt($id);
+
+        }
+    }
+
+    public function getSpecEnt($id) {
+
+
         $language_id = '1';
 
-    	$entidades = EntType::with('properties.propertiesNames')
+        $entidades = EntType::with('properties.propertiesNames')
                             ->with(['entTypeNames' => function($query) use ($language_id) {
                                 $query->where('language_id', $language_id);
                             }])
                             ->with(['properties.units.language' => function($query) use ($language_id) {
                                 $query->where('language_id', $language_id);
                             }])
-                            ->paginate(5);
+                            ->find($id);
 
         return response()->json($entidades);
-
     }
 
     public function insertPropsEnt(Request $request) {
@@ -128,9 +153,76 @@ class PropertiesManagment extends Controller {
         } catch (\Exception $e) {
             return response()->json(['error' => 'Ocorreu um erro. Tente mais tarde.'], 500);
         }
-
     }
 
+    public function updatePropsEnt(Request $request, $id) {
+
+        $dados = $request->all();
+
+        $propertyFieldSize = '';
+        if(isset($dados["property_fieldType"])) {
+            if ($dados["property_fieldType"] === "text") {
+                $propertyFieldSize = 'required|integer';
+            } else if ($dados["property_fieldType"] === "textbox") {
+                $propertyFieldSize = 'required|regex:[[0-9]{2}x[0-9]{2}]';
+            }
+        }
+
+        $rules = [
+            'property_name'       => ['required','string' , Rule::unique('property_name' , 'name')->where('language_id', '1')],
+            'property_state'      => ['required'],
+            'property_valueType'  => ['required'],
+            'property_fieldType'  => ['required'],
+            'property_mandatory'  => ['required'],
+            'property_fieldOrder' => ['required', 'integer', 'min:1'],
+            'unites_names'        => ['integer'],
+            'property_fieldSize'  => $propertyFieldSize,
+            'reference_entity'    => ['integer']
+
+        ];
+
+        $erros = Validator::make($dados, $rules);
+        // Verificar se existe algum erro.
+        if ($erros->fails()) {
+            // Se existir, então retorna os erros
+            $resultado = $erros->errors()->messages();
+            return response()->json(['error' => $resultado], 400);
+        }
+
+        if(!isset($dados['units_name']) || (isset($dados['units_name']) && $dados['units_name'] == "0")) {
+            $dados['units_name'] = NULL;
+        }
+
+        if(!isset($dados['reference_entity']) || (isset($dados['reference_entity']) && $dados['reference_entity'] == "0")) {
+            $dados['reference_entity'] = NULL;
+        }
+
+
+        $data = array(
+            'value_type'       => $dados['property_valueType_rel' ],
+            'form_field_type'  => $dados['property_fieldType_rel' ],
+            'unit_type_id'     => $dados['units_name'             ],
+            'form_field_order' => $dados['property_fieldOrder_rel'],
+            'form_field_size'  => $dados['property_fieldSize_rel' ],
+            'mandatory'        => $dados['property_mandatory_rel' ],
+            'state'            => $dados['property_state_rel'     ],
+            'fk_ent_type_id'   => $dados['reference_entity'       ]
+        );
+
+        Property::where('id', $id)
+                ->update($data);
+
+
+        $dataName = [
+            'name' => $dados['property_name'],
+        ];
+
+        PropertyName::where('property_id', $id)
+                    ->where('language_id', 1)
+                    ->update($dataName);
+
+        return response()->json([]);
+    }
 
     //MÉTODOS DAS RELAÇÕES
     public function getAllPropertiesOfRelations() {
