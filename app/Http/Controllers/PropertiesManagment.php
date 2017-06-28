@@ -139,20 +139,43 @@ class PropertiesManagment extends Controller {
     }
 
     public function getAllRel($id = null) {
+
+        if($id == null) {
+
+            $language_id = '1';
+
+            $relacoes = RelType::with('properties.propertiesNames')
+                                ->with(['relTypeNames' => function($query) use ($language_id) {
+                                    $query->where('language_id', $language_id);
+                                }])
+                                ->with(['properties.units.language' => function($query) use ($language_id) {
+                                    $query->where('language_id', $language_id);
+                                }])
+                                ->paginate(5);
+
+            return response()->json($relacoes);
+
+        } else {
+
+            return $this->getSpecRel($id);
+        }
+    }
+
+    public function getSpecRel($id) {
+
         $language_id = '1';
 
-        $relacoes = RelType::with('properties.propertiesNames')
-                            ->with(['relTypeNames' => function($query) use ($language_id) {
-                                $query->where('language_id', $language_id);
-                            }])
-                            ->with(['properties.units.language' => function($query) use ($language_id) {
-                                $query->where('language_id', $language_id);
-                            }])
-                            ->paginate(5);
+            $relacoes = RelType::with('properties.propertiesNames')
+                                ->with(['relTypeNames' => function($query) use ($language_id) {
+                                    $query->where('language_id', $language_id);
+                                }])
+                                ->with(['properties.units.language' => function($query) use ($language_id) {
+                                    $query->where('language_id', $language_id);
+                                }])
+                                ->find($id);
 
         return response()->json($relacoes);
     }
-
 
     public function insertPropsRel(Request $request) {
 
@@ -234,6 +257,67 @@ class PropertiesManagment extends Controller {
             return response()->json(['error' => 'Ocorreu um erro. Tente mais tarde.'], 500);
         }
 
+    }
+
+    public function updatePropsRel(Request $request, $id) {
+
+        $dados = $request->all();
+
+        $propertyFieldSize = '';
+        if(isset($dados["property_fieldType"])) {
+            if ($dados["property_fieldType"] === "text") {
+                $propertyFieldSize = 'required|integer';
+            } else if ($dados["property_fieldType"] === "textbox") {
+                $propertyFieldSize = 'required|regex:[[0-9]{2}x[0-9]{2}]';
+            }
+        }
+
+        $rules = [
+            'property_name_rel'       => ['required','string' , Rule::unique('property_name' , 'name')->where('language_id', '1')],
+            'property_state_rel'      => ['required'],
+            'property_valueType_rel'  => ['required'],
+            'property_fieldType_rel'  => ['required'],
+            'property_mandatory_rel'  => ['required'],
+            'property_fieldOrder_rel' => ['required', 'integer', 'min:1'],
+            'units_name'              => ['integer'],
+            'property_fieldSize_rel'  => $propertyFieldSize
+        ];
+
+        $erros = Validator::make($dados, $rules);
+        // Verificar se existe algum erro.
+        if ($erros->fails()) {
+            // Se existir, então retorna os erros
+            $resultado = $erros->errors()->messages();
+            return response()->json(['error' => $resultado], 400);
+        }
+
+        if(!isset($dados['units_name']) || (isset($dados['units_name']) && $dados['units_name'] == "0")) {
+            $dados['units_name'] = NULL;
+        }
+
+        $data = array(
+            'value_type'       => $dados['property_valueType_rel' ],
+            'form_field_type'  => $dados['property_fieldType_rel' ],
+            'unit_type_id'     => $dados['units_name'             ],
+            'form_field_order' => $dados['property_fieldOrder_rel'],
+            'form_field_size'  => $dados['property_fieldSize_rel' ],
+            'mandatory'        => $dados['property_mandatory_rel' ],
+            'state'            => $dados['property_state_rel'     ]
+        );
+
+        Property::where('id', $id)
+                ->update($data);
+
+
+        $dataName = [
+            'name' => $dados['property_name_rel'],
+        ];
+
+        PropertyName::where('property_id', $id)
+                    ->where('language_id', 1)
+                    ->update($dataName);
+
+        return response()->json([]);
     }
 
     //Métodos comuns

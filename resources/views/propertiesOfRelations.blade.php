@@ -2,6 +2,7 @@
 @section('content')
     <h2>{{trans("messages.properties")}}</h2>
     <div ng-controller="propertiesManagmentControllerJs">
+        <div growl></div>
         <!-- Table-to-load-the-data Part -->
         <table class="table" ng-init="getRelations()" border = "1px solid">
             <thead>
@@ -45,7 +46,7 @@
                     <td>[[ property.state ]]</td>
                     <td>[[ property.updated_at ]]</td>
                     <td>
-                        <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('edit', relation.id, property.id)">Editar</button>
+                        <button class="btn btn-default btn-xs btn-detail" ng-click="toggleRel('edit', property.id)">Editar</button>
                         <button class="btn btn-danger btn-xs btn-delete">Histórico</button>
                     </td>
                     <tr ng-repeat-end ng-if="false"></tr>
@@ -85,8 +86,8 @@
                             <div class="form-group">
                                 <label for="property_name_rel" class="col-sm-3 control-label">Property name:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="property_name_rel" name="property_name_rel" placeholder="" value="@]]name]]"
-                                           ng-model="relType.language[0].pivot.name">
+                                    <input type="text" class="form-control" id="property_name_rel" name="property_name_rel" placeholder=""
+                                           ng-model="relType.language[0].pivot.name" value = "">
                                     <ul ng-repeat="error in errors.property_name_rel" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
                                     </ul>

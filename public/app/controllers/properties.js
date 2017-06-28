@@ -140,13 +140,21 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
             data: $.param(formData),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function(response) {
+            if(modalstate == "add") {
+                growl.success('Property inserted successfully.',{title: 'Success!'});
+            } else {
+                growl.success('Property edited successfully.',{title: 'Success!'});
+            }
             //First function handles success
             $scope.errors = [];
             $('#myModal').modal('hide');
+            $('#myModal select:first').prop('disabled', false);
+            $('#formPropRel')[0].reset();
             $scope.getRelations();
         }, function(response) {
             //Second function handles error
             if (response.status == 400) {
+                growl.error('This is error message.',{title: 'error!'});
                 $scope.errors = response.data.error;
             } else if (response.status == 500) {
                 alert(response.data.error);
@@ -155,20 +163,30 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
     };
 
     $scope.toggleRel = function(modalstate, id) {
+
         $scope.modalstate = modalstate;
+
+        if(modalstate == "edit") {
+            $('#formPropRel')[0].reset();
+            $('#myModal select:first').prop('disabled', true);
+        } else {
+            $('#formPropRel')[0].reset();
+            $('#myModal select:first').prop('disabled', false);
+        }  
 
         switch (modalstate) {
             case 'add':
                 $scope.id = id;
                 $scope.form_title = "Adicionar Nova Propriedade";
-
                 break;
             case 'edit':
                 $scope.form_title = "Detalhes do Tipo de Transacção";
                 $scope.id = id;
-                $http.get(API_URL + '/properties/get_props_rel' + id)
+                //$('#formPropRel')[0].reset();
+                break;
+                $http.get(API_URL + '/properties/get_props_rel/' + id)
                     .then(function(response) {
-                        $scope.entitytype = response.data;
+                        $scope.relation = response.data;
                     });
                 break;
             default:
