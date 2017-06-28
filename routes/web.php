@@ -133,3 +133,5 @@ Route::get('/properties/get_props_rel', 'PropertiesManagment@getAllRel');
 
 
 Route::post('/PropertyRel', 'PropertiesManagment@insertPropsRel');
+
+Route::post('/PropertyEnt', 'PropertiesManagment@insertPropsEnt');

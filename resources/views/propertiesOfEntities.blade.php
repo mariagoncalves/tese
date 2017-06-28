@@ -66,7 +66,7 @@
                         <h4 class="modal-title" id="myModalLabel">[[form_title]]</h4>
                     </div>
                     <div class="modal-body">
-                        <form id="formProperty" name="frmUnitTypes" class="form-horizontal" novalidate="">
+                        <form id="formProperty" name="frmProp" class="form-horizontal" novalidate="">
 
                             <div class="form-group">
                                 <label for="entityType" class="col-sm-3 control-label">Entity Type:</label>
@@ -164,12 +164,12 @@
                                 <label for="Gender" class="col-sm-3 control-label">Mandatory:</label>
                                 <div class="col-sm-9">
                                     <label for="" class="radio-inline mandatory">
-                                        <input type="radio" name="prop_unit_type_mandatory" value="1" ng-model="propUnitType.mandatory" required>Yes
+                                        <input type="radio" name="property_mandatory" value="1" ng-model="propUnitType.mandatory" required>Yes
                                     </label>
                                     <label for="" class="radio-inline mandatory">
-                                        <input type="radio" name="prop_unit_type_mandatory" value="0" ng-model="propUnitType.mandatory" required>No
+                                        <input type="radio" name="property_mandatory" value="0" ng-model="propUnitType.mandatory" required>No
                                     </label>
-                                    <ul ng-repeat="error in errors.prop_unit_type_mandatory" style="padding-left: 15px;">
+                                    <ul ng-repeat="error in errors.property_mandatory" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
                                     </ul>
                                 </div>
@@ -188,7 +188,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, id)" ng-disabled="frmUnitTypes.$invalid">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, id)" ng-disabled="frmProp.$invalid">Save changes</button>
                     </div>
                 </div>
             </div>
