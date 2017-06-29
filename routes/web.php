@@ -52,7 +52,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/dashboard', 'HomeController@dash');
 
-//Rota que quando for digitado no url http://localhost:8000/formulários, vai chamar o controlador GestaoFormularios e vai para o método index. 
+//Rota que quando for digitado no url http://localhost:8000/formulários, vai chamar o controlador GestaoFormularios e vai para o método index.
 Route::get('/formularios', 'GestaoFormularios@show');
 Route::get('/formularios/editar/{id}', 'GestaoFormularios@editar');
 Route::get('/formularios/desativar/{id}', 'GestaoFormularios@desativar');
@@ -128,6 +128,7 @@ Route::post('/PropertyRel', 'PropertiesManagment@insertPropsRel');
 Route::post('/PropertyRel/{id?}', 'PropertiesManagment@updatePropsRel');
 
 
+Route::get('/properties/get_property/{id?}', 'PropertiesManagment@getProperty');
 //inserir e update entidades
 
 Route::post('/PropertyEnt', 'PropertiesManagment@insertPropsEnt');

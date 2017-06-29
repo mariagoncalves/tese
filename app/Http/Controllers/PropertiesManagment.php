@@ -269,6 +269,18 @@ class PropertiesManagment extends Controller {
         return response()->json($relacoes);
     }
 
+    public function getProperty($id) {
+        $language_id = '1';
+
+        $property = Property::with('propertiesNames')
+                            ->with(['units.language' => function($query) use ($language_id) {
+                                $query->where('language_id', $language_id);
+                            }])
+                            ->find($id);
+
+        return response()->json($property);
+    }
+
     public function insertPropsRel(Request $request) {
 
         try {
@@ -365,7 +377,7 @@ class PropertiesManagment extends Controller {
         }
 
         $rules = [
-            'property_name_rel'       => ['required','string' , Rule::unique('property_name' , 'name')->where('language_id', '1')],
+            'property_name_rel'       => ['required','string' , Rule::unique('property_name' , 'name')->where('language_id', '1')->ignore($id, 'property_id')],
             'property_state_rel'      => ['required'],
             'property_valueType_rel'  => ['required'],
             'property_fieldType_rel'  => ['required'],

@@ -73,7 +73,7 @@
                                 <div class="col-sm-9">
                                     <select class="form-control" name = "relation_type">
                                         <option value=""></option>
-                                        <option ng-repeat="relation in relations" ng-value="relation.id">[[ relation.rel_type_names[0].name ]]</option>
+                                        <option ng-repeat="relation in relations" value="relation.id" ng-selected="relation.id == property.rel_type_id" >[[ relation.rel_type_names[0].name ]]</option>
                                     </select>
                                     <ul ng-repeat="error in errors.relation_type" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
@@ -86,8 +86,7 @@
                             <div class="form-group">
                                 <label for="property_name_rel" class="col-sm-3 control-label">Property name:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="property_name_rel" name="property_name_rel" placeholder=""
-                                           ng-model="relType.language[0].pivot.name" value = "">
+                                    <input type="text" class="form-control" id="property_name_rel" name="property_name_rel" value="[[ property.properties_names[0].name ]]" >
                                     <ul ng-repeat="error in errors.property_name_rel" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
                                     </ul>
@@ -98,7 +97,7 @@
                                 <label for="Gender" class="col-sm-3 control-label">State:</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline state" ng-repeat="state in states">
-                                        <input type="radio" name="property_state_rel" value="[[ state ]]">[[ state ]]
+                                        <input type="radio" name="property_state_rel" value="[[ state ]]" ng-model="property.state">[[ state ]]
                                     </label>
                                     <ul ng-repeat="error in errors.property_state_rel" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
@@ -110,7 +109,7 @@
                                 <label for="Gender" class="col-sm-3 control-label">Value Type:</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline valueType" ng-repeat="valueType in valueTypes">
-                                        <input type="radio" name="property_valueType_rel" value="[[ valueType ]]" required>[[ valueType ]]
+                                        <input type="radio" name="property_valueType_rel" value="[[ valueType ]]" ng-model="property.value_type" required>[[ valueType ]]
                                     </label>
                                     <ul ng-repeat="error in errors.property_valueType_rel" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
@@ -122,7 +121,7 @@
                                 <label for="Gender" class="col-sm-3 control-label">Field Type:</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline fieldType" ng-repeat="fieldType in fieldTypes">
-                                        <input type="radio" name="property_fieldType_rel" value="[[ fieldType ]]" required>[[ fieldType ]]
+                                        <input type="radio" name="property_fieldType_rel" value="[[ fieldType ]]" ng-model="property.form_field_type" required>[[ fieldType ]]
                                     </label>
                                     <ul ng-repeat="error in errors.property_fieldType_rel" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
@@ -135,7 +134,7 @@
                                 <div class="col-sm-9">
                                     <select class="form-control" name = "units_name">
                                         <option value="0"></option>
-                                        <option ng-repeat="unit in units" ng-value="unit.id">[[ unit.units_names[0].name ]]</option>
+                                        <option ng-repeat="unit in units" value="[[ unit.id ]]" ng-selected="unit.id == property.unit_type_id" >[[ unit.units_names[0].name ]]</option>
                                     </select>
                                     <ul ng-repeat="error in errors.units_name" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
@@ -148,7 +147,7 @@
                             <div class="form-group">
                                 <label for="inputfieldOrder" class="col-sm-3 control-label">Field Order:</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="property_fieldOrder_rel" name="property_fieldOrder_rel" placeholder="">
+                                    <input type="number" class="form-control" id="property_fieldOrder_rel" name="property_fieldOrder_rel" ng-model="property.form_field_order" placeholder="">
                                     <ul ng-repeat="error in errors.property_fieldOrder_rel" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
                                     </ul>
@@ -160,7 +159,7 @@
                            <div class="form-group">
                                 <label for="inputfieldSize" class="col-sm-3 control-label">Field Size:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="property_fieldSize_rel" name="property_fieldSize_rel" placeholder="">
+                                    <input type="text" class="form-control" id="property_fieldSize_rel" name="property_fieldSize_rel" ng-model="property.form_field_size">
                                     <ul ng-repeat="error in errors.property_fieldSize_rel" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
                                     </ul>
@@ -171,10 +170,10 @@
                                 <label for="Gender" class="col-sm-3 control-label">Mandatory:</label>
                                 <div class="col-sm-9">
                                     <label for="" class="radio-inline mandatory">
-                                        <input type="radio" name="property_mandatory_rel" value="1" ng-model="propUnitType.mandatory" required>Yes
+                                        <input type="radio" name="property_mandatory_rel" ng-value="1" ng-model="property.mandatory" required>Yes
                                     </label>
                                     <label for="" class="radio-inline mandatory">
-                                        <input type="radio" name="property_mandatory_rel" value="0" ng-model="propUnitType.mandatory" required>No
+                                        <input type="radio" name="property_mandatory_rel" ng-value="0" ng-model="property.mandatory" required>No
                                     </label>
                                     <ul ng-repeat="error in errors.property_mandatory_rel" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
@@ -184,7 +183,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="btn-save" ng-click="saveRel(modalstate, id)" ng-disabled="formProps.$invalid">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="btn-save" ng-click="saveRel(modalstate, id)">Save changes</button>
                     </div>
                 </div>
             </div>

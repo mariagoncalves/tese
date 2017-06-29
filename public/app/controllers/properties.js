@@ -114,15 +114,15 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
             data: $.param(formData),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function(response) {
+            //First function handles success
+            $scope.errors = [];
+            $('#myModal').modal('hide');
+            $scope.getEntities();
             if(modalstate == "add") {
                 growl.success('Property inserted successfully.',{title: 'Success!'});
             } else {
                 growl.success('Property edited successfully.',{title: 'Success!'});
             }
-            //First function handles success
-            $scope.errors = [];
-            $('#myModal').modal('hide');
-            $scope.getEntities();
         }, function(response) {
             //Second function handles error
             if (response.status == 400) {
@@ -151,24 +151,26 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
             data: $.param(formData),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function(response) {
+            //First function handles success
+            $scope.errors = [];
+            $scope.getRelations();
+            $('#myModal').modal('hide');
+            $('#myModal select:first').prop('disabled', false);
+            $('#formPropRel')[0].reset();
+            // Mostrar mensagem de sucesso
             if(modalstate == "add") {
                 growl.success('Property inserted successfully.',{title: 'Success!'});
             } else {
                 growl.success('Property edited successfully.',{title: 'Success!'});
             }
-            //First function handles success
-            $scope.errors = [];
-            $('#myModal').modal('hide');
-            $('#myModal select:first').prop('disabled', false);
-            $('#formPropRel')[0].reset();
-            $scope.getRelations();
         }, function(response) {
             //Second function handles error
             if (response.status == 400) {
-                growl.error('This is error message.',{title: 'error!'});
                 $scope.errors = response.data.error;
             } else if (response.status == 500) {
-                alert(response.data.error);
+                $('#myModal').modal('hide');
+                $('#formPropRel')[0].reset();
+                growl.error('Error.', {title: 'error!'});
             }
         });
     };
@@ -183,7 +185,7 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         } else {
             $('#formPropRel')[0].reset();
             $('#myModal select:first').prop('disabled', false);
-        }  
+        }
 
         switch (modalstate) {
             case 'add':
@@ -193,11 +195,11 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
             case 'edit':
                 $scope.form_title = "Detalhes do Tipo de Transacção";
                 $scope.id = id;
-                //$('#formPropRel')[0].reset();
-                break;
-                $http.get(API_URL + '/properties/get_props_rel/' + id)
+                $('#formPropRel')[0].reset();
+                $http.get(API_URL + '/properties/get_property/' + id)
                     .then(function(response) {
-                        $scope.relation = response.data;
+                        console.log(response);
+                        $scope.property = response.data;
                     });
                 break;
             default:
