@@ -72,18 +72,18 @@ class PropertiesManagment extends Controller {
 
     public function insertPropsEnt(Request $request) {
         try {
-            $dados = $request->all();
+            $data = $request->all();
 
             $propertyFieldSize = '';
-            if(isset($dados["property_fieldType"])) {
-                if ($dados["property_fieldType"] === "text") {
+            if(isset($data["property_fieldType"])) {
+                if ($data["property_fieldType"] === "text") {
                     $propertyFieldSize = 'required|integer';
-                } else if ($dados["property_fieldType"] === "textbox") {
+                } else if ($data["property_fieldType"] === "textbox") {
                     $propertyFieldSize = 'required|regex:[[0-9]{2}x[0-9]{2}]';
                 }
             }
 
-            $regras = [
+            $rules = [
                 'entity_type'              => ['required', 'integer'],
                 'property_name'            => ['required', 'string'],
                 'property_valueType'       => ['required'],
@@ -96,74 +96,74 @@ class PropertiesManagment extends Controller {
                 'reference_entity'         => ['integer']
             ];
 
-            $erros = Validator::make($dados, $regras);
+            $err = Validator::make($data, $rules);
             // Verificar se existe algum erro.
-            if ($erros->fails()) {
+            if ($err->fails()) {
                 // Se existir, então retorna os erros
-                $resultado = $erros->errors()->messages();
-                return response()->json(['error' => $resultado], 400);
+                $result = $err->errors()->messages();
+                return response()->json(['error' => $result], 400);
             }
 
-            if(!isset($dados['unites_names']) || (isset($dados['unites_names']) && $dados['unites_names'] == "0")) {
-                $dados['unites_names'] = NULL;
+            if(!isset($data['unites_names']) || (isset($data['unites_names']) && $data['unites_names'] == "0")) {
+                $data['unites_names'] = NULL;
             }
 
-            if(!isset($dados['reference_entity']) || (isset($dados['reference_entity']) && $dados['reference_entity'] == "0")) {
-                $dados['reference_entity'] = NULL;
+            if(!isset($data['reference_entity']) || (isset($data['reference_entity']) && $data['reference_entity'] == "0")) {
+                $data['reference_entity'] = NULL;
             }
 
-            $data = array(
-                'ent_type_id'      => $dados['entity_type'             ],
-                'value_type'       => $dados['property_valueType'      ],
-                'form_field_type'  => $dados['property_fieldType'      ],
-                'unit_type_id'     => $dados['unites_names'            ],
-                'form_field_order' => $dados['property_fieldOrder'     ],
-                'form_field_size'  => $dados['property_fieldSize'      ],
-                'mandatory'        => $dados['property_mandatory'      ],
-                'state'            => $dados['property_state'          ],
-                'fk_ent_type_id'   => $dados['reference_entity'        ]
+            $data1 = array(
+                'ent_type_id'      => $data['entity_type'             ],
+                'value_type'       => $data['property_valueType'      ],
+                'form_field_type'  => $data['property_fieldType'      ],
+                'unit_type_id'     => $data['unites_names'            ],
+                'form_field_order' => $data['property_fieldOrder'     ],
+                'form_field_size'  => $data['property_fieldSize'      ],
+                'mandatory'        => $data['property_mandatory'      ],
+                'state'            => $data['property_state'          ],
+                'fk_ent_type_id'   => $data['reference_entity'        ]
             );
 
-            $newProp   = Property::create($data);
+            $newProp   = Property::create($data1);
             // pegar o id da nova propriedade inserida
             $idNewProp = $newProp->id;
 
             //Criar o form_field_name
             //Obter o nome da relação onde a propriedade vai ser inserida
-            $entidade     = EntType::find($dados['entity_type']);
-            $nomeEntidade = $entidade->entTypeNames->first()->name;
-            $ent          = substr($nomeEntidade, 0 , 3);
-            $traco        = '-';
-            $nomeField    = preg_replace('/[^a-z0-9_ ]/i', '', $dados['property_name']);
+            $entity          = EntType::find($data['entity_type']);
+            $entity_name     = $entity->entTypeNames->first()->name;
+            $ent             = substr($entity_name, 0 , 3);
+            $dash            = '-';
+            $field_name      = preg_replace('/[^a-z0-9_ ]/i', '', $data['property_name']);
             // Substituimos todos pos espaços por underscore
-            $nomeField       = str_replace(' ', '_', $nomeField);
-            $form_field_name = $ent.$traco.$dados['entity_type'].$traco.$nomeField;
+            $field_name      = str_replace(' ', '_', $field_name);
+            $form_field_name = $ent.$dash.$data['entity_type'].$dash.$field_name;
 
 
             // inserir o nome da propriedade e o nome do campo form_field_name
-            $dados = [
+            $data = [
                 'property_id'     => $idNewProp,
                 'language_id'     => 1,
-                'name'            => $dados['property_name'],
+                'name'            => $data['property_name'],
                 'form_field_name' => $form_field_name
             ];
-            PropertyName::create($dados);
+            PropertyName::create($data);
 
             return response()->json([]);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Ocorreu um erro. Tente mais tarde.'], 500);
+            return response()->json(['error' => 'An error occurred. Try later.'], 500);
         }
     }
 
     public function updatePropsEnt(Request $request, $id) {
 
-        $dados = $request->all();
+        $data = $request->all();
 
         $propertyFieldSize = '';
-        if(isset($dados["property_fieldType"])) {
-            if ($dados["property_fieldType"] === "text") {
+        if(isset($data["property_fieldType"])) {
+            if ($data["property_fieldType"] === "text") {
                 $propertyFieldSize = 'required|integer';
-            } else if ($dados["property_fieldType"] === "textbox") {
+            } else if ($data["property_fieldType"] === "textbox") {
                 $propertyFieldSize = 'required|regex:[[0-9]{2}x[0-9]{2}]';
             }
         }
@@ -181,40 +181,40 @@ class PropertiesManagment extends Controller {
 
         ];
 
-        $erros = Validator::make($dados, $rules);
+        $err = Validator::make($data, $rules);
         // Verificar se existe algum erro.
-        if ($erros->fails()) {
+        if ($err->fails()) {
             // Se existir, então retorna os erros
-            $resultado = $erros->errors()->messages();
+            $resultado = $err->errors()->messages();
             return response()->json(['error' => $resultado], 400);
         }
 
-        if(!isset($dados['units_name']) || (isset($dados['units_name']) && $dados['units_name'] == "0")) {
-            $dados['units_name'] = NULL;
+        if(!isset($data['units_name']) || (isset($data['units_name']) && $data['units_name'] == "0")) {
+            $data['units_name'] = NULL;
         }
 
-        if(!isset($dados['reference_entity']) || (isset($dados['reference_entity']) && $dados['reference_entity'] == "0")) {
-            $dados['reference_entity'] = NULL;
+        if(!isset($data['reference_entity']) || (isset($data['reference_entity']) && $data['reference_entity'] == "0")) {
+            $data['reference_entity'] = NULL;
         }
 
 
-        $data = array(
-            'value_type'       => $dados['property_valueType_rel' ],
-            'form_field_type'  => $dados['property_fieldType_rel' ],
-            'unit_type_id'     => $dados['units_name'             ],
-            'form_field_order' => $dados['property_fieldOrder_rel'],
-            'form_field_size'  => $dados['property_fieldSize_rel' ],
-            'mandatory'        => $dados['property_mandatory_rel' ],
-            'state'            => $dados['property_state_rel'     ],
-            'fk_ent_type_id'   => $dados['reference_entity'       ]
+        $data1 = array(
+            'value_type'       => $data['property_valueType_rel' ],
+            'form_field_type'  => $data['property_fieldType_rel' ],
+            'unit_type_id'     => $data['units_name'             ],
+            'form_field_order' => $data['property_fieldOrder_rel'],
+            'form_field_size'  => $data['property_fieldSize_rel' ],
+            'mandatory'        => $data['property_mandatory_rel' ],
+            'state'            => $data['property_state_rel'     ],
+            'fk_ent_type_id'   => $data['reference_entity'       ]
         );
 
         Property::where('id', $id)
-                ->update($data);
+                ->update($data1);
 
 
         $dataName = [
-            'name' => $dados['property_name'],
+            'name' => $data['property_name'],
         ];
 
         PropertyName::where('property_id', $id)
@@ -230,9 +230,9 @@ class PropertiesManagment extends Controller {
         return view('propertiesOfRelations');
     }
 
-    public function getAllRel($id = null) {
+    public function getAllRel(/*$id = null*/) {
 
-        if($id == null) {
+        //if($id == null) {
 
             $language_id = '1';
 
@@ -247,13 +247,13 @@ class PropertiesManagment extends Controller {
 
             return response()->json($relacoes);
 
-        } else {
+        /*} else {
 
             return $this->getSpecRel($id);
-        }
+        }*/
     }
 
-    public function getSpecRel($id) {
+    /*public function getSpecRel($id) {
 
         $language_id = '1';
 
@@ -267,7 +267,7 @@ class PropertiesManagment extends Controller {
                                 ->find($id);
 
         return response()->json($relacoes);
-    }
+    }*/
 
     public function getProperty($id) {
         $language_id = '1';
@@ -284,18 +284,18 @@ class PropertiesManagment extends Controller {
     public function insertPropsRel(Request $request) {
 
         try {
-            $dados = $request->all();
+            $data = $request->all();
 
             $propertyFieldSize = '';
-            if(isset($dados["property_fieldType"])) {
-                if ($dados["property_fieldType"] === "text") {
+            if(isset($data["property_fieldType"])) {
+                if ($data["property_fieldType"] === "text") {
                     $propertyFieldSize = 'required|integer';
-                } else if ($dados["property_fieldType"] === "textbox") {
+                } else if ($data["property_fieldType"] === "textbox") {
                     $propertyFieldSize = 'required|regex:[[0-9]{2}x[0-9]{2}]';
                 }
             }
 
-            $regras = [
+            $rules = [
                 'relation_type'           => ['required', 'integer'],
                 'property_name_rel'       => ['required', 'string'],
                 'property_valueType_rel'  => ['required'],
@@ -308,70 +308,70 @@ class PropertiesManagment extends Controller {
             ];
 
 
-            $erros = Validator::make($dados, $regras);
+            $err = Validator::make($data, $rules);
             // Verificar se existe algum erro.
-            if ($erros->fails()) {
+            if ($err->fails()) {
                 // Se existir, então retorna os erros
-                $resultado = $erros->errors()->messages();
-                return response()->json(['error' => $resultado], 400);
+                $result = $err->errors()->messages();
+                return response()->json(['error' => $result], 400);
             }
 
-            if(!isset($dados['units_name']) || (isset($dados['units_name']) && $dados['units_name'] == "0")) {
-                $dados['units_name'] = NULL;
+            if(!isset($data['units_name']) || (isset($data['units_name']) && $data['units_name'] == "0")) {
+                $data['units_name'] = NULL;
             }
 
-            $data = array(
-                'rel_type_id'      => $dados['relation_type'          ],
-                'value_type'       => $dados['property_valueType_rel' ],
-                'form_field_type'  => $dados['property_fieldType_rel' ],
-                'unit_type_id'     => $dados['units_name'             ],
-                'form_field_order' => $dados['property_fieldOrder_rel'],
-                'form_field_size'  => $dados['property_fieldSize_rel' ],
-                'mandatory'        => $dados['property_mandatory_rel' ],
-                'state'            => $dados['property_state_rel'     ]
+            $data1 = array(
+                'rel_type_id'      => $data['relation_type'          ],
+                'value_type'       => $data['property_valueType_rel' ],
+                'form_field_type'  => $data['property_fieldType_rel' ],
+                'unit_type_id'     => $data['units_name'             ],
+                'form_field_order' => $data['property_fieldOrder_rel'],
+                'form_field_size'  => $data['property_fieldSize_rel' ],
+                'mandatory'        => $data['property_mandatory_rel' ],
+                'state'            => $data['property_state_rel'     ]
             );
 
-            $newProp   = Property::create($data);
+            $newProp   = Property::create($data1);
             // pegar o id da nova propriedade inserida
             $idNewProp = $newProp->id;
 
             //Criar o form_field_name
             //Obter o nome da relação onde a propriedade vai ser inserida
-            $relation    = RelType::find($dados['relation_type']);
-            $relationName = $relation->relTypeNames->first()->name;
-            $rel          = substr($relationName, 0 , 3);
-            $traco        = '-';
-            $nomeField    = preg_replace('/[^a-z0-9_ ]/i', '', $dados['property_name_rel']);
+            $relation        = RelType::find($data['relation_type']);
+            $relationName    = $relation->relTypeNames->first()->name;
+            $rel             = substr($relationName, 0 , 3);
+            $dash            = '-';
+            $fieldName       = preg_replace('/[^a-z0-9_ ]/i', '', $data['property_name_rel']);
             // Substituimos todos pos espaços por underscore
-            $nomeField       = str_replace(' ', '_', $nomeField);
-            $form_field_name = $rel.$traco.$dados['relation_type'].$traco.$nomeField;
+            $fieldName       = str_replace(' ', '_', $fieldName);
+            $form_field_name = $rel.$dash.$data['relation_type'].$dash.$fieldName;
 
 
             // inserir o nome da propriedade e o nome do campo form_field_name
-            $dados = [
+            $data = [
                 'property_id'     => $idNewProp,
                 'language_id'     => 1,
-                'name'            => $dados['property_name_rel'],
+                'name'            => $data['property_name_rel'],
                 'form_field_name' => $form_field_name
             ];
-            PropertyName::create($dados);
+            PropertyName::create($data);
 
             return response()->json([]);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Ocorreu um erro. Tente mais tarde.'], 500);
+            return response()->json(['error' => 'An error occurred. Try later.'], 500);
         }
 
     }
 
     public function updatePropsRel(Request $request, $id) {
 
-        $dados = $request->all();
+        $data = $request->all();
 
         $propertyFieldSize = '';
-        if(isset($dados["property_fieldType"])) {
-            if ($dados["property_fieldType"] === "text") {
+        if(isset($data["property_fieldType"])) {
+            if ($data["property_fieldType"] === "text") {
                 $propertyFieldSize = 'required|integer';
-            } else if ($dados["property_fieldType"] === "textbox") {
+            } else if ($data["property_fieldType"] === "textbox") {
                 $propertyFieldSize = 'required|regex:[[0-9]{2}x[0-9]{2}]';
             }
         }
@@ -387,34 +387,34 @@ class PropertiesManagment extends Controller {
             'property_fieldSize_rel'  => $propertyFieldSize
         ];
 
-        $erros = Validator::make($dados, $rules);
+        $err = Validator::make($data, $rules);
         // Verificar se existe algum erro.
-        if ($erros->fails()) {
+        if ($err->fails()) {
             // Se existir, então retorna os erros
-            $resultado = $erros->errors()->messages();
+            $resultado = $err->errors()->messages();
             return response()->json(['error' => $resultado], 400);
         }
 
-        if(!isset($dados['units_name']) || (isset($dados['units_name']) && $dados['units_name'] == "0")) {
-            $dados['units_name'] = NULL;
+        if(!isset($data['units_name']) || (isset($data['units_name']) && $data['units_name'] == "0")) {
+            $data['units_name'] = NULL;
         }
 
-        $data = array(
-            'value_type'       => $dados['property_valueType_rel' ],
-            'form_field_type'  => $dados['property_fieldType_rel' ],
-            'unit_type_id'     => $dados['units_name'             ],
-            'form_field_order' => $dados['property_fieldOrder_rel'],
-            'form_field_size'  => $dados['property_fieldSize_rel' ],
-            'mandatory'        => $dados['property_mandatory_rel' ],
-            'state'            => $dados['property_state_rel'     ]
+        $data1 = array(
+            'value_type'       => $data['property_valueType_rel' ],
+            'form_field_type'  => $data['property_fieldType_rel' ],
+            'unit_type_id'     => $data['units_name'             ],
+            'form_field_order' => $data['property_fieldOrder_rel'],
+            'form_field_size'  => $data['property_fieldSize_rel' ],
+            'mandatory'        => $data['property_mandatory_rel' ],
+            'state'            => $data['property_state_rel'     ]
         );
 
         Property::where('id', $id)
-                ->update($data);
+                ->update($data1);
 
 
         $dataName = [
-            'name' => $dados['property_name_rel'],
+            'name' => $data['property_name_rel'],
         ];
 
         PropertyName::where('property_id', $id)
@@ -446,7 +446,6 @@ class PropertiesManagment extends Controller {
 
         $units = PropUnitType::with(['unitsNames' => function($query) use ($language_id) {
                                 $query->where('language_id', $language_id);
-
                             }])->get();
 
         return response()->json($units);

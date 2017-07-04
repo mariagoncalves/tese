@@ -80,10 +80,10 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         switch (modalstate) {
             case 'add':
                 $scope.id = id;
-                $scope.form_title = "Adicionar Nova Propriedade";
+                $scope.form_title = "Add New Property";
                 break;
             case 'edit':
-                $scope.form_title = "Detalhes do Tipo de Transacção";
+                $scope.form_title = "Edit Property";
                 $scope.id = id;
                 $http.get(API_URL + '/properties/get_props_ents/' + id)
                     .then(function(response) {
@@ -140,7 +140,6 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         var url      = API_URL + "PropertyRel";
         var formData = JSON.parse(JSON.stringify(jQuery('#formPropRel').serializeArray()));
 
-        //append employee id to the URL if the form is in edit mode
         if (modalstate === 'edit') {
             url += "/" + id ;
         }
@@ -190,10 +189,11 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         switch (modalstate) {
             case 'add':
                 $scope.id = id;
-                $scope.form_title = "Adicionar Nova Propriedade";
+                $scope.form_title = "Add New Property";
+                /*$('#formPropRel')[0].reset();*/
                 break;
             case 'edit':
-                $scope.form_title = "Detalhes do Tipo de Transacção";
+                $scope.form_title = "Edit Property";
                 $scope.id = id;
                 $('#formPropRel')[0].reset();
                 $http.get(API_URL + '/properties/get_property/' + id)
@@ -246,8 +246,5 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
 
         });
     };
-
-
-
 });
 

@@ -27,10 +27,10 @@
 
                 <td rowspan="[[ entity.properties.length + 1 ]] " ng-if="entity.properties[$index - 1].ent_type_id != entity.id">[[ entity.ent_type_names[0].name ]] </td>
 
-                <td ng-if="entity.properties.length == 0" colspan="11">Não tem propriedades.</td>
+                <td ng-if="entity.properties.length == 0" colspan="11">{{trans("messages.noProperties")}}</td>
                 <td ng-if="entity.properties.length == 0" colspan="1">
-                    <button class="btn btn-default btn-xs btn-detail">Inserir</button>
-                    <button class="btn btn-danger btn-xs btn-delete">Histórico</button>
+                    <!--<button class="btn btn-default btn-xs btn-detail">Inserir</button> -->
+                    <button class="btn btn-danger btn-xs btn-delete">{{trans("messages.history")}}</button>
                 </td>
 
                 <tr ng-repeat="property in entity.properties">
@@ -46,8 +46,8 @@
                     <td>[[ property.state ]]</td>
                     <td>[[ property.updated_at ]]</td>
                     <td>
-                        <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('edit', property.id)">Editar</button>
-                        <button class="btn btn-danger btn-xs btn-delete">Histórico</button>
+                        <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('edit', property.id)">{{trans("messages.edit")}}</button>
+                        <button class="btn btn-danger btn-xs btn-delete">{{trans("messages.history")}}</button>
                     </td>
                     <tr ng-repeat-end ng-if="false"></tr>
                 </tr>
@@ -69,7 +69,7 @@
                         <form id="formProperty" name="frmProp" class="form-horizontal" novalidate="">
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Entity Type:</label>
+                                <label class="col-sm-3 control-label">{{trans("messages.entityType")}}:</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" name="entity_type">
                                         <option value=""></option>
@@ -83,7 +83,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="inputName" class="col-sm-3 control-label">Property name:</label>
+                                <label for="inputName" class="col-sm-3 control-label">{{trans("messages.propertyName")}}:</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="property_name" name="property_name" ng-model="propUnitType.language[0].pivot.name">
                                     <ul ng-repeat="error in errors.property_name" style="padding-left: 15px;">
@@ -93,7 +93,7 @@
                             </div>
 
                             <div class="form-group" ng-init="getStates()">
-                                <label for="Gender" class="col-sm-3 control-label">State:</label>
+                                <label for="Gender" class="col-sm-3 control-label">{{trans("messages.state")}}:</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline state" ng-repeat="state in states">
                                         <input type="radio" name="property_state" value="[[ state ]]">[[ state ]]
@@ -105,7 +105,7 @@
                             </div>
 
                             <div class="form-group" ng-init="getValueTypes()">
-                                <label for="Gender" class="col-sm-3 control-label">Value Type:</label>
+                                <label for="Gender" class="col-sm-3 control-label">{{trans("messages.valueType")}}:</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline valueType" ng-repeat="valueType in valueTypes">
                                         <input type="radio" name="property_valueType" value="[[ valueType ]]">[[ valueType ]]
@@ -117,7 +117,7 @@
                             </div>
 
                             <div class="form-group" ng-init="getFieldTypes()">
-                                <label for="Gender" class="col-sm-3 control-label">Field Type:</label>
+                                <label for="Gender" class="col-sm-3 control-label">{{trans("messages.formFieldType")}}:</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline fieldType" ng-repeat="fieldType in fieldTypes">
                                         <input type="radio" name="property_fieldType" value="[[ fieldType ]]">[[ fieldType ]]
@@ -129,7 +129,7 @@
                             </div>
 
                             <div class="form-group" ng-init="getUnits()">
-                                <label for="unitType" class="col-sm-3 control-label">Unit Type:</label>
+                                <label for="unitType" class="col-sm-3 control-label">{{trans("messages.unitType")}}:</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" name="unites_names">
                                         <option value="0"></option>
@@ -142,7 +142,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="inputfieldOrder" class="col-sm-3 control-label">Field Order:</label>
+                                <label for="inputfieldOrder" class="col-sm-3 control-label">{{trans("messages.fieldOrder")}}:</label>
                                 <div class="col-sm-9">
                                     <input type="number" class="form-control" id="property_fieldOrder" name="property_fieldOrder" >
                                     <ul ng-repeat="error in errors.property_fieldOrder" style="padding-left: 15px;">
@@ -152,7 +152,7 @@
                             </div>
                            
                            <div class="form-group">
-                                <label for="inputfieldSize" class="col-sm-3 control-label">Field Size:</label>
+                                <label for="inputfieldSize" class="col-sm-3 control-label">{{trans("messages.fieldSize")}}:</label>
                                 <div class="col-sm-9">
                                     <input type="number" class="form-control" id="property_fieldSize" name="property_fieldSize">
                                     <ul ng-repeat="error in errors.property_fieldSize" style="padding-left: 15px;">
@@ -162,7 +162,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="Gender" class="col-sm-3 control-label">Mandatory:</label>
+                                <label for="Gender" class="col-sm-3 control-label">{{trans("messages.mandatory")}}:</label>
                                 <div class="col-sm-9">
                                     <label for="" class="radio-inline mandatory">
                                         <input type="radio" name="property_mandatory" value="1" ng-model="propUnitType.mandatory" required>Yes
@@ -177,7 +177,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="entityType" class="col-sm-3 control-label">Referenciated Entity:</label>
+                                <label for="entityType" class="col-sm-3 control-label">{{trans("messages.refEntity")}}:</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" name="reference_entity">
                                         <option value="0"></option>
