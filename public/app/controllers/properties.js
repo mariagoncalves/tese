@@ -85,9 +85,10 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
             case 'edit':
                 $scope.form_title = "Edit Property";
                 $scope.id = id;
-                $http.get(API_URL + '/properties/get_props_ents/' + id)
+                $http.get(API_URL + '/properties/get_property/' + id)
                     .then(function(response) {
-                        $scope.entity = response.data;
+                        console.log(response);
+                        $scope.property = response.data;
                     });
                 break;
             default:

@@ -93,7 +93,7 @@
                             <div class="form-group">
                                 <label for="property_name_rel" class="col-sm-3 control-label">{{trans("messages.propertyName")}}:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="property_name_rel" name="property_name_rel" value="[[ property.properties_names[0].name ]]" >
+                                    <input type="text" class="form-control" id="property_name_rel" name="property_name_rel" ng-value="property.properties_names[0].name" >
                                     <ul ng-repeat="error in errors.property_name_rel" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
                                     </ul>
@@ -104,7 +104,7 @@
                                 <label for="Gender" class="col-sm-3 control-label">{{trans("messages.state")}}:</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline state" ng-repeat="state in states">
-                                        <input type="radio" name="property_state_rel" value="[[ state ]]" ng-model="property.state">[[ state ]]
+                                        <input type="radio" name="property_state_rel" value="[[ state ]]" ng-checked="state == property.state">[[ state ]]
                                     </label>
                                     <ul ng-repeat="error in errors.property_state_rel" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
@@ -116,7 +116,7 @@
                                 <label for="Gender" class="col-sm-3 control-label">{{trans("messages.valueType")}}:</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline valueType" ng-repeat="valueType in valueTypes">
-                                        <input type="radio" name="property_valueType_rel" value="[[ valueType ]]" ng-model="property.value_type" required>[[ valueType ]]
+                                        <input type="radio" name="property_valueType_rel" value="[[ valueType ]]" ng-checked="valueType == property.value_type" required>[[ valueType ]]
                                     </label>
                                     <ul ng-repeat="error in errors.property_valueType_rel" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
@@ -128,7 +128,7 @@
                                 <label for="Gender" class="col-sm-3 control-label">{{trans("messages.formFieldType")}}:</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline fieldType" ng-repeat="fieldType in fieldTypes">
-                                        <input type="radio" name="property_fieldType_rel" value="[[ fieldType ]]" ng-model="property.form_field_type" required>[[ fieldType ]]
+                                        <input type="radio" name="property_fieldType_rel" value="[[ fieldType ]]" ng-checked="fieldType == property.form_field_type" required>[[ fieldType ]]
                                     </label>
                                     <ul ng-repeat="error in errors.property_fieldType_rel" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
@@ -154,7 +154,7 @@
                             <div class="form-group">
                                 <label for="inputfieldOrder" class="col-sm-3 control-label">{{trans("messages.fieldOrder")}}:</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="property_fieldOrder_rel" name="property_fieldOrder_rel" ng-model="property.form_field_order" placeholder="">
+                                    <input type="number" class="form-control" id="property_fieldOrder_rel" name="property_fieldOrder_rel" ng-value="property.form_field_order" placeholder="">
                                     <ul ng-repeat="error in errors.property_fieldOrder_rel" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
                                     </ul>
@@ -166,7 +166,7 @@
                            <div class="form-group">
                                 <label for="inputfieldSize" class="col-sm-3 control-label">{{trans("messages.fieldSize")}}:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="property_fieldSize_rel" name="property_fieldSize_rel" ng-model="property.form_field_size">
+                                    <input type="text" class="form-control" id="property_fieldSize_rel" name="property_fieldSize_rel" ng-value="property.form_field_size">
                                     <ul ng-repeat="error in errors.property_fieldSize_rel" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
                                     </ul>
@@ -177,10 +177,10 @@
                                 <label for="Gender" class="col-sm-3 control-label">{{trans("messages.mandatory")}}:</label>
                                 <div class="col-sm-9">
                                     <label for="" class="radio-inline mandatory">
-                                        <input type="radio" name="property_mandatory_rel" ng-value="1" ng-model="property.mandatory" required>Yes
+                                        <input type="radio" name="property_mandatory_rel" ng-value="1" ng-checked="1 == property.mandatory" required>Yes
                                     </label>
                                     <label for="" class="radio-inline mandatory">
-                                        <input type="radio" name="property_mandatory_rel" ng-value="0" ng-model="property.mandatory" required>No
+                                        <input type="radio" name="property_mandatory_rel" ng-value="0" ng-checked="0 == property.mandatory" required>No
                                     </label>
                                     <ul ng-repeat="error in errors.property_mandatory_rel" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
