@@ -85,7 +85,7 @@ class PropertiesManagment extends Controller {
 
             $rules = [
                 'entity_type'              => ['required', 'integer'],
-                'property_name'            => ['required', 'string'],
+                'property_name'            => ['required', 'string', Rule::unique('property_name' , 'name')->where('language_id', '1')],
                 'property_valueType'       => ['required'],
                 'property_fieldType'       => ['required'],
                 'property_mandatory'       => ['required'],
@@ -297,7 +297,7 @@ class PropertiesManagment extends Controller {
 
             $rules = [
                 'relation_type'           => ['required', 'integer'],
-                'property_name_rel'       => ['required', 'string'],
+                'property_name_rel'       => ['required', 'string', Rule::unique('property_name' , 'name')->where('language_id', '1')],
                 'property_valueType_rel'  => ['required'],
                 'property_fieldType_rel'  => ['required'],
                 'property_mandatory_rel'  => ['required'],
