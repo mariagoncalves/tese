@@ -66,14 +66,13 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
     };
 
     $scope.toggle = function(modalstate, id) {
-
+        $('#formProperty')[0].reset();
+        $scope.property = null;
         $scope.modalstate = modalstate;
 
         if(modalstate == "edit") {
-            $('#formProperty')[0].reset();
             $('#myModal select:first').prop('disabled', true);
         } else {
-            $('#formProperty')[0].reset();
             $('#myModal select:first').prop('disabled', false);
         }
 
@@ -87,14 +86,12 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
                 $scope.id = id;
                 $http.get(API_URL + '/properties/get_property/' + id)
                     .then(function(response) {
-                        console.log(response);
                         $scope.property = response.data;
                     });
                 break;
             default:
                 break;
         }
-        //console.log(id);
         $('#myModal').modal('show');
         $scope.errors = null;
         $scope.process = null;
@@ -127,10 +124,9 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         }, function(response) {
             //Second function handles error
             if (response.status == 400) {
-                growl.error('This is error message.',{title: 'error!'});
                 $scope.errors = response.data.error;
             } else if (response.status == 500) {
-                alert(response.data.error);
+                growl.error(response.data.error, {title: 'error!'});
             }
         });
     };
@@ -176,14 +172,13 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
     };
 
     $scope.toggleRel = function(modalstate, id) {
-
+        $('#formPropRel')[0].reset();
+        $scope.property = null;
         $scope.modalstate = modalstate;
 
         if(modalstate == "edit") {
-            $('#formPropRel')[0].reset();
             $('#myModal select:first').prop('disabled', true);
         } else {
-            $('#formPropRel')[0].reset();
             $('#myModal select:first').prop('disabled', false);
         }
 
@@ -191,22 +186,18 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
             case 'add':
                 $scope.id = id;
                 $scope.form_title = "Add New Property";
-                /*$('#formPropRel')[0].reset();*/
                 break;
             case 'edit':
                 $scope.form_title = "Edit Property";
                 $scope.id = id;
-                $('#formPropRel')[0].reset();
                 $http.get(API_URL + '/properties/get_property/' + id)
                     .then(function(response) {
-                        console.log(response);
                         $scope.property = response.data;
                     });
                 break;
             default:
                 break;
         }
-        console.log(id);
         $('#myModal').modal('show');
         $scope.errors = null;
         $scope.process = null;

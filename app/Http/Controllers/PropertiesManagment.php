@@ -169,7 +169,7 @@ class PropertiesManagment extends Controller {
         }
 
         $rules = [
-            'property_name'       => ['required','string' , Rule::unique('property_name' , 'name')->where('language_id', '1')],
+            'property_name'       => ['required','string' , Rule::unique('property_name' , 'name')->where('language_id', '1')->ignore($id, 'property_id')],
             'property_state'      => ['required'],
             'property_valueType'  => ['required'],
             'property_fieldType'  => ['required'],
@@ -199,14 +199,14 @@ class PropertiesManagment extends Controller {
 
 
         $data1 = array(
-            'value_type'       => $data['property_valueType_rel' ],
-            'form_field_type'  => $data['property_fieldType_rel' ],
-            'unit_type_id'     => $data['units_name'             ],
-            'form_field_order' => $data['property_fieldOrder_rel'],
-            'form_field_size'  => $data['property_fieldSize_rel' ],
-            'mandatory'        => $data['property_mandatory_rel' ],
-            'state'            => $data['property_state_rel'     ],
-            'fk_ent_type_id'   => $data['reference_entity'       ]
+            'value_type'       => $data['property_valueType'      ],
+            'form_field_type'  => $data['property_fieldType'      ],
+            'unit_type_id'     => $data['unites_names'            ],
+            'form_field_order' => $data['property_fieldOrder'     ],
+            'form_field_size'  => $data['property_fieldSize'      ],
+            'mandatory'        => $data['property_mandatory'      ],
+            'state'            => $data['property_state'          ],
+            'fk_ent_type_id'   => $data['reference_entity'        ]
         );
 
         Property::where('id', $id)
