@@ -14,7 +14,7 @@
                 <th>{{trans("messages.formFieldName")}}</th>
                 <th>{{trans("messages.formFieldType")}}</th>
                 <th>{{trans("messages.unitType")}}</th>
-                <th>{{trans("messages.formFieldOrder")}}</th>
+                <!-- <th>{{trans("messages.formFieldOrder")}}</th> -->
                 <th>{{trans("messages.formFieldSize")}}</th>
                 <th>{{trans("messages.mandatory")}}</th>
                 <th>{{trans("messages.state")}}</th>
@@ -40,7 +40,7 @@
                     <td>[[ property.language[0].pivot.form_field_name ]]</td>
                     <td>[[ property.form_field_type ]]</td>
                     <td>[[ property.units ? property.units.language[0].pivot.name : '-' ]]</td>
-                    <td>[[ property.form_field_order ]]</td>
+                    <!-- <td>[[ property.form_field_order ]]</td> -->
                     <td>[[ property.form_field_size ]]</td>
                     <td>[[ (property.mandatory == 1) ? 'Yes' : 'No' ]]</td>
                     <td>[[ property.state ]]</td>
@@ -141,7 +141,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="inputfieldOrder" class="col-sm-3 control-label">{{trans("messages.fieldOrder")}}:</label>
                                 <div class="col-sm-9">
                                     <input type="number" class="form-control" id="property_fieldOrder" name="property_fieldOrder" ng-value="property.form_field_order" >
@@ -149,7 +149,7 @@
                                         <li>[[ error ]]</li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> -->
 
                            <div class="form-group">
                                 <label for="inputfieldSize" class="col-sm-3 control-label">{{trans("messages.fieldSize")}}:</label>

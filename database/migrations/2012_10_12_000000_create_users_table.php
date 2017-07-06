@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             //$table->string('user_name', 45);
             //$table->integer('language_id')->unsigned();
             //$table->enum('user_type', ['internal', 'external']);
+            //$table->integer('ent_type_id')->nullable()->unsigned();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

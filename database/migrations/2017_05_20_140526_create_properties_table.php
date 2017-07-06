@@ -22,7 +22,10 @@ class CreatePropertiesTable extends Migration
             //$table->string('form_field_name', 64)->default('')->comment('ascii string to be used as the name of the form field');
             $table->enum('form_field_type', ['text','textbox','radio','checkbox','selectbox']);
             $table->integer('unit_type_id')->nullable()->unsigned();
+
             $table->integer('form_field_order')->comment('order in which form fields will be shown');
+            //$table->increments('form_field_order');
+
             $table->integer('mandatory')->comment('1 if property is mandatory for its parent, 0 if not');
             $table->enum('state', ['active','inactive']);
             $table->integer('fk_ent_type_id')->nullable()->unsigned();

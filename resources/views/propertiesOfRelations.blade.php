@@ -14,7 +14,7 @@
                 <th>{{trans("messages.formFieldName")}}</th>
                 <th>{{trans("messages.formFieldType")}}</th>
                 <th>{{trans("messages.unitType")}}</th>
-                <th>{{trans("messages.formFieldOrder")}}</th>
+                <!-- <th>{{trans("messages.formFieldOrder")}}</th> -->
                 <th>{{trans("messages.formFieldSize")}}</th>
                 <th>{{trans("messages.mandatory")}}</th>
                 <th>{{trans("messages.state")}}</th>
@@ -25,7 +25,10 @@
             <tbody>
                 <tr ng-repeat-start="relation in relations" ng-if="false" ng-init="innerIndex = $index"></tr>
 
-                <td rowspan="[[ relation.properties.length + 1 ]] " ng-if="relation.properties[$index - 1].ent_type_id != relation.id">[[ relation.language[0].pivot.name ]] </td>
+                <td rowspan="[[ relation.properties.length + 1 ]] " ng-if="relation.properties[$index - 1].ent_type_id != relation.id">
+                    [[ relation.language[0].pivot.name ]]
+                    <button class="btn btn-primary btn-xs"> Property drag and drop reorder</button>
+                </td>
 
                 <td ng-if="relation.properties.length == 0" colspan="11">{{trans("messages.noProperties")}}</td>
                 <td ng-if="relation.properties.length == 0" colspan="1">
@@ -40,7 +43,7 @@
                     <td>[[ property.language[0].pivot.form_field_name ]]</td>
                     <td>[[ property.form_field_type ]]</td>
                     <td>[[ property.units ? property.units.language[0].pivot.name : '-' ]]</td>
-                    <td>[[ property.form_field_order ]]</td>
+                    <!-- <td>[[ property.form_field_order ]]</td> -->
                     <td>[[ property.form_field_size ]]</td>
                     <td>[[ (property.mandatory == 1) ? 'Yes' : 'No' ]]</td>
                     <td>[[ property.state ]]</td>
@@ -151,7 +154,7 @@
 
                             <!-- FALTA ALTERAR O NG MODEL-->
 
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="inputfieldOrder" class="col-sm-3 control-label">{{trans("messages.fieldOrder")}}:</label>
                                 <div class="col-sm-9">
                                     <input type="number" class="form-control" id="property_fieldOrder_rel" name="property_fieldOrder_rel" ng-value="property.form_field_order" placeholder="">
@@ -159,7 +162,7 @@
                                         <li>[[ error ]]</li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <!-- FALTA ALTERAR O NG MODEL-->
 
