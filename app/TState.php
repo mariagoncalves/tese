@@ -10,7 +10,10 @@ class TState extends Model
 
     public $timestamps = true;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'updated_by',
+        'deleted_by'
+    ];
 
     protected $guarded = [];
 
@@ -34,18 +37,18 @@ class TState extends Model
         return $this->hasMany('App\TransactionState', 't_state_id', 'id');
     }
 
-    public function tStateName() {
-        return $this->hasMany('App\TStateName', 't_state_id', 'id');
+    public function language() {
+        return $this->belongsToMany('App\Language', 't_state_name', 't_state_id', 'language_id')->withPivot('name','created_at','updated_at','deleted_at');
     }
 
     public function updatedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'updated_by');
+        return $this->belongsTo('App\Users', 'updated_by', 'id');
     }
 
     public function deletedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
+        return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
 
 }

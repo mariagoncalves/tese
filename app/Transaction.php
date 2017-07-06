@@ -13,17 +13,19 @@ class Transaction extends Model
     protected $fillable = [
         'transaction_type_id',
         'state',
-        'process_id'
+        'process_id',
+        'updated_by',
+        'deleted_by'
     ];
 
     protected $guarded = [];
 
     public function process() {
-        return $this->hasOne('App\Process', 'id', 'process_id');
+        return $this->belongsTo('App\Process', 'process_id', 'id');
     }
 
     public function transactionType() {
-        return $this->hasOne('App\TransactionType', 'id', 'transaction_type_id');
+        return $this->belongsTo('App\TransactionType', 'transaction_type_id', 'id');
     }
 
     public function transactionStates() {
@@ -32,11 +34,11 @@ class Transaction extends Model
 
     public function updatedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'updated_by');
+        return $this->belongsTo('App\Users', 'updated_by', 'id');
     }
 
     public function deletedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
+        return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
 }

@@ -25,7 +25,7 @@
             <tbody>
                 <tr ng-repeat-start="relation in relations" ng-if="false" ng-init="innerIndex = $index"></tr>
 
-                <td rowspan="[[ relation.properties.length + 1 ]] " ng-if="relation.properties[$index - 1].ent_type_id != relation.id">[[ relation.rel_type_names[0].name ]] </td>
+                <td rowspan="[[ relation.properties.length + 1 ]] " ng-if="relation.properties[$index - 1].ent_type_id != relation.id">[[ relation.language[0].pivot.name ]] </td>
 
                 <td ng-if="relation.properties.length == 0" colspan="11">{{trans("messages.noProperties")}}</td>
                 <td ng-if="relation.properties.length == 0" colspan="1">
@@ -35,9 +35,9 @@
 
                 <tr ng-repeat="property in relation.properties">
                     <td>[[ property.id ]]</td>
-                    <td>[[ property.properties_names[0].name ]]</td>
+                    <td>[[ property.language[0].pivot.name ]]</td>
                     <td>[[ property.value_type ]]</td>
-                    <td>[[ property.properties_names[0].form_field_name ]]</td>
+                    <td>[[ property.language[0].pivot.form_field_name ]]</td>
                     <td>[[ property.form_field_type ]]</td>
                     <td>[[ property.units ? property.units.language[0].pivot.name : '-' ]]</td>
                     <td>[[ property.form_field_order ]]</td>
@@ -81,7 +81,7 @@
                                 <div class="col-sm-9">
                                     <select class="form-control" name = "relation_type">
                                         <option value=""></option>
-                                        <option ng-repeat="relation in relations" ng-value="relation.id" ng-selected="relation.id == property.rel_type_id" >[[ relation.rel_type_names[0].name ]]</option>
+                                        <option ng-repeat="relation in relations" ng-value="relation.id" ng-selected="relation.id == property.rel_type_id" >[[ relation.language[0].pivot.name ]]</option>
                                     </select>
                                     <ul ng-repeat="error in errors.relation_type" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
@@ -93,7 +93,7 @@
                             <div class="form-group">
                                 <label for="property_name_rel" class="col-sm-3 control-label">{{trans("messages.propertyName")}}:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="property_name_rel" name="property_name_rel" ng-value="property.properties_names[0].name" >
+                                    <input type="text" class="form-control" id="property_name_rel" name="property_name_rel" ng-value="property.language[0].pivot.name" >
                                     <ul ng-repeat="error in errors.property_name_rel" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
                                     </ul>
@@ -141,7 +141,7 @@
                                 <div class="col-sm-9">
                                     <select class="form-control" name = "units_name">
                                         <option value="0"></option>
-                                        <option ng-repeat="unit in units" value="[[ unit.id ]]" ng-selected="unit.id == property.unit_type_id" >[[ unit.units_names[0].name ]]</option>
+                                        <option ng-repeat="unit in units" value="[[ unit.id ]]" ng-selected="unit.id == property.unit_type_id" >[[ unit.language[0].pivot.name ]]</option>
                                     </select>
                                     <ul ng-repeat="error in errors.units_name" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>

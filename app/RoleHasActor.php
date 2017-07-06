@@ -12,18 +12,20 @@ class RoleHasActor extends Model
 
     protected $fillable = [
         'role_id',
-        'actor_id'
+        'actor_id',
+        'updated_by',
+        'deleted_by'
     ];
 
     protected $guarded = [];
 
     public function updatedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'updated_by');
+        return $this->belongsTo('App\Users', 'updated_by', 'id');
     }
 
     public function deletedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
+        return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
 }

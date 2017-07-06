@@ -12,13 +12,15 @@ class Entity extends Model
 
     protected $fillable = [
         'ent_type_id',
-        'state'
+        'state',
+        'updated_by',
+        'deleted_by'
     ];
 
     protected $guarded = [];
 
     public function entType() {
-        return $this->hasOne('App\EntType', 'id', 'ent_type_id');
+        return $this->belongsTo('App\EntType', 'ent_type_id', 'id');
     }
 
     public function values() {
@@ -33,18 +35,18 @@ class Entity extends Model
         return $this->hasMany('App\Relation', 'entity2_id', 'id');
     }
 
-    public function entityNames() {
-        return $this->hasMany('App\EntityName', 'entity_id', 'id');
+    public function language() {
+        return $this->belongsToMany('App\Language', 'entity_name', 'entity_id', 'language_id')->withPivot('name','created_at','updated_at','deleted_at');
     }
 
     public function updatedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'updated_by');
+        return $this->belongsTo('App\Users', 'updated_by', 'id');
     }
 
     public function deletedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
+        return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
 
 }

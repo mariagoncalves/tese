@@ -10,31 +10,34 @@ class Role extends Model
 
     public $timestamps = true;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'updated_by',
+        'deleted_by'
+    ];
 
     protected $guarded = [];
 
-    public function agent() {
+    public function user() {
 
-    	return $this->belongsToMany('App\Agent', 'role_has_agent');
+        return $this->belongsToMany('App\Users', 'role_has_agent');
     }
     
     public function actor() {
 
-    	return $this->belongsToMany('App\Actor', 'role_has_actor');
+        return $this->belongsToMany('App\Actor', 'role_has_actor');
     }
 
-    public function roleNames() {
-        return $this->hasMany('App\RoleName', 'role_id', 'id');
+    public function language() {
+        return $this->belongsToMany('App\Language', 'role_name', 'role_id', 'language_id')->withPivot('name','created_at','updated_at','deleted_at');
     }
 
     public function updatedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'updated_by');
+        return $this->belongsTo('App\Users', 'updated_by', 'id');
     }
 
     public function deletedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
+        return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
 }

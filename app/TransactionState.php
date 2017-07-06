@@ -11,24 +11,24 @@ class TransactionState extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'updated_on',
         'transaction_id',
         't_state_id',
-        'agent_id'
+        'updated_by',
+        'deleted_by'
     ];
 
     protected $guarded = [];
 
     public function transaction() {
-        return $this->hasOne('App\Transaction', 'id', 'transaction_id');
+        return $this->belongsTo('App\Transaction', 'transaction_id', 'id');
     }
 
     public function tState() {
-        return $this->hasOne('App\TState', 'id', 't_state_id');
+        return $this->belongsTo('App\TState', 't_state_id', 'id');
     }
 
     public function agent() {
-        return $this->hasOne('App\Agent', 'id', 'agent_id');
+        return $this->belongsTo('App\Agent', 'agent_id', 'id');
     }
 
     public function transactionAck() {
@@ -37,11 +37,11 @@ class TransactionState extends Model
 
     public function updatedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'updated_by');
+        return $this->belongsTo('App\Users', 'updated_by', 'id');
     }
 
     public function deletedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
+        return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
 }

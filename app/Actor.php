@@ -10,37 +10,40 @@ class Actor extends Model
 
     public $timestamps = true;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'updated_by',
+        'deleted_by'
+    ];
 
     protected $guarded = [];
 
     public function role() {
 
-    	return $this->belongsToMany('App\Role', 'role_has_actor');
+        return $this->belongsToMany('App\Role', 'role_has_actor');
     }
 
     public function executaTransactionType() {
 
-    	return $this->hasMany('App\TransactionType', 'executer', 'id');
+        return $this->hasMany('App\TransactionType', 'executer', 'id');
     }
 
     public function iniciaTransactionType() {
 
-    	return $this->belongsToMany('App\TransactionType', 'actor_iniciates_t');
+        return $this->belongsToMany('App\TransactionType', 'actor_iniciates_t')->withPivot('created_at','updated_at','deleted_at');
     }
 
-    public function actorName() {
+    public function language() {
 
-        return $this->hasMany('App\ActorName', 'actor_id', 'id');
+        return $this->belongsToMany('App\Language', 'actor_name', 'actor_id', 'language_id')->withPivot('name','created_at','updated_at','deleted_at');
     }
 
     public function updatedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'updated_by');
+        return $this->belongsTo('App\Users', 'updated_by', 'id');
     }
 
     public function deletedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
+        return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
 }

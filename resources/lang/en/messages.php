@@ -17,7 +17,7 @@ return [
 	'unitType'           => 'Unit',
 	'formFieldOrder'     => 'Order',
 	'formFieldSize'      => 'Size',
-	'mandatory'          => 'Mandotory',
+	'mandatory'          => 'Mandatory',
 	'state'              => 'State',
 	'updated_on'         => 'Updated',
 	'addProperties'      => 'Add Properties',

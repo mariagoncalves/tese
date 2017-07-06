@@ -31,12 +31,25 @@ class PropertiesManagment extends Controller {
 
     public function getAllEnt($id = null) {
 
-        if($id == null) {
+        /*if($id == null) {*/
 
             $language_id = '1';
 
-        	$entidades = EntType::with('properties.propertiesNames')
+        	/*$entidades = EntType::with('properties.propertiesNames')
                                 ->with(['entTypeNames' => function($query) use ($language_id) {
+                                    $query->where('language_id', $language_id);
+                                }])
+                                ->with(['properties.units.language' => function($query) use ($language_id) {
+                                    $query->where('language_id', $language_id);
+                                }])
+                                ->paginate(5);*/
+
+            //Com novos modelos
+
+            $entidades = EntType::with(['properties.language' => function($query) use ($language_id) {
+                                    $query->where('language_id', $language_id);
+                                }])
+                                ->with(['language' => function($query) use ($language_id) {
                                     $query->where('language_id', $language_id);
                                 }])
                                 ->with(['properties.units.language' => function($query) use ($language_id) {
@@ -44,16 +57,19 @@ class PropertiesManagment extends Controller {
                                 }])
                                 ->paginate(5);
 
+
+
             return response()->json($entidades);
 
-        } else {
+        /*} else {
 
             return $this->getSpecEnt($id);
 
-        }
+        }*/
     }
 
-    public function getSpecEnt($id) {
+    //Função para apagar?
+    /*public function getSpecEnt($id) {
 
 
         $language_id = '1';
@@ -68,7 +84,7 @@ class PropertiesManagment extends Controller {
                             ->find($id);
 
         return response()->json($entidades);
-    }
+    }*/
 
     public function insertPropsEnt(Request $request) {
         try {
@@ -236,14 +252,28 @@ class PropertiesManagment extends Controller {
 
             $language_id = '1';
 
-            $relacoes = RelType::with('properties.propertiesNames')
+            /*$relacoes = RelType::with('properties.propertiesNames')
                                 ->with(['relTypeNames' => function($query) use ($language_id) {
                                     $query->where('language_id', $language_id);
                                 }])
                                 ->with(['properties.units.language' => function($query) use ($language_id) {
                                     $query->where('language_id', $language_id);
                                 }])
+                                ->paginate(5);*/
+
+            //Com os novos modelos
+
+            $relacoes = RelType::with(['properties.language' => function($query) use ($language_id) {
+                                    $query->where('language_id', $language_id);
+                                }])
+                                ->with(['language' => function($query) use ($language_id) {
+                                    $query->where('language_id', $language_id);
+                                }])
+                                ->with(['properties.units.language' => function($query) use ($language_id) {
+                                    $query->where('language_id', $language_id);
+                                }])
                                 ->paginate(5);
+
 
             return response()->json($relacoes);
 
@@ -272,7 +302,16 @@ class PropertiesManagment extends Controller {
     public function getProperty($id) {
         $language_id = '1';
 
-        $property = Property::with('propertiesNames')
+        /*$property = Property::with('propertiesNames')
+                            ->with(['units.language' => function($query) use ($language_id) {
+                                $query->where('language_id', $language_id);
+                            }])
+                            ->find($id);*/
+
+        // Com novos modelos
+        $property = Property::with(['language' => function($query) use ($language_id) {
+                                    $query->where('language_id', $language_id);
+                                }])
                             ->with(['units.language' => function($query) use ($language_id) {
                                 $query->where('language_id', $language_id);
                             }])
@@ -444,9 +483,15 @@ class PropertiesManagment extends Controller {
 
         $language_id = '1';
 
-        $units = PropUnitType::with(['unitsNames' => function($query) use ($language_id) {
+        /*$units = PropUnitType::with(['unitsNames' => function($query) use ($language_id) {
                                 $query->where('language_id', $language_id);
-                            }])->get();
+                            }])->get();*/
+
+        //Com novos modelos
+        $units = PropUnitType::with(['language' => function($query) use ($language_id) {
+                                    $query->where('language_id', $language_id);
+                                }])->get();
+
 
         return response()->json($units);
     }

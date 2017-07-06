@@ -13,26 +13,27 @@ class PropAllowedValue extends Model
     protected $fillable = [
         'property_id',
         'state',
-        'updated_on'
+        'updated_by',
+        'deleted_by'
     ];
 
     protected $guarded = [];
 
     public function property() {
-        return $this->hasOne('App\Property', 'id', 'property_id');
+        return $this->belongsTo('App\Property', 'property_id', 'id');
     }
 
-    public function propAllowedValueNames() {
-        return $this->hasMany('App\PropAllowedValueName', 'prop_allowed_value_id', 'id');
+    public function language() {
+        return $this->belongsToMany('App\Language', 'prop_allowed_value_name', 'prop_allowed_value_id', 'language_id')->withPivot('name','created_at','updated_at','deleted_at');
     }
 
     public function updatedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'updated_by');
+        return $this->belongsTo('App\Users', 'updated_by', 'id');
     }
 
     public function deletedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
+        return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
 }

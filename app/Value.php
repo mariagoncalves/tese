@@ -15,34 +15,36 @@ class Value extends Model
         'property_id',
         'id_producer',
         'relation_id',
-        'state'
+        'state',
+        'updated_by',
+        'deleted_by'
     ];
 
     protected $guarded = [];
 
     public function property() {
-        return $this->hasOne('App\Property', 'id', 'property_id');
+        return $this->belongsTo('App\Property', 'property_id', 'id');
     }
 
      public function entity() {
-        return $this->hasOne('App\Entity', 'id', 'entity_id');
+        return $this->belongsTo('App\Entity', 'entity_id', 'id');
     }
 
      public function relation() {
-        return $this->hasOne('App\Relation', 'id', 'relation_id');
+        return $this->belongsTo('App\Relation', 'relation_id', 'id');
     }
 
-    public function valueNames() {
-        return $this->hasMany('App\ValueName', 'value_id', 'id');
+    public function language() {
+        return $this->belongsToMany('App\Language', 'value_name', 'value_id', 'language_id')->withPivot('name','created_at','updated_at','deleted_at');
     }
 
     public function updatedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'updated_by');
+        return $this->belongsTo('App\Users', 'updated_by', 'id');
     }
 
     public function deletedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
+        return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
 }

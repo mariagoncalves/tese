@@ -16,35 +16,36 @@ class WaitingLink extends Model
         'waiting_fact',
         'waiting_transaction',
         'min',
-        'max'
+        'max',
+        'updated_by',
+        'deleted_by'
     ];
 
     protected $guarded = [];
 
     public function waitingTransaction() {
-        return $this->hasOne('App\TransactionType', 'id', 'waiting_transaction');
+        return $this->belongsTo('App\TransactionType', 'waiting_transaction', 'id');
     }
 
     public function waitedT() {
-        return $this->hasOne('App\TransactionType', 'id', 'waited_t');
+        return $this->belongsTo('App\TransactionType', 'waited_t', 'id');
     }
 
     public function waitingFact() {
-        return $this->hasOne('App\TState', 'id', 'waiting_fact');
+        return $this->belongsTo('App\TState', 'waiting_fact', 'id');
     }
 
     public function waitedFact() {
-        return $this->hasOne('App\TState', 'id', 'waited_fact');
+        return $this->belongsTo('App\TState', 'waited_fact', 'id');
     }
 
     public function updatedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'updated_by');
+        return $this->belongsTo('App\Users', 'updated_by', 'id');
     }
 
     public function deletedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
+        return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
-    
 }

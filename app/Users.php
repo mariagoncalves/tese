@@ -427,4 +427,9 @@ class Users extends Authenticatable
 
         return $this->hasMany('App\WaitingLink', 'deleted_by', 'id');
     }
+    
+    public function language()
+    {
+        return $this->belongsTo('App\Language', 'language_id', 'id');
+    }
 }

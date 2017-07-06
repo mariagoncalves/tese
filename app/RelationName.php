@@ -13,28 +13,20 @@ class RelationName extends Model
     protected $fillable = [
         'relation_id',
         'language_id',
-        'name'
+        'name',
+        'updated_by',
+        'deleted_by'
     ];
 
     protected $guarded = [];
 
-    public function relation() {
-
-        return $this->hasOne('App\Relation', 'id', 'relation_id');
-    }
-
-    public function language() {
-
-        return $this->hasOne('App\Language', 'id', 'language_id');
-    }
-
     public function updatedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'updated_by');
+        return $this->belongsTo('App\Users', 'updated_by', 'id');
     }
 
     public function deletedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
+        return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
 }

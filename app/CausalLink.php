@@ -15,30 +15,32 @@ class CausalLink extends Model
         't_state_id',
         'caused_t',
         'min',
-        'max'
+        'max',
+        'updated_by',
+        'deleted_by'
     ];
 
     protected $guarded = [];
 
     public function causingTransaction() {
-        return $this->hasOne('App\TransactionType', 'id', 'causing_t');
+        return $this->belongsTo('App\TransactionType', 'causing_t', 'id');
     }
 
     public function causedTransaction() {
-        return $this->hasOne('App\TransactionType', 'id', 'caused_t');
+        return $this->belongsTo('App\TransactionType', 'caused_t', 'id');
     }
 
     public function tState() {
-        return $this->hasOne('App\TState', 'id', 't_state_id');
+        return $this->belongsTo('App\TState', 't_state_id', 'id');
     }
 
     public function updatedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'updated_by');
+        return $this->belongsTo('App\Users', 'updated_by', 'id');
     }
 
     public function deletedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
+        return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
 }

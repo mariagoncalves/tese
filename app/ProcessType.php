@@ -11,7 +11,9 @@ class ProcessType extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'state'
+        'state',
+        'updated_by',
+        'deleted_by'
     ];
 
     protected $guarded = [];
@@ -24,17 +26,17 @@ class ProcessType extends Model
         return $this->hasMany('App\TransactionType', 'process_type_id', 'id');
     }
 
-    public function processTypeNames() {
-        return $this->hasMany('App\ProcessTypeName', 'process_type_id', 'id');
+    public function language() {
+        return $this->belongsToMany('App\Language', 'process_type_name', 'process_type_id', 'language_id')->withPivot('name','created_at','updated_at','deleted_at');
     }
 
     public function updatedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'updated_by');
+        return $this->belongsTo('App\Users', 'updated_by', 'id');
     }
 
     public function deletedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
+        return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
 }

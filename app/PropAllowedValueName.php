@@ -11,30 +11,22 @@ class PropAllowedValueName extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'prop_allowed_value_id',
+        'p_a_v_id',
         'language_id',
-        'name'
+        'name',
+        'updated_by',
+        'deleted_by'
     ];
 
     protected $guarded = [];
 
-    public function propAllowedValue() {
-
-        return $this->hasOne('App\PropAllowedValue', 'id', 'prop_allowed_value_id');
-    }
-
-    public function language() {
-
-        return $this->hasOne('App\Language', 'id', 'language_id');
-    }
-
     public function updatedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'updated_by');
+        return $this->belongsTo('App\Users', 'updated_by', 'id');
     }
 
     public function deletedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
+        return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
 }

@@ -14,38 +14,40 @@ class Relation extends Model
         'rel_type_id',
         'entity1_id',
         'entity2_id',
-        'state'
+        'state',
+        'updated_by',
+        'deleted_by'
     ];
 
     protected $guarded = [];
 
     public function entity1() {
-        return $this->hasOne('App\Entity', 'id', 'entity1_id');
+        return $this->belongsTo('App\Entity', 'entity1_id', 'id');
     }
 
     public function entity2() {
-        return $this->hasOne('App\Entity', 'id', 'entity2_id');
+        return $this->belongsTo('App\Entity', 'entity2_id', 'id');
     }
 
     public function relType() {
-        return $this->hasOne('App\RelType', 'id', 'rel_type_id');
+        return $this->belongsTo('App\RelType', 'rel_type_id', 'id');
     }
 
     public function values() {
         return $this->hasMany('App\Value', 'relation_id', 'id');
     }
 
-    public function relationNames() {
-        return $this->hasMany('App\RelationName', 'relation_id', 'id');
+    public function language() {
+        return $this->belongsToMany('App\Language', 'relation_name', 'relation_id', 'language_id')->withPivot('name','created_at','updated_at','deleted_at');
     }
 
     public function updatedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'updated_by');
+        return $this->belongsTo('App\Users', 'updated_by', 'id');
     }
 
     public function deletedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
+        return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
 }

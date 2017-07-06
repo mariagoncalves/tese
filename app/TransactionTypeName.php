@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TransactionTypeName extends Model
 {
-    protected $table = 'transaction_type_name';
+        protected $table = 'transaction_type_name';
 
     public $timestamps = true;
 
@@ -14,28 +14,20 @@ class TransactionTypeName extends Model
         'transaction_type_id',
         'language_id',
         't_name',
-        'rt_name'
+        'rt_name',
+        'updated_by',
+        'deleted_by'
     ];
 
     protected $guarded = [];
 
-    public function transactionType() {
-
-        return $this->hasOne('App\TransactionType', 'id', 'transaction_type_id');
-    }
-
-    public function language() {
-
-        return $this->hasOne('App\Language', 'id', 'language_id');
-    }
-
     public function updatedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'updated_by');
+        return $this->belongsTo('App\Users', 'updated_by', 'id');
     }
 
     public function deletedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
+        return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
 }

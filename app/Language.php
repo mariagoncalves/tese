@@ -12,93 +12,95 @@ class Language extends Model
 
     protected $fillable = [
         'name',
-        'slug'
+        'slug',
+        'state',
+        'updated_by',
+        'deleted_by'
     ];
 
     protected $guarded = [];
 
-    public function propAllowedValueName() {
+    public function propAllowedValue() {
 
-    	return $this->hasMany('App\PropAllowedValueName', 'language_id', 'id');
+        return $this->belongsToMany('App\PropAllowedValue', 'prop_allowed_value_name');
     }
 
-    public function propUnitTypeName() {
+    public function propUnitType() {
 
-    	return $this->hasMany('App\PropUnitTypeName', 'language_id', 'id');
+        return $this->belongsToMany('App\PropUnitType', 'prop_unit_type_name');
     }
 
-    public function relationName() {
+    public function relation() {
 
-    	return $this->hasMany('App\RelationName', 'language_id', 'id');
+        return $this->belongsToMany('App\Relation', 'relation_name');
     }
 
-    public function valueName() {
+    public function value() {
 
-    	return $this->hasMany('App\ValueName', 'language_id', 'id');
+        return $this->belongsToMany('App\Value', 'value_name');
     }
 
-    public function propertyName() {
+    public function property() {
 
-    	return $this->hasMany('App\PropertyName', 'language_id', 'id');
+        return $this->belongsToMany('App\Property', 'property_name');
     }
 
-    public function entTypeName() {
+    public function entType() {
 
-    	return $this->hasMany('App\EntTypeName', 'language_id', 'id');
+        return $this->belongsToMany('App\EntType', 'ent_type_name');
     }
 
-    public function actorName() {
+    public function actor() {
 
-    	return $this->hasMany('App\ActorName', 'language_id', 'id');
+        return $this->belongsToMany('App\Actor', 'actor_name');
     }
 
-    public function roleName() {
+    public function role() {
 
-    	return $this->hasMany('App\RoleName', 'language_id', 'id');
+        return $this->belongsToMany('App\Role', 'role_name');
     }
 
-    public function processTypeName() {
-
-    	return $this->hasMany('App\ProcessTypeName', 'language_id', 'id');
+    public function processType() {
+        return $this->belongsToMany('App\ProcessType', 'process_type_name');
     }
 
-    public function processName() {
+    public function process() {
 
-    	return $this->hasMany('App\ProcessName', 'language_id', 'id');
+        return $this->belongsToMany('App\Process', 'process_name');
     }
 
-    public function transactionTypeName() {
+    public function transactionType() {
 
-    	return $this->hasMany('App\TransactionTypeName', 'language_id', 'id');
+        return $this->belongsToMany('App\TransactionType', 'transaction_type_name');
     }
 
-    public function tStateName() {
+    public function tState() {
 
-    	return $this->hasMany('App\TStateName', 'language_id', 'id');
+        return $this->belongsToMany('App\TState', 't_state_name');
     }
 
-    public function entityName() {
+    public function entity() {
 
-    	return $this->hasMany('App\EntityName', 'language_id', 'id');
+        return $this->belongsToMany('App\Entity', 'entity_name');
     }
 
-    public function relTypeName() {
+    public function relType() {
 
-    	return $this->hasMany('App\RelTypeName', 'language_id', 'id');
+        return $this->belongsToMany('App\RelType', 'rel_type_name');
     }
 
-    public function customFormName() {
+    public function customForm() {
 
-    	return $this->hasMany('App\CustomFormName', 'language_id', 'id');
+        return $this->belongsToMany('App\CustomForm', 'custom_form_name');
     }
 
     public function updatedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'updated_by');
+        return $this->belongsTo('App\Users', 'updated_by', 'id');
     }
 
     public function deletedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
+        return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
 }

@@ -13,14 +13,16 @@ class TransactionType extends Model
     protected $fillable = [
         'state',
         'process_type_id',
-        'executer'
+        'executer',
+        'updated_by',
+        'deleted_by'
     ];
 
     protected $guarded = [];
 
 
     public function executerActor() {
-        return $this->hasOne('App\Actor', 'id', 'executer');
+        return $this->belongsTo('App\Actor', 'executer', 'id');
     }
 
     public function iniciatorActor() {
@@ -28,11 +30,11 @@ class TransactionType extends Model
     }
 
     public function entType() {
-        return $this->hasOne('App\EntType', 'transaction_type_id', 'id');
+        return $this->hasMany('App\EntType', 'transaction_type_id', 'id');
     }
 
     public function relType() {
-        return $this->hasOne('App\RelType', 'transaction_type_id', 'id');
+        return $this->hasMany('App\RelType', 'transaction_type_id', 'id');
     }
 
     public function transactions() {
@@ -48,7 +50,7 @@ class TransactionType extends Model
     }
 
     public function processType() {
-        return $this->hasOne('App\ProcessType', 'process_type_id', 'id');
+        return $this->belongsTo('App\ProcessType', 'process_type_id', 'id');
     }
 
     public function waitedTransaction() {
@@ -59,18 +61,18 @@ class TransactionType extends Model
         return $this->hasMany('App\WaitingLink', 'waiting_transaction', 'id');
     }
 
-    public function transactionTypeName() {
-        return $this->hasMany('App\TransactionTypeName', 'transaction_type_id', 'id');
+    public function language() {
+        return $this->belongsToMany('App\Language', 'transaction_type_name', 'transaction_type_id', 'language_id')->withPivot('t_name', 'rt_name', 'created_at', 'updated_at', 'deleted_at');
     }
 
     public function updatedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'updated_by');
+        return $this->belongsTo('App\Users', 'updated_by', 'id');
     }
 
     public function deletedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
+        return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
 
 }

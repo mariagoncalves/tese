@@ -11,29 +11,31 @@ class TransactionAck extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'agent_id',
+        'user_id',
         'viewed_on',
-        'transaction_state_id'
+        'transaction_state_id',
+        'updated_by',
+        'deleted_by'
     ];
 
     protected $guarded = [];
 
     public function transactionState() {
-        return $this->hasOne('App\TransactionState', 'id', 'transaction_state_id');
+        return $this->belongsTo('App\TransactionState', 'transaction_state_id', 'id');
     }
 
     public function agent() {
-        return $this->hasOne('App\Agent', 'id', 'agent_id');
+        return $this->belongsTo('App\Agent', 'agent_id', 'id');
     }
 
     public function updatedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'updated_by');
+        return $this->belongsTo('App\Users', 'updated_by', 'id');
     }
 
     public function deletedBy() {
 
-        return $this->hasOne('App\Users', 'id', 'deleted_by');
+        return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
 
 }
