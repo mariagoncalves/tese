@@ -137,3 +137,6 @@ Route::post('/PropertyEnt/{id?}', 'PropertiesManagment@updatePropsEnt');
 Route::get('/propertiesManage/entity', 'PropertiesManagment@getAllPropertiesOfEntities');
 Route::get('/properties/get_props_ents', 'PropertiesManagment@getAllEnt');
 
+
+//Testes
+Route::get('/properties/getPropsRelation/{id?}', 'PropertiesManagment@getPropsRelations');

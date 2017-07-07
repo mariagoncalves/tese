@@ -495,4 +495,17 @@ class PropertiesManagment extends Controller {
 
         return response()->json($units);
     }
+
+    //Testes
+
+    public function getPropsRelations($id) {
+
+        $language_id = '1';
+
+        $propsRel = RelType::with(['properties.language' => function($query) use ($language_id) {
+                                    $query->where('language_id', $language_id);
+                                }])->find($id);
+
+        return response()->json($propsRel);
+    }
 }

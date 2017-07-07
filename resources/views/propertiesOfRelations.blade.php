@@ -27,7 +27,7 @@
 
                 <td rowspan="[[ relation.properties.length + 1 ]] " ng-if="relation.properties[$index - 1].ent_type_id != relation.id">
                     [[ relation.language[0].pivot.name ]]
-                    <button class="btn btn-primary btn-xs"> Property drag and drop reorder</button>
+                    <button class="btn btn-primary btn-xs" ng-click="showDragDropWindow(relation.id)"> Property drag and drop reorder</button>
                 </td>
 
                 <td ng-if="relation.properties.length == 0" colspan="11">{{trans("messages.noProperties")}}</td>
@@ -194,6 +194,36 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="btn-save" ng-click="saveRel(modalstate, id)">{{trans("messages.saveChanges")}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">[[form_title]]</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- <div>
+                            <div class="ngx-dnd-container" ngxDroppable>
+                              <div class="ngx-dnd-item" ngxDraggable>Item 1</div>
+                              <div class="ngx-dnd-item" ngxDraggable>Item 2</div>
+                              <div class="ngx-dnd-item" ngxDraggable>Item 3</div>
+                            </div>
+                        </div> -->
+                        <div>
+                            <h1>Drag to Reorder</h1>
+                            <div>
+                                <div ng-repeat = "prop in propsRel">
+                                    <div>[[prop.language[0].pivot.name]]</div>
+                                </div>
+                               
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

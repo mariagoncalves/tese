@@ -11,6 +11,7 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
     $scope.currentPage = 1;
     $scope.range = [];
     $scope.errors = [];
+    $scope.propsRel = [];
 
 
     //MÉTODOS ENTIDADES
@@ -199,6 +200,21 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
                 break;
         }
         $('#myModal').modal('show');
+        $scope.errors = null;
+        $scope.process = null;
+    };
+
+    $scope.showDragDropWindow = function(id) {
+
+        $scope.id = id;
+        console.log(id);
+        $scope.form_title = "Drag and Drop Properties";
+        $http.get(API_URL + '/properties/getPropsRelation/' + id)
+                    .then(function(response) {
+                        $scope.propsRel = response.data;
+                        console.log($scope.propsRel);
+                    });
+        $('#myModal2').modal('show');
         $scope.errors = null;
         $scope.process = null;
     };
