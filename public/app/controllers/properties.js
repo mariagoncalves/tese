@@ -241,6 +241,14 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         $scope.process = null;
     };
 
+    // set up sortable options
+    $scope.sortableOptions = {
+        stop: function(e, ui) {
+            console.log("AQUI DAS A AÇÃO PARA GUARDAR A ORDEM NA BASE DE DADOS.");
+            // do something here
+        }
+    };
+
 
     //Métodos comuns
 
