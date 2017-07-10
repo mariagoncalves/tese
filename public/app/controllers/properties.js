@@ -263,6 +263,14 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
 
             //var dado = $(".list-group").find('.list-group-item').data('id');
             console.log($(".list-group").find('.list-group-item').data('id'));
+
+            var dados = [];
+            $(".list-group").find('.list-group-item').each(function( index ) {
+                dados.push($(this).data('id'));
+            });
+            console.log(dados);
+
+            var formData = JSON.parse(JSON.stringify(dados));
         }
     };
 
