@@ -508,4 +508,11 @@ class PropertiesManagment extends Controller {
 
         return response()->json($propsRel);
     }
+
+    public function getDados() {
+
+       $pessoas = ["John","Fred","Teddy","Deloris","Brian"];
+
+        return response()->json($pessoas);
+    }
 }

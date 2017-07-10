@@ -1,3 +1,10 @@
+//var myapp = angular.module('myApp', ['ui.sortable']);
+
+/*myapp.controller('myController', ['$scope', function($scope) {
+ // people array
+ $scope.people = ["John","Fred","Teddy","Deloris","Brian"];
+}]);*/
+
 app.controller('propertiesManagmentControllerJs', function($scope, $http, growl, API_URL) {
 
 	$scope.entities = [];
@@ -12,7 +19,7 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
     $scope.range = [];
     $scope.errors = [];
     $scope.propsRel = [];
-
+    $scope.pessoas = [];
 
     //MÉTODOS ENTIDADES
 
@@ -204,7 +211,7 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         $scope.process = null;
     };
 
-    $scope.showDragDropWindow = function(id) {
+    /*$scope.showDragDropWindow = function(id) {
 
         $scope.id = id;
         console.log(id);
@@ -213,6 +220,21 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
                     .then(function(response) {
                         $scope.propsRel = response.data;
                         console.log($scope.propsRel);
+                    });
+        $('#myModal2').modal('show');
+        $scope.errors = null;
+        $scope.process = null;
+    };*/
+
+    $scope.showDragDropWindow = function(id) {
+
+        $scope.id = id;
+        console.log(id);
+        $scope.form_title = "Drag and Drop Properties";
+        $http.get(API_URL + '/properties/getDados')
+                    .then(function(response) {
+                        $scope.pessoas = response.data;
+                        console.log($scope.pessoas);
                     });
         $('#myModal2').modal('show');
         $scope.errors = null;
@@ -254,5 +276,7 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
 
         });
     };
+
+
 });
 

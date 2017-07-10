@@ -140,3 +140,5 @@ Route::get('/properties/get_props_ents', 'PropertiesManagment@getAllEnt');
 
 //Testes
 Route::get('/properties/getPropsRelation/{id?}', 'PropertiesManagment@getPropsRelations');
+
+Route::get('/properties/getDados', 'PropertiesManagment@getDados');

@@ -206,7 +206,8 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="myModalLabel">[[form_title]]</h4>
                     </div>
-                    <div class="modal-body">
+                    <!-- <div class="modal-body"> -->
+
                         <!-- <div>
                             <div class="ngx-dnd-container" ngxDroppable>
                               <div class="ngx-dnd-item" ngxDraggable>Item 1</div>
@@ -214,17 +215,39 @@
                               <div class="ngx-dnd-item" ngxDraggable>Item 3</div>
                             </div>
                         </div> -->
-                        <div>
-                            <h1>Drag to Reorder</h1>
-                            <div>
-                                <div ng-repeat = "prop in propsRel">
-                                    <div>[[prop.language[0].pivot.name]]</div>
-                                </div>
-                               
 
-                            </div>
-                        </div>
+                         <!-- <ul>
+                            <li ng-repeat="prop in propsRel">[[ prop ]]</li>
+                        </ul>
+
+
+                    </div> -->
+
+
+
+
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-sortable/0.15.0/sortable.min.js"></script>
+                    <script src="app.js"></script>
+
+                    <div>
+                        <h2>People</h2>
+                        <ul ui-sortable="sortableOptions" ng-model="pessoas" class="list-group">
+                            <li ng-repeat="person in pessoas" class="list-group-item">[[person]]</li>
+                        </ul>
+
+                       <pre>[[pessoas]]</pre>
+
                     </div>
+
+
+
+
+
+
+
                 </div>
             </div>
         </div>
