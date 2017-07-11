@@ -231,6 +231,21 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         $scope.id = id;
         console.log(id);
         $scope.form_title = "Drag and Drop Properties";
+        $http.get(API_URL + '/properties/getPropsRelation/' + id)
+                    .then(function(response) {
+                        $scope.propsRel = response.data.properties;
+                        console.log($scope.propsRel);
+                    });
+        $('#myModal2').modal('show');
+        $scope.errors = null;
+        $scope.process = null;
+    };
+
+    /*$scope.showDragDropWindow = function(id) {
+
+        $scope.id = id;
+        console.log(id);
+        $scope.form_title = "Drag and Drop Properties";
         $http.get(API_URL + '/properties/getDados')
                     .then(function(response) {
                         $scope.pessoas = response.data;
@@ -239,13 +254,15 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         $('#myModal2').modal('show');
         $scope.errors = null;
         $scope.process = null;
-    };
+    };*/
 
     // set up sortable options
     $scope.sortableOptions = {
         stop: function(e, ui) {
-            console.log("AQUI DAS A AÇÃO PARA GUARDAR A ORDEM NA BASE DE DADOS.");
-            // do something here
+            console.log("AQUI DAR A AÇÃO PARA GUARDAR A ORDEM NA BASE DE DADOS.");
+
+            //var dado = $(".list-group").find('.list-group-item').data('id');
+            console.log($(".list-group").find('.list-group-item').data('id'));
         }
     };
 

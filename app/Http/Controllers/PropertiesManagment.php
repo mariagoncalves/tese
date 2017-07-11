@@ -336,11 +336,11 @@ class PropertiesManagment extends Controller {
 
             $rules = [
                 'relation_type'           => ['required', 'integer'],
-                'property_name_rel'       => ['required', 'string', Rule::unique('property_name' , 'name')->where('language_id', '1')],
+                'property_name_rel'       => ['required', 'string'],
                 'property_valueType_rel'  => ['required'],
                 'property_fieldType_rel'  => ['required'],
                 'property_mandatory_rel'  => ['required'],
-                'property_fieldOrder_rel' => ['required', 'integer', 'min:1'],
+                /*'property_fieldOrder_rel' => ['required', 'integer', 'min:1'],*/
                 'units_name'              => ['integer'],
                 'property_fieldSize_rel'  => $propertyFieldSize,
                 'property_state_rel'      => ['required'],
@@ -359,12 +359,16 @@ class PropertiesManagment extends Controller {
                 $data['units_name'] = NULL;
             }
 
+            //Buscar o nr de propriedades de uma relação, porque o form_field_size vai ser o nr de props que tem +1
+            $countPropRel = Property::where('rel_type_id', '=', $data['relation_type'])->count();
+
             $data1 = array(
                 'rel_type_id'      => $data['relation_type'          ],
                 'value_type'       => $data['property_valueType_rel' ],
                 'form_field_type'  => $data['property_fieldType_rel' ],
                 'unit_type_id'     => $data['units_name'             ],
-                'form_field_order' => $data['property_fieldOrder_rel'],
+                /*'form_field_order' => $data['property_fieldOrder_rel'],*/
+                'form_field_order' => $countPropRel + 1,
                 'form_field_size'  => $data['property_fieldSize_rel' ],
                 'mandatory'        => $data['property_mandatory_rel' ],
                 'state'            => $data['property_state_rel'     ]
@@ -421,7 +425,7 @@ class PropertiesManagment extends Controller {
             'property_valueType_rel'  => ['required'],
             'property_fieldType_rel'  => ['required'],
             'property_mandatory_rel'  => ['required'],
-            'property_fieldOrder_rel' => ['required', 'integer', 'min:1'],
+            /*'property_fieldOrder_rel' => ['required', 'integer', 'min:1'],*/
             'units_name'              => ['integer'],
             'property_fieldSize_rel'  => $propertyFieldSize
         ];
@@ -442,7 +446,7 @@ class PropertiesManagment extends Controller {
             'value_type'       => $data['property_valueType_rel' ],
             'form_field_type'  => $data['property_fieldType_rel' ],
             'unit_type_id'     => $data['units_name'             ],
-            'form_field_order' => $data['property_fieldOrder_rel'],
+            /*'form_field_order' => $data['property_fieldOrder_rel'],*/
             'form_field_size'  => $data['property_fieldSize_rel' ],
             'mandatory'        => $data['property_mandatory_rel' ],
             'state'            => $data['property_state_rel'     ]
@@ -510,6 +514,14 @@ class PropertiesManagment extends Controller {
     }
 
     public function getDados() {
+
+       $pessoas = ["John","Fred","Teddy","Deloris","Brian"];
+
+        return response()->json($pessoas);
+    }
+
+
+    public function updateOrderPropsRel() {
 
        $pessoas = ["John","Fred","Teddy","Deloris","Brian"];
 

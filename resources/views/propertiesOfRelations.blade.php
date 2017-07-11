@@ -30,7 +30,7 @@
                     <button class="btn btn-primary btn-xs" ng-click="showDragDropWindow(relation.id)"> Property drag and drop reorder</button>
                 </td>
 
-                <td ng-if="relation.properties.length == 0" colspan="11">{{trans("messages.noProperties")}}</td>
+                <td ng-if="relation.properties.length == 0" colspan="10">{{trans("messages.noProperties")}}</td>
                 <td ng-if="relation.properties.length == 0" colspan="1">
                     <!-- <button class="btn btn-default btn-xs btn-detail">Inserir</button> -->
                     <button class="btn btn-danger btn-xs btn-delete">{{trans("messages.history")}}</button>
@@ -222,22 +222,29 @@
 
 
                     </div> -->
-                    <div>
-                        <h2>People</h2>
-                        <ul ui-sortable="sortableOptions" ng-model="pessoas" class="list-group">
-                            <li ng-repeat="person in pessoas" class="list-group-item">[[person]]</li>
+
+
+
+                    <!-- TESTES -->
+                    <div class="modal-body">
+                        <h2>Properties</h2>
+                        <ul ui-sortable="sortableOptions" ng-model="propsRel" class="list-group">
+                            <li ng-repeat="prop in propsRel" class="list-group-item" data-id="[[ prop.id ]]">[[prop.language[0].pivot.name]]</li>
                         </ul>
 
-                       <pre>[[pessoas]]</pre>
+                       <pre>[[propsRel]]</pre>
 
                     </div>
 
+                     <!-- <div>
+                        <h2>People</h2>
+                        <ul ui-sortable="sortableOptions" ng-model="propsRel" class="list-group">
+                            <li ng-repeat="prop in propsRel.properties" class="list-group-item">[[prop.language[0].pivot.name]]</li>
+                        </ul>
 
+                       <pre>[[propsRel]]</pre>
 
-
-
-
-
+                    </div> -->
                 </div>
             </div>
         </div>
