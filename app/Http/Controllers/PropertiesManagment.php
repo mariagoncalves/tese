@@ -523,8 +523,12 @@ class PropertiesManagment extends Controller {
 
     public function updateOrderPropsRel() {
 
-       $pessoas = ["John","Fred","Teddy","Deloris","Brian"];
+        //$data = json_decode(stripslashes($_POST['data']));
 
-        return response()->json($pessoas);
+        /*foreach($data as $d){
+            echo $d;
+        }*/
+
+        //return response()->json($data);
     }
 }

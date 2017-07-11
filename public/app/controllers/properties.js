@@ -270,8 +270,65 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
             });
             console.log(dados);
 
-            var formData = JSON.parse(JSON.stringify(dados));
+
+            //Principal - Assim os dados aparecem indefinidos - Dá erro??
+
+            /*var formData = JSON.parse(JSON.stringify(dados));
+
+            var url      = API_URL + "updateOrder";
+
+            $http({
+            method: 'POST',
+            url: url,
+            data: $.param(formData),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(response) {
+            growl.success('Order updated successfully.',{title: 'Success!'});
+        }, function(response) {
+            //Second function handles error
+            if (response.status == 400) {
+                $scope.errors = response.data.error;
+            } else if (response.status == 500) {
+                growl.error('Error.', {title: 'error!'});
+            }
+        });*/
+    
+            //Outro teste - Assim já aparece os dados corretos mas em JSON?
+
+            var jsonString = JSON.stringify(dados);
+
+            var url        = API_URL + "updateOrder";
+
+            $http({
+                method: 'POST',
+                url: url,
+                data: {data : jsonString},
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function(response) {
+                growl.success('Order updated successfully.',{title: 'Success!'});
+            }, function(response) {
+                //Second function handles error
+                if (response.status == 400) {
+                    $scope.errors = response.data.error;
+                } else if (response.status == 500) {
+                    growl.error('Error.', {title: 'error!'});
+                }
+            });
         }
+        
+        //Os dados aparecem num array
+        /*var jsonString = JSON.stringify(dados);
+           $.ajax({
+                type: "POST",
+                url: API_URL + "updateOrder",
+                data: {data : jsonString}, 
+                cache: false,
+
+                success: function(){
+                    alert("OK");
+                }
+            });
+        }*/
     };
 
 
