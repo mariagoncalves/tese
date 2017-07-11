@@ -272,6 +272,9 @@ class PropertiesManagment extends Controller {
                                 ->with(['properties.units.language' => function($query) use ($language_id) {
                                     $query->where('language_id', $language_id);
                                 }])
+                                ->with(['properties' => function($query) {
+                                    $query->orderBy('form_field_order', 'asc');
+                                }])
                                 ->paginate(5);
 
 
@@ -508,7 +511,11 @@ class PropertiesManagment extends Controller {
 
         $propsRel = RelType::with(['properties.language' => function($query) use ($language_id) {
                                     $query->where('language_id', $language_id);
-                                }])->find($id);
+                                }])
+                            ->with(['properties' => function($query) {
+                                    $query->orderBy('form_field_order', 'asc');
+                                }])
+                            ->find($id);
 
         return response()->json($propsRel);
     }
@@ -521,14 +528,16 @@ class PropertiesManagment extends Controller {
     }
 
 
-    public function updateOrderPropsRel() {
+    public function updateOrderPropsRel(Request $request) {
+        $dados = $request->all();
+        \Log::debug($dados);
 
-        //$data = json_decode(stripslashes($_POST['data']));
+        if (is_array($dados) && count($dados) > 0) {
+            foreach ($dados as $key => $id) {
+                Property::where('id', $id)->update(['form_field_order' => ($key + 1)]);
+            }
+        }
 
-        /*foreach($data as $d){
-            echo $d;
-        }*/
-
-        //return response()->json($data);
+        return response()->json();
     }
 }

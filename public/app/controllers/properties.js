@@ -143,8 +143,10 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
     $scope.saveRel = function(modalstate, id) {
 
         var url      = API_URL + "PropertyRel";
-        var formData = JSON.parse(JSON.stringify(jQuery('#formPropRel').serializeArray()));
 
+        console.log(jQuery('#formPropRel').serializeArray());
+        var formData = JSON.parse(JSON.stringify(jQuery('#formPropRel').serializeArray()));
+        console.log(formData);
         if (modalstate === 'edit') {
             url += "/" + id ;
         }
@@ -266,46 +268,22 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
 
             var dados = [];
             $(".list-group").find('.list-group-item').each(function( index ) {
+                //dados.push($(this).data('id'));
                 dados.push($(this).data('id'));
             });
             console.log(dados);
 
-
-            //Principal - Assim os dados aparecem indefinidos - Dá erro??
-
-            /*var formData = JSON.parse(JSON.stringify(dados));
-
+            var formData = JSON.parse(JSON.stringify(dados));
             var url      = API_URL + "updateOrder";
-
-            $http({
-            method: 'POST',
-            url: url,
-            data: $.param(formData),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).then(function(response) {
-            growl.success('Order updated successfully.',{title: 'Success!'});
-        }, function(response) {
-            //Second function handles error
-            if (response.status == 400) {
-                $scope.errors = response.data.error;
-            } else if (response.status == 500) {
-                growl.error('Error.', {title: 'error!'});
-            }
-        });*/
-    
-            //Outro teste - Assim já aparece os dados corretos mas em JSON?
-
-            var jsonString = JSON.stringify(dados);
-
-            var url        = API_URL + "updateOrder";
 
             $http({
                 method: 'POST',
                 url: url,
-                data: {data : jsonString},
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                data: formData,
             }).then(function(response) {
-                growl.success('Order updated successfully.',{title: 'Success!'});
+                console.log('Success!');
+                $scope.getRelations();
+                //growl.success('Order updated successfully.',{title: 'Success!'});
             }, function(response) {
                 //Second function handles error
                 if (response.status == 400) {
@@ -315,20 +293,6 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
                 }
             });
         }
-        
-        //Os dados aparecem num array
-        /*var jsonString = JSON.stringify(dados);
-           $.ajax({
-                type: "POST",
-                url: API_URL + "updateOrder",
-                data: {data : jsonString}, 
-                cache: false,
-
-                success: function(){
-                    alert("OK");
-                }
-            });
-        }*/
     };
 
 
