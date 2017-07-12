@@ -25,7 +25,10 @@
             <tbody>
                 <tr ng-repeat-start="entity in entities" ng-if="false" ng-init="innerIndex = $index"></tr>
 
-                <td rowspan="[[ entity.properties.length + 1 ]] " ng-if="entity.properties[$index - 1].ent_type_id != entity.id">[[ entity.language[0].pivot.name ]] </td>
+                <td rowspan="[[ entity.properties.length + 1 ]] " ng-if="entity.properties[$index - 1].ent_type_id != entity.id">
+                    [[ entity.language[0].pivot.name ]] 
+                    <button class="btn btn-primary btn-xs" ng-click="showDragDropWindowEnt(entity.id)"> Property drag and drop reorder</button>
+                </td>
 
                 <td ng-if="entity.properties.length == 0" colspan="11">{{trans("messages.noProperties")}}</td>
                 <td ng-if="entity.properties.length == 0" colspan="1">
@@ -190,6 +193,26 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, id)" ng-disabled="frmProp.$invalid">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">[[form_title]]</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <h4>Properties</h4>
+                        <ul ui-sortable="sortableOptionsEnt" ng-model="propsEnt" class="list-group">
+                            <li ng-repeat="prop in propsEnt" class="list-group-item" data-id="[[ prop.id ]]">[[prop.language[0].pivot.name]]</li>
+                        </ul>
+
+                       <pre>[[propsEnt]]</pre>
                     </div>
                 </div>
             </div>

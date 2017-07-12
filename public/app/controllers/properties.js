@@ -20,6 +20,7 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
     $scope.errors = [];
     $scope.propsRel = [];
     $scope.pessoas = [];
+    $scope.propsEnt = [];
 
     //MÉTODOS ENTIDADES
 
@@ -107,9 +108,14 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
 
     $scope.save = function(modalstate, id) {
         var url      = API_URL + "PropertyEnt";
+
+
+        console.log(jQuery('#formProperty').serializeArray());
+
         var formData = JSON.parse(JSON.stringify(jQuery('#formProperty').serializeArray()));
 
-        //append employee id to the URL if the form is in edit mode
+        console.log(formData);
+
         if (modalstate === 'edit') {
             url += "/" + id ;
         }
@@ -122,8 +128,13 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         }).then(function(response) {
             //First function handles success
             $scope.errors = [];
-            $('#myModal').modal('hide');
             $scope.getEntities();
+            $('#myModal').modal('hide');
+
+            $('#myModal select:first').prop('disabled', false);
+            $('#formProperty')[0].reset();
+
+
             if(modalstate == "add") {
                 growl.success('Property inserted successfully.',{title: 'Success!'});
             } else {
@@ -134,6 +145,12 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
             if (response.status == 400) {
                 $scope.errors = response.data.error;
             } else if (response.status == 500) {
+
+
+                $('#myModal').modal('hide');
+                $('#formProperty')[0].reset();
+
+
                 growl.error(response.data.error, {title: 'error!'});
             }
         });
@@ -243,6 +260,21 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         $scope.process = null;
     };
 
+    $scope.showDragDropWindowEnt = function(id) {
+
+        $scope.id = id;
+        console.log(id);
+        $scope.form_title = "Drag and Drop Properties";
+        $http.get(API_URL + '/properties/getPropsEntity/' + id)
+                    .then(function(response) {
+                        $scope.propsEnt = response.data.properties;
+                        console.log($scope.propsEnt);
+                    });
+        $('#myModal2').modal('show');
+        $scope.errors = null;
+        $scope.process = null;
+    };
+
     /*$scope.showDragDropWindow = function(id) {
 
         $scope.id = id;
@@ -294,6 +326,47 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
             });
         }
     };
+
+
+    $scope.sortableOptionsEnt = {
+        stop: function(e, ui) {
+            console.log("AQUI DAR A AÇÃO PARA GUARDAR A ORDEM NA BASE DE DADOS.");
+
+            //var dado = $(".list-group").find('.list-group-item').data('id');
+            console.log($(".list-group").find('.list-group-item').data('id'));
+
+            var dados = [];
+            $(".list-group").find('.list-group-item').each(function( index ) {
+                //dados.push($(this).data('id'));
+                dados.push($(this).data('id'));
+            });
+            console.log(dados);
+
+            var formData = JSON.parse(JSON.stringify(dados));
+            var url      = API_URL + "updateOrderEnt";
+
+            $http({
+                method: 'POST',
+                url: url,
+                data: formData,
+            }).then(function(response) {
+                console.log('Success!');
+                $scope.getEntities();
+                //growl.success('Order updated successfully.',{title: 'Success!'});
+            }, function(response) {
+                //Second function handles error
+                if (response.status == 400) {
+                    $scope.errors = response.data.error;
+                } else if (response.status == 500) {
+                    growl.error('Error.', {title: 'error!'});
+                }
+            });
+        }
+    };
+
+
+
+
 
 
     //Métodos comuns

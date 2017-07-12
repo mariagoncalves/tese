@@ -55,6 +55,9 @@ class PropertiesManagment extends Controller {
                                 ->with(['properties.units.language' => function($query) use ($language_id) {
                                     $query->where('language_id', $language_id);
                                 }])
+                                ->with(['properties' => function($query) {
+                                    $query->orderBy('form_field_order', 'asc');
+                                }])
                                 ->paginate(5);
 
 
@@ -101,11 +104,11 @@ class PropertiesManagment extends Controller {
 
             $rules = [
                 'entity_type'              => ['required', 'integer'],
-                'property_name'            => ['required', 'string', Rule::unique('property_name' , 'name')->where('language_id', '1')],
+                'property_name'            => ['required', 'string'/*, Rule::unique('property_name' , 'name')->where('language_id', '1')*/],
                 'property_valueType'       => ['required'],
                 'property_fieldType'       => ['required'],
                 'property_mandatory'       => ['required'],
-                'property_fieldOrder'      => ['required', 'integer', 'min:1'],
+                //'property_fieldOrder'      => ['required', 'integer', 'min:1'],
                 'unites_names'             => ['integer'],
                 'property_fieldSize'       => $propertyFieldSize,
                 'property_state'           => ['required'],
@@ -128,12 +131,16 @@ class PropertiesManagment extends Controller {
                 $data['reference_entity'] = NULL;
             }
 
+            //Buscar o nr de propriedades de uma relação, porque o form_field_size vai ser o nr de props que tem +1
+            $countPropEnt = Property::where('ent_type_id', '=', $data['entity_type'])->count();
+
             $data1 = array(
                 'ent_type_id'      => $data['entity_type'             ],
                 'value_type'       => $data['property_valueType'      ],
                 'form_field_type'  => $data['property_fieldType'      ],
                 'unit_type_id'     => $data['unites_names'            ],
-                'form_field_order' => $data['property_fieldOrder'     ],
+                //'form_field_order' => $data['property_fieldOrder'     ],
+                'form_field_order' => $countPropEnt + 1,
                 'form_field_size'  => $data['property_fieldSize'      ],
                 'mandatory'        => $data['property_mandatory'      ],
                 'state'            => $data['property_state'          ],
@@ -190,7 +197,7 @@ class PropertiesManagment extends Controller {
             'property_valueType'  => ['required'],
             'property_fieldType'  => ['required'],
             'property_mandatory'  => ['required'],
-            'property_fieldOrder' => ['required', 'integer', 'min:1'],
+            //'property_fieldOrder' => ['required', 'integer', 'min:1'],
             'unites_names'        => ['integer'],
             'property_fieldSize'  => $propertyFieldSize,
             'reference_entity'    => ['integer']
@@ -218,7 +225,7 @@ class PropertiesManagment extends Controller {
             'value_type'       => $data['property_valueType'      ],
             'form_field_type'  => $data['property_fieldType'      ],
             'unit_type_id'     => $data['unites_names'            ],
-            'form_field_order' => $data['property_fieldOrder'     ],
+            //'form_field_order' => $data['property_fieldOrder'     ],
             'form_field_size'  => $data['property_fieldSize'      ],
             'mandatory'        => $data['property_mandatory'      ],
             'state'            => $data['property_state'          ],
@@ -520,15 +527,36 @@ class PropertiesManagment extends Controller {
         return response()->json($propsRel);
     }
 
-    public function getDados() {
+    public function getPropsEntities($id) {
 
-       $pessoas = ["John","Fred","Teddy","Deloris","Brian"];
+        $language_id = '1';
 
-        return response()->json($pessoas);
+        $propsEnt = EntType::with(['properties.language' => function($query) use ($language_id) {
+                                    $query->where('language_id', $language_id);
+                                }])
+                            ->with(['properties' => function($query) {
+                                    $query->orderBy('form_field_order', 'asc');
+                                }])
+                            ->find($id);
+
+        return response()->json($propsEnt);
     }
 
 
     public function updateOrderPropsRel(Request $request) {
+        $dados = $request->all();
+        \Log::debug($dados);
+
+        if (is_array($dados) && count($dados) > 0) {
+            foreach ($dados as $key => $id) {
+                Property::where('id', $id)->update(['form_field_order' => ($key + 1)]);
+            }
+        }
+
+        return response()->json();
+    }
+
+    public function updateOrderPropsEnt(Request $request) {
         $dados = $request->all();
         \Log::debug($dados);
 
