@@ -140,7 +140,7 @@ Route::get('/properties/get_props_ents', 'PropertiesManagment@getAllEnt');
 
 //Testes
 Route::get('/properties/getPropsRelation/{id?}', 'PropertiesManagment@getPropsRelations');
-Route::post('/updateOrder', 'PropertiesManagment@updateOrderPropsRel');
+Route::post('/updateOrder', 'PropertiesManagment@updateOrderProps');
 
 Route::get('/properties/getPropsEntity/{id?}', 'PropertiesManagment@getPropsEntities');
-Route::post('/updateOrderEnt', 'PropertiesManagment@updateOrderPropsEnt');
+//Route::post('/updateOrderEnt', 'PropertiesManagment@updateOrderPropsEnt');

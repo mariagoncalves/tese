@@ -27,7 +27,7 @@
 
                 <td rowspan="[[ entity.properties.length + 1 ]] " ng-if="entity.properties[$index - 1].ent_type_id != entity.id">
                     [[ entity.language[0].pivot.name ]] 
-                    <button class="btn btn-primary btn-xs" ng-click="showDragDropWindowEnt(entity.id)"> Property drag and drop reorder</button>
+                    <button class="btn btn-primary btn-xs" ng-click="showDragDropWindowEnt(entity.id)"> {{trans("messages.buttonDragDrop")}}</button>
                 </td>
 
                 <td ng-if="entity.properties.length == 0" colspan="11">{{trans("messages.noProperties")}}</td>

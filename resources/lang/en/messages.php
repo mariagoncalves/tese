@@ -33,5 +33,6 @@ return [
 	'saveChanges'        => 'Save Changes',
 	'refEntity'          => 'Referenciated Entity',
 	'entityType'         => 'Entity Type',
+	'buttonDragDrop'     => 'Property drag and drop reorder',
 
 ];

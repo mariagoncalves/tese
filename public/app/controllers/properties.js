@@ -298,14 +298,14 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
             //var dado = $(".list-group").find('.list-group-item').data('id');
             console.log($(".list-group").find('.list-group-item').data('id'));
 
-            var dados = [];
+            var content = [];
             $(".list-group").find('.list-group-item').each(function( index ) {
                 //dados.push($(this).data('id'));
-                dados.push($(this).data('id'));
+                content.push($(this).data('id'));
             });
-            console.log(dados);
+            console.log(content);
 
-            var formData = JSON.parse(JSON.stringify(dados));
+            var formData = JSON.parse(JSON.stringify(content));
             var url      = API_URL + "updateOrder";
 
             $http({
@@ -330,20 +330,19 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
 
     $scope.sortableOptionsEnt = {
         stop: function(e, ui) {
-            console.log("AQUI DAR A AÇÃO PARA GUARDAR A ORDEM NA BASE DE DADOS.");
+            console.log("DAR A AÇÃO PARA GUARDAR A ORDEM NA BASE DE DADOS.");
 
-            //var dado = $(".list-group").find('.list-group-item').data('id');
             console.log($(".list-group").find('.list-group-item').data('id'));
 
-            var dados = [];
+            var content = [];
             $(".list-group").find('.list-group-item').each(function( index ) {
-                //dados.push($(this).data('id'));
-                dados.push($(this).data('id'));
+                //content.push($(this).data('id'));
+                content.push($(this).data('id'));
             });
-            console.log(dados);
+            console.log(content);
 
-            var formData = JSON.parse(JSON.stringify(dados));
-            var url      = API_URL + "updateOrderEnt";
+            var formData = JSON.parse(JSON.stringify(content));
+            var url      = API_URL + "updateOrder";
 
             $http({
                 method: 'POST',
@@ -352,7 +351,6 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
             }).then(function(response) {
                 console.log('Success!');
                 $scope.getEntities();
-                //growl.success('Order updated successfully.',{title: 'Success!'});
             }, function(response) {
                 //Second function handles error
                 if (response.status == 400) {
@@ -363,11 +361,6 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
             });
         }
     };
-
-
-
-
-
 
     //Métodos comuns
 

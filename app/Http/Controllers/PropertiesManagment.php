@@ -542,8 +542,22 @@ class PropertiesManagment extends Controller {
         return response()->json($propsEnt);
     }
 
+    public function updateOrderProps(Request $request) {
 
-    public function updateOrderPropsRel(Request $request) {
+        $content = $request->all();
+        \Log::debug($content);
+
+        if (is_array($content) && count($content) > 0) {
+            foreach ($content as $key => $id) {
+                Property::where('id', $id)->update(['form_field_order' => ($key + 1)]);
+            }
+        }
+
+        return response()->json();
+    }
+
+    /*public function updateOrderPropsEnt(Request $request) {
+
         $dados = $request->all();
         \Log::debug($dados);
 
@@ -554,18 +568,5 @@ class PropertiesManagment extends Controller {
         }
 
         return response()->json();
-    }
-
-    public function updateOrderPropsEnt(Request $request) {
-        $dados = $request->all();
-        \Log::debug($dados);
-
-        if (is_array($dados) && count($dados) > 0) {
-            foreach ($dados as $key => $id) {
-                Property::where('id', $id)->update(['form_field_order' => ($key + 1)]);
-            }
-        }
-
-        return response()->json();
-    }
+    }*/
 }
