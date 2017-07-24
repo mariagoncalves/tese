@@ -143,4 +143,4 @@ Route::get('/properties/getPropsRelation/{id?}', 'PropertiesManagment@getPropsRe
 Route::post('/updateOrder', 'PropertiesManagment@updateOrderProps');
 
 Route::get('/properties/getPropsEntity/{id?}', 'PropertiesManagment@getPropsEntities');
-//Route::post('/updateOrderEnt', 'PropertiesManagment@updateOrderPropsEnt');
+Route::post('/updateOrderEnt', 'PropertiesManagment@updateOrderPropsEnt');

@@ -35,10 +35,4 @@ class PropUnitType extends Model
 
         return $this->belongsTo('App\Users', 'deleted_by', 'id');
     }
-
-    //ADD BY ME - para apagar
-    public function unitsNames() {
-        return $this->hasMany('App\PropUnitTypeName', 'prop_unit_type_id', 'id');
-    }
-
 }

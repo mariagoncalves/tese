@@ -340,9 +340,9 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
                 content.push($(this).data('id'));
             });
             console.log(content);
-
+            console.log("Chefou até aqui");
             var formData = JSON.parse(JSON.stringify(content));
-            var url      = API_URL + "updateOrder";
+            var url      = API_URL + "updateOrderEnt";
 
             $http({
                 method: 'POST',

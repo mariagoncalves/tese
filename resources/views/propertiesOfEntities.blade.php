@@ -26,11 +26,12 @@
                 <tr ng-repeat-start="entity in entities" ng-if="false" ng-init="innerIndex = $index"></tr>
 
                 <td rowspan="[[ entity.properties.length + 1 ]] " ng-if="entity.properties[$index - 1].ent_type_id != entity.id">
-                    [[ entity.language[0].pivot.name ]] 
+                    [[ entity.language[0].pivot.name ]]
+                    [[ entity.properties.length > 1 ? 'SIM SIM' : 'NÃO NAO' ]]
                     <button class="btn btn-primary btn-xs" ng-click="showDragDropWindowEnt(entity.id)"> {{trans("messages.buttonDragDrop")}}</button>
                 </td>
 
-                <td ng-if="entity.properties.length == 0" colspan="11">{{trans("messages.noProperties")}}</td>
+                <td ng-if="entity.properties.length == 0" colspan="10">{{trans("messages.noProperties")}}</td>
                 <td ng-if="entity.properties.length == 0" colspan="1">
                     <!--<button class="btn btn-default btn-xs btn-detail">Inserir</button> -->
                     <button class="btn btn-danger btn-xs btn-delete">{{trans("messages.history")}}</button>
@@ -207,7 +208,7 @@
                     </div>
 
                     <div class="modal-body">
-                        <h4>Properties</h4>
+                        <h4>{{trans("messages.properties")}}</h4>
                         <ul ui-sortable="sortableOptionsEnt" ng-model="propsEnt" class="list-group">
                             <li ng-repeat="prop in propsEnt" class="list-group-item" data-id="[[ prop.id ]]">[[prop.language[0].pivot.name]]</li>
                         </ul>

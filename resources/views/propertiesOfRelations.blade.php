@@ -206,28 +206,9 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="myModalLabel">[[form_title]]</h4>
                     </div>
-                    <!-- <div class="modal-body"> -->
 
-                        <!-- <div>
-                            <div class="ngx-dnd-container" ngxDroppable>
-                              <div class="ngx-dnd-item" ngxDraggable>Item 1</div>
-                              <div class="ngx-dnd-item" ngxDraggable>Item 2</div>
-                              <div class="ngx-dnd-item" ngxDraggable>Item 3</div>
-                            </div>
-                        </div> -->
-
-                         <!-- <ul>
-                            <li ng-repeat="prop in propsRel">[[ prop ]]</li>
-                        </ul>
-
-
-                    </div> -->
-
-
-
-                    <!-- TESTES -->
                     <div class="modal-body">
-                        <h2>Properties</h2>
+                        <h2>{{trans("messages.properties")}}</h2>
                         <ul ui-sortable="sortableOptions" ng-model="propsRel" class="list-group">
                             <li ng-repeat="prop in propsRel" class="list-group-item" data-id="[[ prop.id ]]">[[prop.language[0].pivot.name]]</li>
                         </ul>

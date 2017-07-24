@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class RelType extends Model
 {
-    protected $table = 'rel_type';
+    /*protected $table = 'rel_type';
 
     public $timestamps = true;
 
@@ -57,10 +57,10 @@ class RelType extends Model
     public function deletedBy() {
 
         return $this->hasOne('App\Users', 'id', 'deleted_by');
-    }
+    }*/
 
     //Novas relações a usar
-    /*protected $table = 'rel_type';
+    protected $table = 'rel_type';
 
     public $timestamps = true;
 
@@ -107,5 +107,5 @@ class RelType extends Model
     public function deletedBy() {
 
         return $this->belongsTo('App\Users', 'deleted_by', 'id');
-    }*/
+    }
 }

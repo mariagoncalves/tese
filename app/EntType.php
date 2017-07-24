@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class EntType extends Model
 {
-    protected $table = 'ent_type';
+    /*protected $table = 'ent_type';
 
     public $timestamps = true;
 
@@ -68,10 +68,10 @@ class EntType extends Model
     public function deletedBy() {
 
         return $this->hasOne('App\Users', 'id', 'deleted_by');
-    }
+    }*/
 
     //Novas relações a usar
-    /*protected $table = 'ent_type';
+    protected $table = 'ent_type';
 
     public $timestamps = true;
 
@@ -130,6 +130,5 @@ class EntType extends Model
     public function deletedBy() {
 
         return $this->belongsTo('App\Users', 'deleted_by', 'id');
-    }*/
-
+    }
 }

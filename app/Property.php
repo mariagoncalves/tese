@@ -7,7 +7,7 @@ use DB;
 
 class Property extends Model
 {
-    protected $table = 'property';
+    /*protected $table = 'property';
 
     public $timestamps = true;
 
@@ -84,11 +84,11 @@ class Property extends Model
             $values[] = trim($value, "'");
         }
         return $values;
-    }
+    }*/
 
 
     //Novas relações a usar
-    /*protected $table = 'property';
+    protected $table = 'property';
 
     public $timestamps = true;
 
@@ -160,5 +160,5 @@ class Property extends Model
             $values[] = trim($value, "'");
         }
         return $values;
-    }*/
+    }
 }
