@@ -28,6 +28,9 @@
                 <td rowspan="[[ entity.properties.length + 1 ]] " ng-if="entity.properties[$index - 1].ent_type_id != entity.id">
                     [[ entity.language[0].pivot.name ]]
                     [[ entity.properties.length > 1 ? 'SIM SIM' : 'NÃO NAO' ]]
+                    @if(1) 
+                        <h1> FUNCIONA </h1>
+                    @endif
                     <button class="btn btn-primary btn-xs" ng-click="showDragDropWindowEnt(entity.id)"> {{trans("messages.buttonDragDrop")}}</button>
                 </td>
 
@@ -199,6 +202,7 @@
             </div>
         </div>
 
+        <!-- Popup para reordenar as propriedades -->
         <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">

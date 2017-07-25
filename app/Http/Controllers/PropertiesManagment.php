@@ -34,7 +34,7 @@ class PropertiesManagment extends Controller {
 
         $language_id = '1';
 
-        $entidades = EntType::with(['properties.language' => function($query) use ($language_id) {
+        $ents = EntType::with(['properties.language' => function($query) use ($language_id) {
                                 $query->where('language_id', $language_id);
                             }])
                             ->with(['language' => function($query) use ($language_id) {
@@ -48,7 +48,7 @@ class PropertiesManagment extends Controller {
                             }])
                             ->paginate(5);
 
-        return response()->json($entidades);
+        return response()->json($ents);
     }
 
     public function insertPropsEnt(Request $request) {
@@ -219,7 +219,7 @@ class PropertiesManagment extends Controller {
 
         $language_id = '1';
 
-        $relacoes = RelType::with(['properties.language' => function($query) use ($language_id) {
+        $rels = RelType::with(['properties.language' => function($query) use ($language_id) {
                                 $query->where('language_id', $language_id);
                             }])
                             ->with(['language' => function($query) use ($language_id) {
@@ -234,7 +234,7 @@ class PropertiesManagment extends Controller {
                             ->paginate(5);
 
 
-        return response()->json($relacoes);
+        return response()->json($rels);
     }
 
     public function getProperty($id) {

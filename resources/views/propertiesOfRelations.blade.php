@@ -4,7 +4,7 @@
     <div ng-controller="propertiesManagmentControllerJs">
         <div growl></div>
         <!-- Table-to-load-the-data Part -->
-        <table class="table" ng-init="getRelations()" border = "1px solid">
+        <table class="table" ng-init="getRelations()">
             <thead>
             <tr>
                 <th>{{trans("messages.relation")}}</th>
