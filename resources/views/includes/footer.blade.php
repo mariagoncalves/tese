@@ -7,7 +7,6 @@
 <script src="<?= asset('../app/lib/angular-animate.min.js') ?>"></script>
 <script src="<?= asset('../app/lib/angular-growl.min.js') ?>"></script>
 
-
 <script src="<?= asset('../js/bootstrap.min.js') ?>"></script>
 
 <script src="<?= asset('../app/lib/sortable.min.js') ?>"></script>
@@ -16,13 +15,14 @@
 <script src="<?= asset('app/app.js') ?>"></script>
 
 
-<!-- Testes -->
+<!-- Para fazer a Smart Table -->
 
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-sortable/0.15.0/sortable.min.js"></script>
-<script src="app.js"></script> -->
+<script src="<?= asset('../app/lib/smart-table.js') ?>"></script>
+<script src="<?= asset('../app/lib/smart-table.min.js') ?>"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-smart-table/2.1.8/smart-table.min.js.map"></script> -->
+
+<!--  Fim smart table  -->
+
 
 @yield('footerContent')
 

@@ -1,7 +1,7 @@
 /**
  * Created by ASUS on 26/05/2017.
  */
-var app = angular.module('umaeeteam', ['angular-growl', 'ui.sortable'], function($interpolateProvider) {
+var app = angular.module('umaeeteam', ['angular-growl', 'ui.sortable', 'smart-table'], function($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
 })

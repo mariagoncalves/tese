@@ -93,7 +93,7 @@ class PropertiesManagment extends Controller {
                 $data['reference_entity'] = NULL;
             }
 
-            //Buscar o nr de propriedades de uma relação, porque o form_field_size vai ser o nr de props que tem +1
+            //Buscar o nr de propriedades de uma relação, porque o form_field_order vai ser o nr de props que tem +1
             $countPropEnt = Property::where('ent_type_id', '=', $data['entity_type'])->count();
 
             $data1 = array(
@@ -116,7 +116,7 @@ class PropertiesManagment extends Controller {
             //Criar o form_field_name
             //Obter o nome da relação onde a propriedade vai ser inserida
             $entity          = EntType::find($data['entity_type']);
-            $entity_name     = $entity->entTypeNames->first()->name;
+            $entity_name     = $entity->language->first()->name;
             $ent             = substr($entity_name, 0 , 3);
             $dash            = '-';
             $field_name      = preg_replace('/[^a-z0-9_ ]/i', '', $data['property_name']);
@@ -312,7 +312,7 @@ class PropertiesManagment extends Controller {
             //Criar o form_field_name
             //Obter o nome da relação onde a propriedade vai ser inserida
             $relation        = RelType::find($data['relation_type']);
-            $relationName    = $relation->relTypeNames->first()->name;
+            $relationName    = $relation->language->first()->name;
             $rel             = substr($relationName, 0 , 3);
             $dash            = '-';
             $fieldName       = preg_replace('/[^a-z0-9_ ]/i', '', $data['property_name_rel']);
@@ -351,7 +351,7 @@ class PropertiesManagment extends Controller {
         }
 
         $rules = [
-            'property_name_rel'       => ['required','string' , Rule::unique('property_name' , 'name')->where('language_id', '1')->ignore($id, 'property_id')],
+            'property_name_rel'       => ['required','string' , /*Rule::unique('property_name' , 'name')->where('language_id', '1')->ignore($id, 'property_id')*/],
             'property_state_rel'      => ['required'],
             'property_valueType_rel'  => ['required'],
             'property_fieldType_rel'  => ['required'],

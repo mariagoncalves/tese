@@ -4,10 +4,10 @@
     <div ng-controller="propertiesManagmentControllerJs">
         <div growl></div>
         <!-- Table-to-load-the-data Part -->
-        <table class="table" ng-init="getRelations()">
+        <table class="table table-striped" st-table="displayedCollection" ng-init="getRelations()" st-safe-src="relations">
             <thead>
             <tr>
-                <th>{{trans("messages.relation")}}</th>
+                <th st-sort="language[0].pivot.name">{{trans("messages.relation")}}</th>
                 <th>ID</th>
                 <th>{{trans("messages.property")}}</th>
                 <th>{{trans("messages.valueType")}}</th>
@@ -23,11 +23,14 @@
             </tr>
             </thead>
             <tbody>
-                <tr ng-repeat-start="relation in relations" ng-if="false" ng-init="innerIndex = $index"></tr>
+                <tr ng-repeat-start="relation in displayedCollection" ng-if="false" ng-init="innerIndex = $index"></tr>
 
                 <td rowspan="[[ relation.properties.length + 1 ]] " ng-if="relation.properties[$index - 1].ent_type_id != relation.id">
                     [[ relation.language[0].pivot.name ]]
-                    <button class="btn btn-primary btn-xs" ng-click="showDragDropWindow(relation.id)"> Property drag and drop reorder</button>
+
+                    <div ng-if="relation.properties.length > 1">
+                        <button class="btn btn-primary btn-xs" ng-click="showDragDropWindow(relation.id)"> Property drag and drop reorder</button>
+                    </div>
                 </td>
 
                 <td ng-if="relation.properties.length == 0" colspan="10">{{trans("messages.noProperties")}}</td>
@@ -44,7 +47,7 @@
                     <td>[[ property.form_field_type ]]</td>
                     <td>[[ property.units ? property.units.language[0].pivot.name : '-' ]]</td>
                     <!-- <td>[[ property.form_field_order ]]</td> -->
-                    <td>[[ property.form_field_size ]]</td>
+                    <td>[[ property.form_field_size != null ? property.form_field_size : '-']]</td>
                     <td>[[ (property.mandatory == 1) ? 'Yes' : 'No' ]]</td>
                     <td>[[ property.state ]]</td>
                     <td>[[ property.updated_at ]]</td>

@@ -1,10 +1,3 @@
-//var myapp = angular.module('myApp', ['ui.sortable']);
-
-/*myapp.controller('myController', ['$scope', function($scope) {
- // people array
- $scope.people = ["John","Fred","Teddy","Deloris","Brian"];
-}]);*/
-
 app.controller('propertiesManagmentControllerJs', function($scope, $http, growl, API_URL) {
 
 	$scope.entities = [];

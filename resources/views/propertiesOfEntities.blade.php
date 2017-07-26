@@ -4,10 +4,10 @@
     <div ng-controller="propertiesManagmentControllerJs">
         <div growl></div>
         <!-- Table-to-load-the-data Part -->
-        <table class="table" ng-init="getEntities()">
+        <table class="table table-striped" st-table="displayedCollection" ng-init="getEntities()" st-safe-src="entities">
             <thead>
             <tr>
-                <th>{{trans("messages.entity")}}</th>
+                <th st-sort="language[0].pivot.name">{{trans("messages.entity")}}</th>
                 <th>ID</th>
                 <th>{{trans("messages.property")}}</th>
                 <th>{{trans("messages.valueType")}}</th>
@@ -23,15 +23,14 @@
             </tr>
             </thead>
             <tbody>
-                <tr ng-repeat-start="entity in entities" ng-if="false" ng-init="innerIndex = $index"></tr>
+                <tr ng-repeat-start="entity in displayedCollection" ng-if="false" ng-init="innerIndex = $index"></tr>
 
-                <td rowspan="[[ entity.properties.length + 1 ]] " ng-if="entity.properties[$index - 1].ent_type_id != entity.id">
+                <td rowspan="[[ entity.properties.length + 1 ]] " ng-if="entity.properties[$index - 1].rel_type_id != entity.id">
                     [[ entity.language[0].pivot.name ]]
-                    [[ entity.properties.length > 1 ? 'SIM SIM' : 'NÃO NAO' ]]
-                    @if(1) 
-                        <h1> FUNCIONA </h1>
-                    @endif
-                    <button class="btn btn-primary btn-xs" ng-click="showDragDropWindowEnt(entity.id)"> {{trans("messages.buttonDragDrop")}}</button>
+
+                    <div ng-if="entity.properties.length > 1">
+                        <button class="btn btn-primary btn-xs" ng-click="showDragDropWindowEnt(entity.id)"> {{trans("messages.buttonDragDrop")}}</button>
+                    </div>
                 </td>
 
                 <td ng-if="entity.properties.length == 0" colspan="10">{{trans("messages.noProperties")}}</td>
@@ -48,7 +47,7 @@
                     <td>[[ property.form_field_type ]]</td>
                     <td>[[ property.units ? property.units.language[0].pivot.name : '-' ]]</td>
                     <!-- <td>[[ property.form_field_order ]]</td> -->
-                    <td>[[ property.form_field_size ]]</td>
+                    <td>[[ property.form_field_size != null ? property.form_field_size : '-']]</td>
                     <td>[[ (property.mandatory == 1) ? 'Yes' : 'No' ]]</td>
                     <td>[[ property.state ]]</td>
                     <td>[[ property.updated_at ]]</td>
