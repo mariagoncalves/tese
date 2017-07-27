@@ -223,21 +223,6 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         $scope.process = null;
     };
 
-    /*$scope.showDragDropWindow = function(id) {
-
-        $scope.id = id;
-        console.log(id);
-        $scope.form_title = "Drag and Drop Properties";
-        $http.get(API_URL + '/properties/getPropsRelation/' + id)
-                    .then(function(response) {
-                        $scope.propsRel = response.data;
-                        console.log($scope.propsRel);
-                    });
-        $('#myModal2').modal('show');
-        $scope.errors = null;
-        $scope.process = null;
-    };*/
-
     $scope.showDragDropWindow = function(id) {
 
         $scope.id = id;
@@ -267,21 +252,6 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         $scope.errors = null;
         $scope.process = null;
     };
-
-    /*$scope.showDragDropWindow = function(id) {
-
-        $scope.id = id;
-        console.log(id);
-        $scope.form_title = "Drag and Drop Properties";
-        $http.get(API_URL + '/properties/getDados')
-                    .then(function(response) {
-                        $scope.pessoas = response.data;
-                        console.log($scope.pessoas);
-                    });
-        $('#myModal2').modal('show');
-        $scope.errors = null;
-        $scope.process = null;
-    };*/
 
     // set up sortable options
     $scope.sortableOptions = {
@@ -333,7 +303,7 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
                 content.push($(this).data('id'));
             });
             console.log(content);
-            console.log("Chefou até aqui");
+            console.log("Chegou até aqui");
             var formData = JSON.parse(JSON.stringify(content));
             var url      = API_URL + "updateOrderEnt";
 

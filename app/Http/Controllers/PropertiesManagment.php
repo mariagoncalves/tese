@@ -174,8 +174,8 @@ class PropertiesManagment extends Controller {
             return response()->json(['error' => $resultado], 400);
         }
 
-        if(!isset($data['units_name']) || (isset($data['units_name']) && $data['units_name'] == "0")) {
-            $data['units_name'] = NULL;
+        if(!isset($data['unites_names']) || (isset($data['unites_names']) && $data['unites_names'] == "0")) {
+            $data['unites_names'] = NULL;
         }
 
         if(!isset($data['reference_entity']) || (isset($data['reference_entity']) && $data['reference_entity'] == "0")) {

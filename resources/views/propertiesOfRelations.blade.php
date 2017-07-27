@@ -60,15 +60,7 @@
             </tbody>
         </table>
          <div>
-            <posts-pagination>
-                <!--<ul class = "pagination">
-                    <li ng-show="currentPage !=1" class = "ng-hide"><a href = "javascript:void(0)" ng-click="getEntities(1)">gdfg</a></li>
-                    <li ng-show="currentPage !=1" class = "ng-hide"><a href = "javascript:void(0)" ng-click="getEntities(currentPage-1)">Prev</a></li>
-                    <li ng-show="currentPage !=totalPages"><a href = "javascript:void(0)" ng-click="getEntities(currentPage+1)">Next</a></li>
-
-                </ul> -->
-
-            </posts-pagination>
+            <posts-pagination></posts-pagination>
         </div>
 
         <!-- Modal (Pop up when detail button clicked) -->
@@ -217,18 +209,7 @@
                         </ul>
 
                        <pre>[[propsRel]]</pre>
-
                     </div>
-
-                     <!-- <div>
-                        <h2>People</h2>
-                        <ul ui-sortable="sortableOptions" ng-model="propsRel" class="list-group">
-                            <li ng-repeat="prop in propsRel.properties" class="list-group-item">[[prop.language[0].pivot.name]]</li>
-                        </ul>
-
-                       <pre>[[propsRel]]</pre>
-
-                    </div> -->
                 </div>
             </div>
         </div>
