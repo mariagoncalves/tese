@@ -21,6 +21,7 @@ class CreateRelTypesTable extends Migration
             //$table->timestamp('updated_on');
             //$table->string('name', 128)->nullable();
             $table->integer('transaction_type_id')->unsigned();
+            $table->integer('t_state_id')->unsigned();
             $table->integer('updated_by')->nullable()->unsigned();
             $table->integer('deleted_by')->nullable()->unsigned();
             $table->timestamps();
@@ -29,6 +30,7 @@ class CreateRelTypesTable extends Migration
             $table->foreign('ent_type1_id')->references('id')->on('ent_type')->onDelete('cascade');
             $table->foreign('ent_type2_id')->references('id')->on('ent_type')->onDelete('cascade');
             $table->foreign('transaction_type_id')->references('id')->on('transaction_type')->onDelete('cascade');
+            $table->foreign('t_state_id')->references('id')->on('t_state')->onDelete('cascade');
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('deleted_by')->references('id')->on('users')->onDelete('cascade');
         });

@@ -2,7 +2,7 @@
 
 return [
 
-	//Properties Managment
+	//Properties Management
 
 	'titulo1'            => 'Properties Management - Edit ',
 	'manageProperties'   => 'Properties Management',
@@ -34,5 +34,8 @@ return [
 	'refEntity'          => 'Referenciated Entity',
 	'entityType'         => 'Entity Type',
 	'buttonDragDrop'     => 'Property drag and drop reorder',
+	'relationManagment'  => 'Relation Management',
+	'relationTypes'      => 'Relation Types',
+	'addRelationsTypes'  => 'Add Relations Types',
 
 ];

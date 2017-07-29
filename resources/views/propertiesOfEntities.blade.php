@@ -25,7 +25,7 @@
             <tbody>
                 <tr ng-repeat-start="entity in displayedCollection" ng-if="false" ng-init="innerIndex = $index"></tr>
 
-                <td rowspan="[[ entity.properties.length + 1 ]] " ng-if="entity.properties[$index - 1].rel_type_id != entity.id">
+                <td rowspan="[[ entity.properties.length + 1 ]] " >
                     [[ entity.language[0].pivot.name ]]
 
                     <div ng-if="entity.properties.length > 1">
@@ -60,7 +60,7 @@
             </tbody>
         </table>
         <div>
-            <posts-pagination></posts-pagination>
+            <pagination></pagination>
         </div>
 
         <!-- Modal (Pop up when detail button clicked) -->

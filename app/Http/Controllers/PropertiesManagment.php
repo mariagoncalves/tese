@@ -29,7 +29,7 @@ class PropertiesManagment extends Controller {
     	return view('propertiesOfEntities');
     }
 
-    public function getAllEnt($id = null) {
+    public function getAllEnt() {
 
 
         $language_id = '1';
@@ -46,7 +46,7 @@ class PropertiesManagment extends Controller {
                             ->with(['properties' => function($query) {
                                 $query->orderBy('form_field_order', 'asc');
                             }])
-                            ->paginate(5);
+                            ->paginate(2);
 
         return response()->json($ents);
     }

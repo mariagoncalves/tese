@@ -22,6 +22,7 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
         if (pageNumber === undefined) {
             pageNumber = '1';
         }
+
         $http.get('/properties/get_props_ents?page='+pageNumber).then(function(response) {
             console.log(response);
             $scope.entities = response.data.data;
@@ -37,7 +38,6 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
             }
 
             $scope.range = pages;
-
         });
     };
 
@@ -359,7 +359,18 @@ app.controller('propertiesManagmentControllerJs', function($scope, $http, growl,
 
         });
     };
-
-
+}).directive('pagination', function(){
+    return{
+        restrict: 'E',
+        template: '<ul class="pagination">'+
+        '<li ng-show="currentPage != 1"><a href="javascript:void(0)" ng-click="getEntities(1)">&laquo;</a></li>'+
+        '<li ng-show="currentPage != 1"><a href="javascript:void(0)" ng-click="getEntities(currentPage-1)">&lsaquo; Prev</a></li>'+
+        '<li ng-repeat="i in range" ng-class="{active : currentPage == i}">'+
+        '<a href="javascript:void(0)" ng-click="getEntities(i)">{{i}}</a>'+
+        '</li>'+
+        '<li ng-show="currentPage != totalPages"><a href="javascript:void(0)" ng-click="getEntities(currentPage+1)">Next &rsaquo;</a></li>'+
+        '<li ng-show="currentPage != totalPages"><a href="javascript:void(0)" ng-click="getEntities(totalPages)">&raquo;</a></li>'+
+        '</ul>'
+    };
 });
 

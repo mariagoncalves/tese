@@ -45,8 +45,16 @@
             </ul>
         </li>
         <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#demo4"><i class="fa fa-fw fa-bar-chart-o"></i> Gestão Unidades <i class="fa fa-fw fa-caret-down"></i></a>
+            <a href="javascript:;" data-toggle="collapse" data-target="#demo4"><i class="fa fa-fw fa-bar-chart-o"></i> {{trans("messages.relationManagment") }} <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="demo4" class="collapse">
+                <li>
+                    <a href="/relationTypesManage">{{trans("messages.relationTypes") }}</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#demo5"><i class="fa fa-fw fa-bar-chart-o"></i> Gestão Unidades <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="demo5" class="collapse">
                 <li>
                     <a href="/propUnitTypeManage">Tipos de Unidades</a>
                 </li>

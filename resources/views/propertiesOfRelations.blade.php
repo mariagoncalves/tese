@@ -25,7 +25,7 @@
             <tbody>
                 <tr ng-repeat-start="relation in displayedCollection" ng-if="false" ng-init="innerIndex = $index"></tr>
 
-                <td rowspan="[[ relation.properties.length + 1 ]] " ng-if="relation.properties[$index - 1].ent_type_id != relation.id">
+                <td rowspan="[[ relation.properties.length + 1 ]] " >
                     [[ relation.language[0].pivot.name ]]
 
                     <div ng-if="relation.properties.length > 1">
