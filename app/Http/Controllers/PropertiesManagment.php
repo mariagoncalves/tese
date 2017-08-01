@@ -46,7 +46,7 @@ class PropertiesManagment extends Controller {
                             ->with(['properties' => function($query) {
                                 $query->orderBy('form_field_order', 'asc');
                             }])
-                            ->paginate(2);
+                            ->paginate(5);
 
         return response()->json($ents);
     }

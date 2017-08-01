@@ -145,3 +145,10 @@ Route::post('/updateOrderEnt', 'PropertiesManagment@updateOrderPropsEnt');
 Route::get('/relationTypesManage/', 'RelationManagement@index');
 
 Route::get('/relTypes/get_relations', 'RelationManagement@getAllRels');
+
+Route::get('/getAllEntities', 'RelationManagement@getEntities');
+Route::get('/getAllTransactionTypes', 'RelationManagement@getTransactionTypes');
+Route::get('/getAllTransactionStates', 'RelationManagement@getTransactionStates');
+
+
+Route::post('/Relation', 'RelationManagement@insertRelations');

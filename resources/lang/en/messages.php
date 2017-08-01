@@ -37,5 +37,9 @@ return [
 	'relationManagment'  => 'Relation Management',
 	'relationTypes'      => 'Relation Types',
 	'addRelationsTypes'  => 'Add Relations Types',
+	'relationName'       => 'Relation Name',
+	'transactionType'    => 'Transaction Type',
+	'transactionState'   => 'Transaction State',
+
 
 ];
