@@ -152,3 +152,6 @@ Route::get('/getAllTransactionStates', 'RelationManagement@getTransactionStates'
 
 
 Route::post('/Relation', 'RelationManagement@insertRelations');
+Route::post('/Relation/{id?}', 'RelationManagement@updateRelationType');
+
+Route::get('/getRelationsTypes/{id?}', 'RelationManagement@getRelations');

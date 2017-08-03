@@ -35,7 +35,7 @@
                 <td rowspan="[[ relation.properties.length + 1 ]] ">[[ relation.updated_at ]]</td>
                 <td ng-if="relation.properties.length == 0" colspan="2">{{trans("messages.noProperties")}}</td>
                 <td>
-                    <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('edit', property.id)">{{trans("messages.edit")}}</button>
+                    <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('edit', relation.id)">{{trans("messages.edit")}}</button>
                     <button class="btn btn-danger btn-xs btn-delete">{{trans("messages.history")}}</button>
                 </td>
 
@@ -63,7 +63,7 @@
                         <form id="formRelation" name="formRel" class="form-horizontal" novalidate="">
 
                             <div class="form-group">
-                                <label for="relation_name" class="col-sm-3 control-label">{{trans("messages.relationName")}}:</label>
+                                <label class="col-sm-3 control-label">{{trans("messages.relationName")}}:</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="relation_name" name="relation_name" ng-value="relation.language[0].pivot.name">
                                     <ul ng-repeat="error in errors.relation_name" style="padding-left: 15px;">
@@ -77,9 +77,9 @@
                                 <div class="col-sm-9">
                                     <select class="form-control" name="entity_type1">
                                         <option value=""></option>
-                                        <option ng-repeat="entity in entities" ng-value="ent_type_id">[[ entity.name ]]</option>
+                                        <option ng-repeat="entity in entities" ng-value="entity.ent_type_id" ng-selected="entity.ent_type_id == relation.ent_type1_id">[[ entity.name ]]</option>
                                     </select>
-                                    <ul ng-repeat="error in errors.entity_type" style="padding-left: 15px;">
+                                    <ul ng-repeat="error in errors.entity_type1" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
                                     </ul>
                                 </div>
@@ -91,9 +91,9 @@
                                 <div class="col-sm-9">
                                     <select class="form-control" name="entity_type2">
                                         <option value=""></option>
-                                        <option ng-repeat="entity in entities" ng-value="ent_type_id">[[ entity.name ]]</option>
+                                        <option ng-repeat="entity in entities" ng-value="entity.ent_type_id" ng-selected="entity.ent_type_id == relation.ent_type2_id">[[ entity.name ]]</option>
                                     </select>
-                                    <ul ng-repeat="error in errors.entity_type" style="padding-left: 15px;">
+                                    <ul ng-repeat="error in errors.entity_type2" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
                                     </ul>
                                 </div>
@@ -105,9 +105,9 @@
                                 <div class="col-sm-9">
                                     <select class="form-control" name="transactionsType">
                                         <option value=""></option>
-                                        <option ng-repeat="transactionType in transactionTypes" ng-value="transaction_type_id" >[[ transactionType.t_name ]]</option>
+                                        <option ng-repeat="transactionType in transactionTypes" ng-value="transactionType.transaction_type_id" ng-selected="transactionType.transaction_type_id == relation.transaction_type_id">[[ transactionType.t_name ]]</option>
                                     </select>
-                                    <ul ng-repeat="error in errors.entity_type" style="padding-left: 15px;">
+                                    <ul ng-repeat="error in errors.transactionsType" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
                                     </ul>
                                 </div>
@@ -119,9 +119,9 @@
                                 <div class="col-sm-9">
                                     <select class="form-control" name="transactionsState">
                                         <option value=""></option>
-                                        <option ng-repeat="transactionState in transactionStates" ng-value="t_state_id">[[ transactionState.name ]]</option>
+                                        <option ng-repeat="transactionState in transactionStates" ng-value="transactionState.t_state_id" ng-selected="transactionState.t_state_id == relation.t_state_id">[[ transactionState.name ]]</option>
                                     </select>
-                                    <ul ng-repeat="error in errors.entity_type" style="padding-left: 15px;">
+                                    <ul ng-repeat="error in errors.transactionsState" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
                                     </ul>
                                 </div>
@@ -132,9 +132,9 @@
                                 <label for="Gender" class="col-sm-3 control-label">{{trans("messages.state")}}:</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline state" ng-repeat="state in states">
-                                        <input type="radio" name="relation_state" value="[[ state ]]" ng-checked="state == property.state">[[ state ]]
+                                        <input type="radio" name="relation_state" value="[[ state ]]" ng-checked="state == relation.state">[[ state ]]
                                     </label>
-                                    <ul ng-repeat="error in errors.property_state" style="padding-left: 15px;">
+                                    <ul ng-repeat="error in errors.relation_state" style="padding-left: 15px;">
                                         <li>[[ error ]]</li>
                                     </ul>
                                 </div>

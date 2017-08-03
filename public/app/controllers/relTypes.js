@@ -34,15 +34,9 @@ app.controller('RelationTypesManagmentControllerJs', function($scope, $http, gro
     };
 
     $scope.toggle = function(modalstate, id) {
-        /*$('#formProperty')[0].reset();
-        $scope.property = null;
+        $('#formRelation')[0].reset();
+        $scope.relation = null;
         $scope.modalstate = modalstate;
-
-        if(modalstate == "edit") {
-            $('#myModal select:first').prop('disabled', true);
-        } else {
-            $('#myModal select:first').prop('disabled', false);
-        }*/
 
         switch (modalstate) {
             case 'add':
@@ -52,9 +46,10 @@ app.controller('RelationTypesManagmentControllerJs', function($scope, $http, gro
             case 'edit':
                 $scope.form_title = "Edit Relation Type";
                 $scope.id = id;
-                $http.get(API_URL + '/properties/get_property/' + id)
+                console.log(id);
+                $http.get(API_URL + '/getRelationsTypes/' + id)
                     .then(function(response) {
-                        $scope.property = response.data;
+                        $scope.relation = response.data;
                     });
                 break;
             default:
@@ -62,7 +57,6 @@ app.controller('RelationTypesManagmentControllerJs', function($scope, $http, gro
         }
         $('#myModal').modal('show');
         $scope.errors = null;
-        $scope.process = null;
     };
 
     $scope.save = function(modalstate, id) {
@@ -108,7 +102,6 @@ app.controller('RelationTypesManagmentControllerJs', function($scope, $http, gro
 
                 $('#myModal').modal('hide');
                 $('#formRelation')[0].reset();
-
 
                 growl.error(response.data.error, {title: 'error!'});
             }

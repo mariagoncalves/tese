@@ -351,7 +351,7 @@ class PropertiesManagment extends Controller {
         }
 
         $rules = [
-            'property_name_rel'       => ['required','string' , /*Rule::unique('property_name' , 'name')->where('language_id', '1')->ignore($id, 'property_id')*/],
+            'property_name_rel'       => ['required','string' /*, Rule::unique('property_name' , 'name')->where('language_id', '1')->ignore($id, 'property_id')*/],
             'property_state_rel'      => ['required'],
             'property_valueType_rel'  => ['required'],
             'property_fieldType_rel'  => ['required'],
